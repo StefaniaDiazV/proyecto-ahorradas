@@ -8,26 +8,38 @@ body{
     background-color: #f5f5f5;
 }
 
+/* ******* MENÚ SUPERIOR ******** */
+
 .mi-nav{
     padding: 0.8rem;
     margin-bottom: 1rem;
 }
+
+/* ***** ESTILOS GENERALES  DE TARJETAS ***** */
 
 #balance{
     display: none;
 }
 
 #categorias{
-    display: none;
+    display: block;
 }
 
 #reportes{
-    display: block ;
+    display: none ;
 }
 
 .tarjetas{
     padding: 3rem 0 4rem 0;
 }
+
+.titulos-tarjetas{
+    margin-bottom: 3rem ;
+}
+
+
+/* ****** TARGETA-REPORTES ****** */
+
 
 .contenedor-img{
     padding: 4rem;
@@ -42,3 +54,38 @@ body{
     width: 100%;
     margin-bottom: 3rem;
 }
+
+/* ******* TARGETA-CATEGORÍAS ******* */
+
+.margin-input-categorias{
+    margin-top: 3rem;
+}
+
+.nombres-categorias{
+    font-size: 1rem;
+    color: gray;
+    background-color: #e0e0e0;
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+.link-categoria{
+    font-size: 0.9rem;
+    text-decoration: none;
+}
+
+.margen-derecho{
+    margin-right: 1rem;
+}
+
+.contenedor{
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+}
+
+.margen-filas{
+    margin-bottom: 2rem;
+}
+
+/* ***** TARGETA-BALANCE ****** */
