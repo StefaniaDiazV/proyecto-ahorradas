@@ -18,11 +18,15 @@ body{
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
 
 #balance{
-    display: block;
+    display: none;
 }
 
 #categorias{
     display: none;
+}
+
+.editar-categorias{
+    display: block;
 }
 
 #reportes{
@@ -91,6 +95,11 @@ body{
 .margen-filas{
     margin-bottom: 2rem;
 }
+
+/* ***** TARGETA-EDITAR-CATEGORIAS ****** */
+
+
+
 
 /* ***** TARGETA-BALANCE ****** */
 
