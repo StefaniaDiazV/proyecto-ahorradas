@@ -18,15 +18,15 @@ body{
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
 
 #balance{
-    display: none;
-}
-
-#categorias{
     display: block;
 }
 
+#categorias{
+    display: none;
+}
+
 #reportes{
-    display: none ;
+    display: none;
 }
 
 .tarjetas{
@@ -57,7 +57,7 @@ body{
 
 /* ******* TARGETA-CATEGORÍAS ******* */
 
-.margin-input-categorias{
+.margen-titulos-targetas{
     margin-top: 3rem;
 }
 
@@ -72,6 +72,10 @@ body{
 .link-categoria{
     font-size: 0.9rem;
     text-decoration: none;
+}
+
+.link-categoria:hover{
+    color: black;
 }
 
 .margen-derecho{
@@ -89,3 +93,11 @@ body{
 }
 
 /* ***** TARGETA-BALANCE ****** */
+
+.alineacion-monto{
+    text-align: end;
+}
+
+.margen-inferior{
+    margin-bottom: 1rem;
+}

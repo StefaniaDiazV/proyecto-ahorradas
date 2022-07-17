@@ -44,7 +44,112 @@
 
     <main id="balance">
         <section>
-            
+            <div class="container tarjetas">
+                <div class="row">
+                    <div class="col-md-4 col-sm-12 margen-inferior">
+                        <div class="row margen-inferior">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <h2 class="fw-bolder fs-1">Balance</h2>
+                                            <div class="row margen-filas margen-titulos-targetas" >
+                                                <div class="col-6 fs-5">
+                                                    Ganancias
+                                                </div>
+                                                <div class="col-6 alineacion-monto text-success">
+                                                    +$0
+                                                </div>
+                                            </div>
+                                            <div class="row margen-filas">
+                                                <div class="col-6 fs-5">
+                                                    Gastos
+                                                </div>
+                                                <div class="col-6 alineacion-monto text-danger">
+                                                    -$0
+                                                </div>
+                                            </div>
+                                            <div class="row margen-filas">
+                                                <div class="col-6 fs-3">
+                                                    Total
+                                                </div>
+                                                <div class="col-6 alineacion-monto fw-bold">
+                                                    $0
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <div class="d-flex justify-content-between  align-items-center">
+                                            <h2 class="fw-bolder fs-1">Filtros</h2>
+                                            <a class="link-categoria fs-6" data-bs-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+                                                Ocultar filtros
+                                            </a>
+                                        </div>
+                                        <div class="collapse.show" id="collapseExample">
+                                            <label for="filtros-tipo" class="form-label fw-bold">Tipo</label>
+                                            <select id="filtros-tipo" class="form-select" aria-label="Default select example">
+                                                <option selected>Todos</option>
+                                                <option value="1">Gasto</option>
+                                                <option value="2">Ganancia</option>
+                                            </select>
+
+                                            <label for="filtros-categorias" class="form-label fw-bold">Categoría</label>
+                                            <select id="filtros-categorias" class="form-select" aria-label="Default select example">
+                                                <option selected>Todas</option>
+                                                <option value="1">Servicios</option>
+                                                <option value="2">Salidas</option>
+                                                <option value="3">Transporte</option>
+                                                <option value="3">Trabajo</option>
+                                            </select>
+
+                                            <label for="filtros-fecha" class="form-label fw-bold">Desde</label>
+                                            <input type="date" id="filtros-fecha" class="form-control">
+
+                                            <label for="filtros-categorias" class="form-label fw-bold">Ordenar por</label>
+                                            <select id="filtros-categorias" class="form-select" aria-label="Default select example">
+                                                <option selected>Más reciente</option>
+                                                <option value="1">Menos reciente</option>
+                                                <option value="2">Mayor monto</option>
+                                                <option value="3">Menor monto</option>
+                                                <option value="2">A/Z</option>
+                                                <option value="3">Z/A</option>
+                                            </select>  
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-8 col-sm-12">
+                        <div class="card">
+                            <div class="card-body">
+                                <div class="container">
+                                    <div class="row margen-filas" >
+                                        <div class="col-6 fs-5">
+                                            <h3 class="fw-bolder fs-3">Operaciones</h3>
+                                        </div>
+                                        <div class="col-6 alineacion-monto">
+                                            <button type="button" class="btn btn-dark">+ Nueva operación</button>
+                                        </div>
+                                    </div>
+                                    <div class="contenedor-img d-flex justify-content-center">
+                                        <img class="imagen-tarjeta img-fluid" src="assets/img/undraw_vault_re_s4my.svg" class="img1" alt="imagen-reportes">
+                                        <h3>Sin resultados</h3>
+                                        <p>Cambia los filtros o agrega operaciones</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </section>
     </main>
 
@@ -64,7 +169,7 @@
                                     <input type="text" class="form-control" placeholder="Nombre" aria-label="Nombre" aria-describedby="boton-categorias">
                                     <button class="btn btn-dark" type="button" id="boton-categorias">Agregar</button>
                                 </div>
-                                <div class="container margin-input-categorias">
+                                <div class="container margen-titulos-targetas">
                                     <div class="row margen-filas">
                                         <div class="col-8">
                                             <span class="nombres-categorias">Comida</span>
