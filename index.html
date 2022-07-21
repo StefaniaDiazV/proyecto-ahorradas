@@ -25,7 +25,7 @@
     <!-- *********************************************
                     MENÚ-SUPERIOR
     ********************************************* -->
-    <!-- TEST -->
+
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav">
       <div class="container-fluid">
         <a class="navbar-brand fs-1" href="#">
@@ -66,142 +66,330 @@
                     VISTA-BALANCE
     ********************************************* -->
 
-    <main id="balance">
-      <section>
-        <div class="container tarjetas">
-          <div class="row">
-            <div class="col-md-4 col-sm-12 margen-inferior">
-              <div class="row margen-inferior">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div class="container">
-                        <h2 class="fw-bolder fs-1">Balance</h2>
-                        <div class="row margen-filas margen-titulos-targetas">
-                          <div class="col-6 fs-5">Ganancias</div>
-                          <div class="col-6 alineacion-monto text-success">
-                            +$0
-                          </div>
-                        </div>
-                        <div class="row margen-filas">
-                          <div class="col-6 fs-5">Gastos</div>
-                          <div class="col-6 alineacion-monto text-danger">
-                            -$0
-                          </div>
-                        </div>
-                        <div class="row margen-filas">
-                          <div class="col-6 fs-3">Total</div>
-                          <div class="col-6 alineacion-monto fw-bold">$0</div>
+    <!-- <main > -->
+    <!-- <section id="balance"> -->
+    <section id="vista-balance">
+      <div class="container tarjetas">
+        <div class="row">
+          <div class="col-md-4 col-sm-12 margen-inferior">
+            <div class="row margen-inferior">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="container">
+                      <h2 class="fw-bolder fs-1">Balance</h2>
+                      <div class="row margen-filas margen-titulos-targetas">
+                        <div class="col-6 fs-5">Ganancias</div>
+                        <div class="col-6 alineacion-monto text-success">
+                          +$0
                         </div>
                       </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col-12">
-                  <div class="card">
-                    <div class="card-body">
-                      <div
-                        class="d-flex justify-content-between align-items-center"
-                      >
-                        <h2 class="fw-bolder fs-1">Filtros</h2>
-                        <a
-                          class="link-categoria fs-6"
-                          data-bs-toggle="collapse"
-                          href="#collapseExample"
-                          aria-expanded="false"
-                          aria-controls="collapseExample"
-                        >
-                          Ocultar filtros
-                        </a>
+                      <div class="row margen-filas">
+                        <div class="col-6 fs-5">Gastos</div>
+                        <div class="col-6 alineacion-monto text-danger">
+                          -$0
+                        </div>
                       </div>
-                      <div class="collapse.show" id="collapseExample">
-                        <label for="filtros-tipo" class="form-label fw-bold"
-                          >Tipo</label
-                        >
-                        <select
-                          id="filtros-tipo"
-                          class="form-select"
-                          aria-label="Default select example"
-                        >
-                          <option selected>Todos</option>
-                          <option value="1">Gasto</option>
-                          <option value="2">Ganancia</option>
-                        </select>
-
-                        <label
-                          for="filtros-categorias"
-                          class="form-label fw-bold"
-                          >Categoría</label
-                        >
-                        <select
-                          id="filtros-categorias"
-                          class="form-select"
-                          aria-label="Default select example"
-                        >
-                          <option selected>Todas</option>
-                          <option value="1">Servicios</option>
-                          <option value="2">Salidas</option>
-                          <option value="3">Transporte</option>
-                          <option value="3">Trabajo</option>
-                        </select>
-
-                        <label for="filtros-fecha" class="form-label fw-bold"
-                          >Desde</label
-                        >
-                        <input
-                          type="date"
-                          id="filtros-fecha"
-                          class="form-control"
-                        />
-
-                        <label
-                          for="filtros-categorias"
-                          class="form-label fw-bold"
-                          >Ordenar por</label
-                        >
-                        <select
-                          id="filtros-categorias"
-                          class="form-select"
-                          aria-label="Default select example"
-                        >
-                          <option selected>Más reciente</option>
-                          <option value="1">Menos reciente</option>
-                          <option value="2">Mayor monto</option>
-                          <option value="3">Menor monto</option>
-                          <option value="2">A/Z</option>
-                          <option value="3">Z/A</option>
-                        </select>
+                      <div class="row margen-filas">
+                        <div class="col-6 fs-3">Total</div>
+                        <div class="col-6 alineacion-monto fw-bold">$0</div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="col-md-8 col-sm-12">
-              <div class="card">
-                <div class="card-body">
-                  <div class="container">
-                    <div class="row margen-filas">
-                      <div class="col-6 fs-5">
-                        <h3 class="fw-bolder fs-3">Operaciones</h3>
-                      </div>
-                      <div class="col-6 alineacion-monto">
-                        <button type="button" class="btn btn-dark">
-                          + Nueva operación
-                        </button>
-                      </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-body">
+                    <div
+                      class="d-flex justify-content-between align-items-center"
+                    >
+                      <h2 class="fw-bolder fs-1">Filtros</h2>
+                      <a
+                        class="link-categoria fs-6"
+                        data-bs-toggle="collapse"
+                        href="#collapseExample"
+                        aria-expanded="false"
+                        aria-controls="collapseExample"
+                      >
+                        Ocultar filtros
+                      </a>
                     </div>
-                    <div class="contenedor-img d-flex justify-content-center">
-                      <img
-                        class="imagen-tarjeta img-fluid"
-                        src="assets/img/undraw_vault_re_s4my.svg"
-                        class="img1"
-                        alt="imagen-reportes"
+                    <div class="collapse.show" id="collapseExample">
+                      <label for="filtros-tipo" class="form-label fw-bold"
+                        >Tipo</label
+                      >
+                      <select
+                        id="filtros-tipo"
+                        class="form-select"
+                        aria-label="Default select example"
+                      >
+                        <option selected>Todos</option>
+                        <option value="1">Gasto</option>
+                        <option value="2">Ganancia</option>
+                      </select>
+
+                      <label for="filtros-categorias" class="form-label fw-bold"
+                        >Categoría</label
+                      >
+                      <select
+                        id="filtros-categorias"
+                        class="form-select"
+                        aria-label="Default select example"
+                      >
+                        <option selected>Todas</option>
+                        <option value="1">Servicios</option>
+                        <option value="2">Salidas</option>
+                        <option value="3">Transporte</option>
+                        <option value="3">Trabajo</option>
+                      </select>
+
+                      <label for="filtros-fecha" class="form-label fw-bold"
+                        >Desde</label
+                      >
+                      <input
+                        type="date"
+                        id="filtros-fecha"
+                        class="form-control"
                       />
-                      <h3>Sin resultados</h3>
-                      <p>Cambia los filtros o agrega operaciones</p>
+
+                      <label for="filtros-categorias" class="form-label fw-bold"
+                        >Ordenar por</label
+                      >
+                      <select
+                        id="filtros-categorias"
+                        class="form-select"
+                        aria-label="Default select example"
+                      >
+                        <option selected>Más reciente</option>
+                        <option value="1">Menos reciente</option>
+                        <option value="2">Mayor monto</option>
+                        <option value="3">Menor monto</option>
+                        <option value="2">A/Z</option>
+                        <option value="3">Z/A</option>
+                      </select>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-8 col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <div class="container">
+                  <div class="row margen-filas">
+                    <div class="col-6 fs-5">
+                      <h3 class="fw-bolder fs-3">Operaciones</h3>
+                    </div>
+                    <div class="col-6 alineacion-monto">
+                      <button
+                        id="btn-agrega-operación"
+                        type="button"
+                        class="btn btn-dark"
+                      >
+                        + Nueva operación
+                      </button>
+                    </div>
+                  </div>
+                  <div class="contenedor-img d-flex justify-content-center">
+                    <img
+                      class="imagen-tarjeta img-fluid"
+                      src="assets/img/undraw_vault_re_s4my.svg"
+                      class="img1"
+                      alt="imagen-reportes"
+                    />
+                    <h3>Sin resultados</h3>
+                    <p>Cambia los filtros o agrega operaciones</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- </main> -->
+
+    <!-- *********************************************
+                    NUEVA OPERACIÓN
+    ********************************************* -->
+
+    <!-- <main> -->
+    <section id="nueva-operacion" class="tarjetas hidden">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="fw-bolder fs-1">Nueva operación</h2>
+                <div class="margen-filas">
+                  <label
+                    for="descripcion-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Descripción</label
+                  >
+                  <input
+                    type="text"
+                    id="descripcion-operacion"
+                    class="form-control"
+                  />
+
+                  <label
+                    for="monto-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Monto</label
+                  >
+                  <input
+                    type="number"
+                    id="monto-operacion"
+                    class="form-control"
+                    value="0"
+                  />
+
+                  <label
+                    for="tipo-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Tipo</label
+                  >
+                  <select
+                    id="tipo-operacion"
+                    class="form-select"
+                    aria-label="Tipo de operación"
+                  >
+                    <option value="1" selected>Gasto</option>
+                    <option value="2">Ganancia</option>
+                  </select>
+
+                  <label
+                    for="categoria-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Categoría</label
+                  >
+                  <select
+                    id="categoria-operacion"
+                    class="form-select"
+                    aria-label="Categoría de operación"
+                  >
+                    <option value="1" selected>Servicios</option>
+                    <option value="2">Salidas</option>
+                    <option value="3">Transporte</option>
+                    <option value="3">Trabajo</option>
+                  </select>
+
+                  <label
+                    for="fecha-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Fecha</label
+                  >
+                  <input
+                    type="date"
+                    id="fecha-operacion"
+                    class="form-control"
+                  />
+                </div>
+                <div class="d-flex flex-row-reverse">
+                  <button type="button" class="btn btn-dark">Agregar</button>
+                  <button
+                    id="cancela-nva-operacion"
+                    type="button"
+                    class="btn btn-secondary margen-derecho"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- </main> -->
+
+    <!-- *********************************************
+                    VISTA-CATEGORÍAS
+    ********************************************* -->
+
+    <!-- <main> -->
+    <section id="categorias" class="tarjetas">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="fw-bolder fs-1 titulos-tarjetas">Categorías</h2>
+                <div class="input-group mb-3">
+                  <input
+                    type="text"
+                    class="form-control"
+                    placeholder="Nombre"
+                    aria-label="Nombre"
+                    aria-describedby="boton-categorias"
+                  />
+                  <button
+                    class="btn btn-dark"
+                    type="button"
+                    id="boton-categorias"
+                  >
+                    Agregar
+                  </button>
+                </div>
+                <div class="container margen-titulos-targetas">
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Comida</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a class="link-categoria margen-derecho" href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Servicios</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a class="link-categoria margen-derecho" href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Salidas</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a class="link-categoria margen-derecho" href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Transporte</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a class="link-categoria margen-derecho" href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Trabajo</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a class="link-categoria margen-derecho" href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
                     </div>
                   </div>
                 </div>
@@ -209,88 +397,39 @@
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+    <!-- </main> -->
 
     <!-- *********************************************
-                    NUEVA OPERACIÓN
+                    EDITAR-CATEGORÍAS
     ********************************************* -->
 
-    <main id="nueva-operacion" class="tarjetas">
-      <section>
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-              <div class="card">
-                <div class="card-body">
-                  <h2 class="fw-bolder fs-1">Nueva operación</h2>
-                  <div class="margen-filas">
+    <!-- <main> -->
+    <section id="editar-categorias" class="tarjetas">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="fw-bolder fs-1 titulos-tarjetas">
+                  Editar categoría
+                </h2>
+                <form>
+                  <div class="mb-3">
                     <label
-                      for="descripcion-operacion"
-                      class="form-label fw-bold margen-superior"
-                      >Descripción</label
+                      for="editar-nombre-categoria"
+                      class="form-label fw-bold"
+                      >Nombre</label
                     >
                     <input
                       type="text"
-                      id="descripcion-operacion"
                       class="form-control"
-                    />
-
-                    <label
-                      for="monto-operacion"
-                      class="form-label fw-bold margen-superior"
-                      >Monto</label
-                    >
-                    <input
-                      type="number"
-                      id="monto-operacion"
-                      class="form-control"
-                      value="0"
-                    />
-
-                    <label
-                      for="tipo-operacion"
-                      class="form-label fw-bold margen-superior"
-                      >Tipo</label
-                    >
-                    <select
-                      id="tipo-operacion"
-                      class="form-select"
-                      aria-label="Tipo de operación"
-                    >
-                      <option value="1" selected>Gasto</option>
-                      <option value="2">Ganancia</option>
-                    </select>
-
-                    <label
-                      for="categoria-operacion"
-                      class="form-label fw-bold margen-superior"
-                      >Categoría</label
-                    >
-                    <select
-                      id="categoria-operacion"
-                      class="form-select"
-                      aria-label="Categoría de operación"
-                    >
-                      <option value="1" selected>Servicios</option>
-                      <option value="2">Salidas</option>
-                      <option value="3">Transporte</option>
-                      <option value="3">Trabajo</option>
-                    </select>
-
-                    <label
-                      for="fecha-operacion"
-                      class="form-label fw-bold margen-superior"
-                      >Fecha</label
-                    >
-                    <input
-                      type="date"
-                      id="fecha-operacion"
-                      class="form-control"
+                      id="editar-nombre-categoria"
                     />
                   </div>
                   <div class="d-flex flex-row-reverse">
-                    <button type="button" class="btn btn-dark">Agregar</button>
+                    <button type="button" class="btn btn-dark">Editar</button>
                     <button
                       type="button"
                       class="btn btn-secondary margen-derecho"
@@ -298,181 +437,44 @@
                       Cancelar
                     </button>
                   </div>
-                </div>
+                </form>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
-
-    <!-- *********************************************
-                    VISTA-CATEGORÍAS
-    ********************************************* -->
-
-    <main id="categorias" class="tarjetas">
-      <section>
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-              <div class="card">
-                <div class="card-body">
-                  <h2 class="fw-bolder fs-1 titulos-tarjetas">Categorías</h2>
-                  <div class="input-group mb-3">
-                    <input
-                      type="text"
-                      class="form-control"
-                      placeholder="Nombre"
-                      aria-label="Nombre"
-                      aria-describedby="boton-categorias"
-                    />
-                    <button
-                      class="btn btn-dark"
-                      type="button"
-                      id="boton-categorias"
-                    >
-                      Agregar
-                    </button>
-                  </div>
-                  <div class="container margen-titulos-targetas">
-                    <div class="row margen-filas">
-                      <div class="col-8">
-                        <span class="nombres-categorias">Comida</span>
-                      </div>
-                      <div class="col-4 contenedor">
-                        <a class="link-categoria margen-derecho" href=""
-                          >Editar</a
-                        >
-                        <a class="link-categoria" href="">Eliminar</a>
-                      </div>
-                    </div>
-                    <div class="row margen-filas">
-                      <div class="col-8">
-                        <span class="nombres-categorias">Servicios</span>
-                      </div>
-                      <div class="col-4 contenedor">
-                        <a class="link-categoria margen-derecho" href=""
-                          >Editar</a
-                        >
-                        <a class="link-categoria" href="">Eliminar</a>
-                      </div>
-                    </div>
-                    <div class="row margen-filas">
-                      <div class="col-8">
-                        <span class="nombres-categorias">Salidas</span>
-                      </div>
-                      <div class="col-4 contenedor">
-                        <a class="link-categoria margen-derecho" href=""
-                          >Editar</a
-                        >
-                        <a class="link-categoria" href="">Eliminar</a>
-                      </div>
-                    </div>
-                    <div class="row margen-filas">
-                      <div class="col-8">
-                        <span class="nombres-categorias">Transporte</span>
-                      </div>
-                      <div class="col-4 contenedor">
-                        <a class="link-categoria margen-derecho" href=""
-                          >Editar</a
-                        >
-                        <a class="link-categoria" href="">Eliminar</a>
-                      </div>
-                    </div>
-                    <div class="row margen-filas">
-                      <div class="col-8">
-                        <span class="nombres-categorias">Trabajo</span>
-                      </div>
-                      <div class="col-4 contenedor">
-                        <a class="link-categoria margen-derecho" href=""
-                          >Editar</a
-                        >
-                        <a class="link-categoria" href="">Eliminar</a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
-
-    <!-- *********************************************
-                    EDITAR-CATEGORÍAS
-    ********************************************* -->
-
-    <main id="editar-categorias" class="tarjetas">
-      <section>
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-              <div class="card">
-                <div class="card-body">
-                  <h2 class="fw-bolder fs-1 titulos-tarjetas">
-                    Editar categoría
-                  </h2>
-                  <form>
-                    <div class="mb-3">
-                      <label
-                        for="editar-nombre-categoria"
-                        class="form-label fw-bold"
-                        >Nombre</label
-                      >
-                      <input
-                        type="text"
-                        class="form-control"
-                        id="editar-nombre-categoria"
-                      />
-                    </div>
-                    <div class="d-flex flex-row-reverse">
-                      <button type="button" class="btn btn-dark">Editar</button>
-                      <button
-                        type="button"
-                        class="btn btn-secondary margen-derecho"
-                      >
-                        Cancelar
-                      </button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </main>
+      </div>
+    </section>
+    <!-- </main> -->
 
     <!-- *********************************************
                     VISTA-REPORTES
     ********************************************* -->
 
-    <main id="reportes" class="tarjetas">
-      <section>
-        <div class="container">
-          <div class="row d-flex justify-content-center">
-            <div class="col-sm-12 col-md-12 col-lg-8">
-              <div class="card">
-                <div class="card-body">
-                  <h2 class="fw-bolder fs-1">Reportes</h2>
-                  <div class="contenedor-img d-flex justify-content-center">
-                    <img
-                      class="imagen-tarjeta img-fluid"
-                      src="assets/img/undraw_data_re_80ws.svg"
-                      class="img1"
-                      alt="imagen-reportes"
-                    />
-                    <h3>Operaciones insuficientes</h3>
-                    <p>Prueba agregando más operaciones</p>
-                  </div>
+    <!-- <main> -->
+    <section id="reportes" class="tarjetas">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="fw-bolder fs-1">Reportes</h2>
+                <div class="contenedor-img d-flex justify-content-center">
+                  <img
+                    class="imagen-tarjeta img-fluid"
+                    src="assets/img/undraw_data_re_80ws.svg"
+                    class="img1"
+                    alt="imagen-reportes"
+                  />
+                  <h3>Operaciones insuficientes</h3>
+                  <p>Prueba agregando más operaciones</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </section>
-    </main>
+      </div>
+    </section>
+    <!-- </main> -->
 
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
