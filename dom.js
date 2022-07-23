@@ -27,12 +27,14 @@ btnBalance.addEventListener("click", () => {
   vistaBalance.classList.remove("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
+  vistaReportes.classList.add("d-none");
 });
 
 btnCategorias.addEventListener("click", () => {
   vistaCategorias.classList.remove("d-none");
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
+  vistaReportes.classList.add("d-none");
 });
 
 btnReportes.addEventListener("click", () => {
