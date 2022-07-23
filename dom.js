@@ -9,9 +9,7 @@ const btnCategorias = document.getElementById("btn-categorias"); //Btn Categoria
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
 const vistaCategorias = document.getElementById("categorias"); // Section Categorías
 const vistaReportes = document.getElementById("reportes"); // Section Reportes
-
-const editarCategorias = document.getElementById("editar-categorias"); // Section Editar Categorías
-const btnEditarCategoria = document.getElementsByClassName("editar"); //Arreglo con los btn editar en Section Caterorías
+const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -37,8 +35,9 @@ btnCategorias.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
 });
 
-// btnEditarCategoria.addEventListener('click', ()=> {
-//   btnEditarCategoria.forEach(element => {
-
-//   });
-// })
+btnReportes.addEventListener("click", () => {
+  vistaReportes.classList.remove("d-none");
+  vistaBalance.classList.add("d-none");
+  nuevaOperacion.classList.add("d-none");
+  vistaCategorias.classList.add("d-none");
+});
