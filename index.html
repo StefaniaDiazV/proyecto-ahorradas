@@ -18,7 +18,7 @@
       crossorigin="anonymous"
     />
     <link rel="stylesheet" href="style.css" />
-    <title>AhorrAdas</title>
+    <title>AhorrADAs</title>
   </head>
 
   <body>
@@ -30,7 +30,7 @@
       <div class="container-fluid">
         <a class="navbar-brand fs-1" href="#">
           <i class="fa-solid fa-wallet"></i>
-          AhorrAdas
+          AhorrADAs
         </a>
         <button
           class="navbar-toggler"
@@ -48,13 +48,17 @@
           id="navbarNavAltMarkup"
         >
           <div class="navbar-nav">
-            <a class="nav-link active fs-5" aria-current="page" href="#"
+            <a
+              id="btn-balance"
+              class="nav-link active fs-5"
+              aria-current="page"
+              href="#"
               ><i class="fa-solid fa-chart-line"></i> Balance</a
             >
-            <a class="nav-link fs-5" href="#"
+            <a id="btn-categorias" class="nav-link fs-5" href="#"
               ><i class="fa-solid fa-tags"></i> Categorías</a
             >
-            <a class="nav-link fs-5" href="#"
+            <a id="btn-reportes" class="nav-link fs-5" href="#"
               ><i class="fa-solid fa-chart-pie"></i> Reportes</a
             >
           </div>
@@ -194,7 +198,13 @@
                       </button>
                     </div>
                   </div>
-                  <div class="contenedor-img d-flex justify-content-center">
+                  <div id="con-operaciones" class="d-none">
+                    <div id="operaciones"></div>
+                  </div>
+                  <div
+                    id="sin-operaciones"
+                    class="contenedor-img d-flex justify-content-center"
+                  >
                     <img
                       class="imagen-tarjeta img-fluid"
                       src="assets/img/undraw_vault_re_s4my.svg"
@@ -218,7 +228,7 @@
     ********************************************* -->
 
     <!-- <main> -->
-    <section id="nueva-operacion" class="tarjetas hidden">
+    <section id="nueva-operacion" class="tarjetas d-none">
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
@@ -342,7 +352,7 @@
                       <span class="nombres-categorias">Comida</span>
                     </div>
                     <div class="col-4 contenedor">
-                      <a class="link-categoria margen-derecho" href=""
+                      <a class="link-categoria margen-derecho editar" href=""
                         >Editar</a
                       >
                       <a class="link-categoria" href="">Eliminar</a>
@@ -353,7 +363,7 @@
                       <span class="nombres-categorias">Servicios</span>
                     </div>
                     <div class="col-4 contenedor">
-                      <a class="link-categoria margen-derecho" href=""
+                      <a class="link-categoria margen-derecho editar" href=""
                         >Editar</a
                       >
                       <a class="link-categoria" href="">Eliminar</a>
@@ -364,7 +374,7 @@
                       <span class="nombres-categorias">Salidas</span>
                     </div>
                     <div class="col-4 contenedor">
-                      <a class="link-categoria margen-derecho" href=""
+                      <a class="link-categoria margen-derecho editar" href=""
                         >Editar</a
                       >
                       <a class="link-categoria" href="">Eliminar</a>
@@ -375,7 +385,7 @@
                       <span class="nombres-categorias">Transporte</span>
                     </div>
                     <div class="col-4 contenedor">
-                      <a class="link-categoria margen-derecho" href=""
+                      <a class="link-categoria margen-derecho editar" href=""
                         >Editar</a
                       >
                       <a class="link-categoria" href="">Eliminar</a>
@@ -386,7 +396,7 @@
                       <span class="nombres-categorias">Trabajo</span>
                     </div>
                     <div class="col-4 contenedor">
-                      <a class="link-categoria margen-derecho" href=""
+                      <a class="link-categoria margen-derecho editar" href=""
                         >Editar</a
                       >
                       <a class="link-categoria" href="">Eliminar</a>
@@ -481,6 +491,6 @@
       integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
       crossorigin="anonymous"
     ></script>
-    <script src="app.js"></script>
+    <script src="dom.js"></script>
   </body>
 </html>

@@ -16,21 +16,21 @@ body {
 }
 
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
-.hidden {
+/* .hidden {
   display: none;
-}
+} */
 
-#balance {
+/* #balance {
   display: none;
-}
+} */
 
 /* #nueva-operacion {
   display: block;
 } */
 
-#categorias {
+/* #categorias {
   display: none;
-}
+} */
 
 #editar-categorias {
   display: none;
