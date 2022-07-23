@@ -1,122 +1,120 @@
-*{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
 }
 
-body{
-    background-color: #f5f5f5;
+body {
+  background-color: #f5f5f5;
 }
 
 /* ******* MENÚ SUPERIOR ******** */
 
-.mi-nav{
-    padding: 0.8rem;
-    margin-bottom: 1rem;
+.mi-nav {
+  padding: 0.8rem;
+  margin-bottom: 1rem;
 }
 
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
+/* .hidden {
+  display: none;
+} */
 
-#balance{
-    display: none;
+/* #balance {
+  display: none;
+} */
+
+/* #nueva-operacion {
+  display: block;
+} */
+
+/* #categorias {
+  display: none;
+} */
+
+/* #editar-categorias {
+  display: none;
+} */
+
+/* #reportes {
+  display: none;
+} */
+
+.tarjetas {
+  padding: 3rem 0 4rem 0;
 }
 
-#nueva-operacion{
-    display: block;
+.titulos-tarjetas {
+  margin-bottom: 3rem;
 }
-
-#categorias{
-    display: none;
-}
-
-#editar-categorias{
-    display: none;
-}
-
-#reportes{
-    display: none;
-}
-
-.tarjetas{
-    padding: 3rem 0 4rem 0;
-}
-
-.titulos-tarjetas{
-    margin-bottom: 3rem ;
-}
-
 
 /* ****** TARGETA-REPORTES ****** */
 
-
-.contenedor-img{
-    padding: 4rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+.contenedor-img {
+  padding: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
 }
 
-.imagen-tarjeta{
-    max-width: 500px; 
-    width: 100%;
-    margin-bottom: 3rem;
+.imagen-tarjeta {
+  max-width: 500px;
+  width: 100%;
+  margin-bottom: 3rem;
 }
 
 /* ******* TARGETA-CATEGORÍAS ******* */
 
-.margen-titulos-targetas{
-    margin-top: 3rem;
+.margen-titulos-targetas {
+  margin-top: 3rem;
 }
 
-.nombres-categorias{
-    font-size: 1rem;
-    color: gray;
-    background-color: #e0e0e0;
-    padding: 2px 4px;
-    border-radius: 3px;
+.nombres-categorias {
+  font-size: 1rem;
+  color: gray;
+  background-color: #e0e0e0;
+  padding: 2px 4px;
+  border-radius: 3px;
 }
 
-.link-categoria{
-    font-size: 0.9rem;
-    text-decoration: none;
+.link-categoria {
+  font-size: 0.9rem;
+  text-decoration: none;
 }
 
-.link-categoria:hover{
-    color: black;
+.link-categoria:hover {
+  color: black;
 }
 
-.margen-derecho{
-    margin-right: 1rem;
+.margen-derecho {
+  margin-right: 1rem;
 }
 
-.contenedor{
-    display: flex;
-    flex-direction: row;
-    justify-content: end;
+.contenedor {
+  display: flex;
+  flex-direction: row;
+  justify-content: end;
 }
 
-.margen-filas{
-    margin-bottom: 2rem;
+.margen-filas {
+  margin-bottom: 2rem;
 }
 
 /* ***** TARGETA-EDITAR-CATEGORIAS ****** */
 
-
-
-
 /* ***** TARGETA-BALANCE ****** */
 
-.alineacion-monto{
-    text-align: end;
+.alineacion-monto {
+  text-align: end;
 }
 
-.margen-inferior{
-    margin-bottom: 1rem;
+.margen-inferior {
+  margin-bottom: 1rem;
 }
 
 /* ***** TARGETA-NUEVA OPERACIÓN****** */
 
-.margen-superior{
-    margin-top: 1rem;
+.margen-superior {
+  margin-top: 1rem;
 }
