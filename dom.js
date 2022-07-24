@@ -168,3 +168,34 @@ btnAgregarOperacion.addEventListener('click', crearObjOperaciones)
 
 // Ejecucion funcion btn para pintar los objetos en HTML 
 btnAgregarOperacion.addEventListener('click', pintarObjetos)
+
+
+// Funcion para mostrar la lista de categorias 
+
+const divParaListaCategorias = document.getElementById('lista-categorias')
+
+const generarCategoriasVistaCategorias = () => {
+  for(let i = 0; i < categorias.length; i++){
+    const listaCategorias = categorias[i];
+    nuevodiv = document.createElement("div");
+    nuevodiv.classList.add('container')
+    nuevodiv.classList.add('margen-titulos-tarjetas')
+    nuevodiv.innerHTML = `
+    <div class="row margen-filas">
+      <div class="col-8">
+        <span class="nombres-categorias">${listaCategorias}</span>
+      </div>
+      <div class="col-4 contenedor">
+        <a class="link-categoria margen-derecho editar-btn"
+          href=""
+          >Editar</a>
+        <a class="link-categoria" href="">Eliminar</a>
+        </div>
+      </div>
+    `
+    divParaListaCategorias.appendChild(nuevodiv)
+  }
+}
+
+generarCategoriasVistaCategorias()
+
