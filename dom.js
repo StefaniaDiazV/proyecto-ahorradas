@@ -11,6 +11,8 @@ const vistaCategorias = document.getElementById("categorias"); // Section Catego
 const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
+const btnsEditar = document.getElementsByClassName("editar-btn");
+
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.remove("d-none");
@@ -44,58 +46,66 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+btnsEditar.addEventListener("click", () => {
+  for (let i = 0; i < btnsEditar.length; i++) {
+    if (btnsEditar[i].clicked) {
+      cardEditarCategoria.classList.remove("d-none");
+      vistaBalance.classList.add("d-none");
+    }
+  }
+});
+
 // Función agregar categorias-select
 
 const categorias = [
-  'Servicios',
-  'Comida',
-  'Salidas',
-  'Transporte',
-  'Educación',
-  'Trabajo'
+  "Servicios",
+  "Comida",
+  "Salidas",
+  "Transporte",
+  "Educación",
+  "Trabajo",
 ];
 
 const generarCategorias = () => {
-  const selects = document.getElementsByClassName('categorias-select');
-  for(let i = 0; i < selects.length; i++){
+  const selects = document.getElementsByClassName("categorias-select");
+  for (let i = 0; i < selects.length; i++) {
     const select = selects[i];
-    if(select.classList.contains('filtro-categoria')){
-      select.innerHTML = '<option>Todas</option>'
+    if (select.classList.contains("filtro-categoria")) {
+      select.innerHTML = "<option>Todas</option>";
     }
-    for(let j = 0; j < categorias.length; j++){
-      select.innerHTML += `<option value=${categorias[j]}>${categorias[j]}</option>`
+    for (let j = 0; j < categorias.length; j++) {
+      select.innerHTML += `<option value=${categorias[j]}>${categorias[j]}</option>`;
     }
   }
-}
+};
 
 generarCategorias();
 
-
 // Funcion Mostrar tilulos-Operaciones
 
- operaciones = [];
+operaciones = [];
 
 const mostraroperaciones = (arr) => {
-  if(!arr.length){
-    document.getElementById('sin-operaciones').classList.remove('d-none')
-    document.getElementById('con-operaciones').classList.add('d-none')
+  if (!arr.length) {
+    document.getElementById("sin-operaciones").classList.remove("d-none");
+    document.getElementById("con-operaciones").classList.add("d-none");
   } else {
-    document.getElementById('sin-operaciones').classList.add('d-none')
-    document.getElementById('con-operaciones').classList.remove('d-none')
+    document.getElementById("sin-operaciones").classList.add("d-none");
+    document.getElementById("con-operaciones").classList.remove("d-none");
   }
-}
+};
 
 mostraroperaciones(operaciones);
 
 //Funcion limpiar input-Nueva-operacion
 
 const limpiarVistaNuevaOperacion = () => {
-  descripcionOperacion.value = '';
-  montoOperacion.value = '0';
-  tipoOperacion.value = 'Gasto';
-  categoriaNuevaOperacion.value = 'Servicios';
-  fechaOperacion.value = ''
-}
+  descripcionOperacion.value = "";
+  montoOperacion.value = "0";
+  tipoOperacion.value = "Gasto";
+  categoriaNuevaOperacion.value = "Servicios";
+  fechaOperacion.value = "";
+};
 
 // Funcion para crear Objeto de cada operacion
 
@@ -105,38 +115,39 @@ const crearObjOperaciones = () => {
     monto: montoOperacion.value,
     tipo: tipoOperacion.value,
     categoria: categoriaNuevaOperacion.value,
-    fecha: fechaOperacion.value
-}
-nuevaOperacion.classList.add("d-none");
-vistaBalance.classList.remove("d-none");
-vistaCategorias.classList.add("d-none");
+    fecha: fechaOperacion.value,
+  };
+  nuevaOperacion.classList.add("d-none");
+  vistaBalance.classList.remove("d-none");
+  vistaCategorias.classList.add("d-none");
 
-limpiarVistaNuevaOperacion()
-agregarObjetos()
+  limpiarVistaNuevaOperacion();
+  agregarObjetos();
 };
 
 // Funcion llenar array operaciones
 
-const descripcionOperacion = document.getElementById('descripcion-operacion'); // input-descripcion vista nueva operacion
-const montoOperacion = document.getElementById('monto-operacion'); // input-monto
-const tipoOperacion = document.getElementById('tipo-operacion'); // select-tipo de operacion
-const categoriaNuevaOperacion = document.getElementById('categoria-nueva-operacion');
-const fechaOperacion = document.getElementById('fecha-operacion');
-const btnAgregarOperacion = document.getElementById('btn-agregar-operacion');
-
+const descripcionOperacion = document.getElementById("descripcion-operacion"); // input-descripcion vista nueva operacion
+const montoOperacion = document.getElementById("monto-operacion"); // input-monto
+const tipoOperacion = document.getElementById("tipo-operacion"); // select-tipo de operacion
+const categoriaNuevaOperacion = document.getElementById(
+  "categoria-nueva-operacion"
+);
+const fechaOperacion = document.getElementById("fecha-operacion");
+const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 
 const agregarObjetos = () => {
-  operaciones.push(objOperaciones)
-  console.log(operaciones)
-}
+  operaciones.push(objOperaciones);
+  console.log(operaciones);
+};
 
 // Funcion para pintar objetos de las operacion en el HTML
 
 const pintarObjetos = () => {
-  const conOperaciones = document.getElementById('operaciones')
-  mostraroperaciones(operaciones)
+  const conOperaciones = document.getElementById("operaciones");
+  mostraroperaciones(operaciones);
   nuevodiv = document.createElement("div");
-  nuevodiv.classList.add('container')
+  nuevodiv.classList.add("container");
   nuevodiv.innerHTML = `
     <div class="row">
       <div class="col-md-3 col-sm-6 fw-bold">
@@ -158,13 +169,12 @@ const pintarObjetos = () => {
         </p>
       </div>
     </div>
-    `
-    conOperaciones.appendChild(nuevodiv)
-}
+    `;
+  conOperaciones.appendChild(nuevodiv);
+};
 
 // Funcion Boton Agregar Operacion (Crear Objeto, pushear Obj al Array)
-btnAgregarOperacion.addEventListener('click', crearObjOperaciones)
+btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
 
-
-// Ejecucion funcion btn para pintar los objetos en HTML 
-btnAgregarOperacion.addEventListener('click', pintarObjetos)
+// Ejecucion funcion btn para pintar los objetos en HTML
+btnAgregarOperacion.addEventListener("click", pintarObjetos);
