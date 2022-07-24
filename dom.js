@@ -1,3 +1,31 @@
+// const obtenerDatos = () => {
+//   return JSON.parse(localStorage.getItem("datos"));
+// };
+
+// const actualizarDatos = (datos) => {
+//   localStorage.setItem(
+//     "datos",
+//     JSON.stringify({ ...obtenerDatos(), ...datos })
+//   );
+//   mostrarDatos();
+// };
+
+// const mostrarDatos = () => {
+//   generarCategorias();
+//   // actualizarOperaciones()
+//   // actualizarBalance()
+//   // filtrarOperaciones()
+//   // actualizarReportes()
+// };
+
+// const obtenerCategorias = () => {
+//   return obtenerDatos().categorias;
+// };
+
+// const obtenerOperaciones = () => {
+//   return obtenerDatos().operaciones;
+// };
+
 // Eventos en btn para las diferentes vistas
 
 const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn +Nueva Operación de la section vista balance
@@ -10,6 +38,7 @@ const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes de
 const vistaCategorias = document.getElementById("categorias"); // Section Categorías
 const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
+const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
 
 const btnsEditar = document.getElementsByClassName("editar-btn");
 
@@ -30,6 +59,7 @@ btnBalance.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
   vistaReportes.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
 });
 
 btnCategorias.addEventListener("click", () => {
@@ -37,6 +67,8 @@ btnCategorias.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaReportes.classList.add("d-none");
+  cardEditarCategoria.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
 });
 
 btnReportes.addEventListener("click", () => {
@@ -46,6 +78,7 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+<<<<<<< HEAD
 btnsEditar.addEventListener("click", () => {
   for (let i = 0; i < btnsEditar.length; i++) {
     if (btnsEditar[i].clicked) {
@@ -81,6 +114,8 @@ const generarCategorias = () => {
 
 generarCategorias();
 
+=======
+>>>>>>> prueba-operaciones
 // Funcion Mostrar tilulos-Operaciones
 
 operaciones = [];
