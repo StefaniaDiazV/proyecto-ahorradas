@@ -129,8 +129,8 @@
                         aria-label="Default select example"
                       >
                         <option selected>Todos</option>
-                        <option value="1">Gasto</option>
-                        <option value="2">Ganancia</option>
+                        <option value="Gasto">Gasto</option>
+                        <option value="Ganancia">Ganancia</option>
                       </select>
 
                       <label for="filtros-categorias" class="form-label fw-bold"
@@ -140,9 +140,7 @@
                         id="filtros-categorias"
                         class="form-select categorias-select filtro-categoria"
                         aria-label="Default select example"
-                      >
-                      
-                      </select>
+                      ></select>
 
                       <label for="filtros-fecha" class="form-label fw-bold"
                         >Desde</label
@@ -161,12 +159,14 @@
                         class="form-select"
                         aria-label="Default select example"
                       >
-                        <option selected>Más reciente</option>
-                        <option value="1">Menos reciente</option>
-                        <option value="2">Mayor monto</option>
-                        <option value="3">Menor monto</option>
-                        <option value="2">A/Z</option>
-                        <option value="3">Z/A</option>
+                        <option value="Más reciente" selected>
+                          Más reciente
+                        </option>
+                        <option value="Menos reciente">Menos reciente</option>
+                        <option value="Mayor monto">Mayor monto</option>
+                        <option value="Menor monto">Menor monto</option>
+                        <option value="A/Z">A/Z</option>
+                        <option value="Z/A">Z/A</option>
                       </select>
                     </div>
                   </div>
@@ -192,31 +192,27 @@
                       </button>
                     </div>
                   </div>
-                  <div id="con-operaciones" class="d-none">
+                  <div id="con-operaciones" class="">
                     <div class="container margen-inferior">
-                        <div class="row">
-                            <div class="col-md-3 col-sm-6 fw-bold">
-                                Descripción
-                            </div>
-                            <div class="col-md-3 col-sm-6 fw-bold">
-                                Categoría
-                            </div>
-                            <div class="col-md-2 col-sm-6 fw-bold text-end">
-                                Fecha
-                            </div>
-                            <div class="col-md-2 col-sm-6 fw-bold text-end">
-                                Monto
-                            </div>
-                            <div class="col-md-2 col-sm-6 fw-bold text-end">
-                                Acciones
-                            </div>
+                      <div class="row">
+                        <div class="col-md-3 col-sm-6 fw-bold">Descripción</div>
+                        <div class="col-md-3 col-sm-6 fw-bold">Categoría</div>
+                        <div class="col-md-2 col-sm-6 fw-bold text-end">
+                          Fecha
                         </div>
+                        <div class="col-md-2 col-sm-6 fw-bold text-end">
+                          Monto
+                        </div>
+                        <div class="col-md-2 col-sm-6 fw-bold text-end">
+                          Acciones
+                        </div>
+                      </div>
                     </div>
                     <div id="operaciones"></div>
                   </div>
                   <div
                     id="sin-operaciones"
-                    class="contenedor-img d-flex justify-content-center d-none"
+                    class="contenedor-img d-flex justify-content-center"
                   >
                     <img
                       class="imagen-tarjeta img-fluid"
@@ -293,9 +289,7 @@
                     id="categoria-nueva-operacion"
                     class="form-select categorias-select"
                     aria-label="Categoría de operación"
-                  >
-                 
-                  </select>
+                  ></select>
 
                   <label
                     for="fecha-operacion"
@@ -309,7 +303,107 @@
                   />
                 </div>
                 <div class="d-flex flex-row-reverse">
-                  <button id="btn-agregar-operacion" type="button" class="btn btn-dark">Agregar</button>
+                  <button
+                    id="btn-agregar-operacion"
+                    type="button"
+                    class="btn btn-dark"
+                  >
+                    Agregar
+                  </button>
+                  <button
+                    id="cancela-nva-operacion"
+                    type="button"
+                    class="btn btn-secondary margen-derecho"
+                  >
+                    Cancelar
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- *********************************************
+                    EDITAR OPERACIÓN
+    ********************************************* -->
+
+    <section id="vista-editar-operacion" class="tarjetas d-none">
+      <div class="container">
+        <div class="row d-flex justify-content-center">
+          <div class="col-sm-12 col-md-12 col-lg-8">
+            <div class="card">
+              <div class="card-body">
+                <h2 class="fw-bolder fs-1">Editar operación</h2>
+                <div class="margen-filas">
+                  <label
+                    for="descripcion-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Descripción</label
+                  >
+                  <input
+                    type="text"
+                    id="descripcion-operacion"
+                    class="form-control"
+                  />
+
+                  <label
+                    for="monto-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Monto</label
+                  >
+                  <input
+                    type="number"
+                    id="monto-operacion"
+                    class="form-control"
+                    value="0"
+                  />
+
+                  <label
+                    for="tipo-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Tipo</label
+                  >
+                  <select
+                    id="tipo-operacion"
+                    class="form-select"
+                    aria-label="Tipo de operación"
+                  >
+                    <option value="Gasto" selected>Gasto</option>
+                    <option value="Ganancia">Ganancia</option>
+                  </select>
+
+                  <label
+                    for="categoria-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Categoría</label
+                  >
+                  <select
+                    id="categoria-nueva-operacion"
+                    class="form-select categorias-select"
+                    aria-label="Categoría de operación"
+                  ></select>
+
+                  <label
+                    for="fecha-operacion"
+                    class="form-label fw-bold margen-superior"
+                    >Fecha</label
+                  >
+                  <input
+                    type="date"
+                    id="fecha-operacion"
+                    class="form-control"
+                  />
+                </div>
+                <div class="d-flex flex-row-reverse">
+                  <button
+                    id="btn-agregar-operacion"
+                    type="button"
+                    class="btn btn-dark"
+                  >
+                    Agregar
+                  </button>
                   <button
                     id="cancela-nva-operacion"
                     type="button"
@@ -338,6 +432,7 @@
                 <h2 class="fw-bolder fs-1 titulos-tarjetas">Categorías</h2>
                 <div class="input-group mb-3">
                   <input
+                    id="agregar-categoria-input"
                     type="text"
                     class="form-control"
                     placeholder="Nombre"
@@ -352,8 +447,74 @@
                     Agregar
                   </button>
                 </div>
-                <div id="lista-categorias">
 
+                <div class="container margen-titulos-targetas">
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Comida</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a
+                        class="link-categoria margen-derecho editar-btn"
+                        href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Servicios</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a
+                        class="link-categoria margen-derecho editar-btn"
+                        href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Salidas</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a
+                        id=""
+                        class="link-categoria margen-derecho editar-btn"
+                        href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Transporte</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a
+                        class="link-categoria margen-derecho editar-btn"
+                        href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
+                  <div class="row margen-filas">
+                    <div class="col-8">
+                      <span class="nombres-categorias">Trabajo</span>
+                    </div>
+                    <div class="col-4 contenedor">
+                      <a
+                        class="link-categoria margen-derecho editar-btn"
+                        href=""
+                        >Editar</a
+                      >
+                      <a class="link-categoria" href="">Eliminar</a>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
