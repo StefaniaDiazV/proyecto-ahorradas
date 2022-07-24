@@ -1,31 +1,3 @@
-// const obtenerDatos = () => {
-//   return JSON.parse(localStorage.getItem("datos"));
-// };
-
-// const actualizarDatos = (datos) => {
-//   localStorage.setItem(
-//     "datos",
-//     JSON.stringify({ ...obtenerDatos(), ...datos })
-//   );
-//   mostrarDatos();
-// };
-
-// const mostrarDatos = () => {
-//   generarCategorias();
-//   // actualizarOperaciones()
-//   // actualizarBalance()
-//   // filtrarOperaciones()
-//   // actualizarReportes()
-// };
-
-// const obtenerCategorias = () => {
-//   return obtenerDatos().categorias;
-// };
-
-// const obtenerOperaciones = () => {
-//   return obtenerDatos().operaciones;
-// };
-
 // Eventos en btn para las diferentes vistas
 
 const vistaBalance = document.getElementById("vista-balance"); //Section vista balance
@@ -114,38 +86,34 @@ const generarCategorias = () => {
 
 generarCategorias();
 
-// const btnAgregarCategorias = document.getElementById("boton-categorias");
+const btnAgregarCategorias = document.getElementById("boton-categorias");
 
-// btnAgregarCategorias.addEventListener("click", agregarCategorias());
+btnAgregarCategorias.addEventListener("click", () => {
+  agregarCategorias();
+});
 
-// function agregarCategorias() {
-//   const pushCategoriaArr = () => {
-//     const inputAgregarCategorias = document.getElementById(
-//       "agregar-categoria-input"
-//     );
-//     if (inputAgregarCategorias.value != "") {
-//       categorias.push(inputAgregarCategorias.value);
-//       console.log(categorias);
-//       generarCategorias();
-//     }
-//   };
-//   pushCategoriaArr();
-// }
-// console.log(categorias);
-// console.log(selects);
-// const editarCategorias = () => {
-//   btnsEditar.forEach((e) => {
-//     e.addEventListener("click", () => {
-//       // if (btnsEditar[i].clicked) {
-//       cardEditarCategoria.classList.remove("d-none");
-//       vistaBalance.classList.add("d-none");
-//       nuevaOperacion.classList.add("d-none");
-//       vistaCategorias.classList.add("d-none");
-//     });
-//   });
-// };
-// editarCategorias(btnsEditar);
-// Funcion Mostrar tilulos-Operaciones
+const inputAgregarCategorias = document.getElementById(
+  "agregar-categoria-input"
+);
+
+const agregarCategorias = () => {
+  categorias.push(inputAgregarCategorias.value);
+
+  const vaciarselects = () => {
+    for (let i = 0; i < selects.length; i++) {
+      const select = selects[i];
+
+      for (let j = 0; j < categorias.length; j++) {
+        select.innerHTML = "";
+      }
+    }
+  };
+
+  vaciarselects();
+
+  generarCategorias();
+};
+
 operaciones = [];
 
 const mostraroperaciones = (arr) => {
