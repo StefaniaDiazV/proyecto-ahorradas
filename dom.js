@@ -84,12 +84,14 @@ const generarCategorias = () => {
   }
 };
 
+
 generarCategorias();
 
 const btnAgregarCategorias = document.getElementById("boton-categorias");
 
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
+  limpiarInputCategorias()
 });
 
 const inputAgregarCategorias = document.getElementById(
@@ -113,6 +115,10 @@ const agregarCategorias = () => {
 
   generarCategorias();
 };
+
+const limpiarInputCategorias = () => {
+  inputAgregarCategorias.value = '';
+}
 
 operaciones = [];
 
