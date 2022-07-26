@@ -84,14 +84,13 @@ const generarCategorias = () => {
   }
 };
 
-
 generarCategorias();
 
 const btnAgregarCategorias = document.getElementById("boton-categorias");
 
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
-  limpiarInputCategorias()
+  limpiarInputCategorias();
 });
 
 const inputAgregarCategorias = document.getElementById(
@@ -117,8 +116,10 @@ const agregarCategorias = () => {
 };
 
 const limpiarInputCategorias = () => {
-  inputAgregarCategorias.value = '';
-}
+  inputAgregarCategorias.value = "";
+};
+
+//Funciones para operaciones
 
 operaciones = [];
 
@@ -142,11 +143,11 @@ const limpiarVistaNuevaOperacion = () => {
   categoriaNuevaOperacion.value = "Servicios";
   fechaOperacion.value = "";
 };
-//Funcion limpiar input-Nueva-operacion
 
 // Funcion para crear Objeto de cada operacion
 const crearObjOperaciones = () => {
   objOperaciones = {
+    id: uuidv4(),
     descripcion: descripcionOperacion.value,
     monto: montoOperacion.value,
     tipo: tipoOperacion.value,
@@ -209,6 +210,8 @@ const pintarObjetos = () => {
 
 // Funcion Boton Agregar Operacion (Crear Objeto, pushear Obj al Array)
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
+
+localStorage.setItem("operaciones", JSON.stringify(operaciones));
 
 // Ejecucion funcion btn para pintar los objetos en HTML
 btnAgregarOperacion.addEventListener("click", pintarObjetos);
