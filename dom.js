@@ -57,6 +57,29 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+// FUNCION MOSTRAR LA FECHA ACTUAL 
+
+const generarFechaActual = () => {
+  let fecha = new Date();
+  let mes = fecha.getMonth()+1; 
+  let dia = fecha.getDate(); 
+  let ano = fecha.getFullYear();
+    if(dia<10){dia='0'+dia;}
+    if(mes<10){mes='0'+mes;}
+  return `${ano}-${mes}-${dia}`;
+};
+
+const generarFechaActualValue = () => {
+  const inputsFecha = document.getElementsByClassName('inputs-fecha');
+  for(let i = 0; i < inputsFecha.length; i++){
+    const select = inputsFecha[i];
+    select.value = generarFechaActual();
+}
+};
+generarFechaActualValue();
+
+
+
 // ***********************************************
 //                CATEGORIAS
 // **********************************************
@@ -171,7 +194,7 @@ const limpiarVistaNuevaOperacion = () => {
   montoOperacion.value = "0";
   tipoOperacion.value = "Gasto";
   categoriaNuevaOperacion.value = "Servicios";
-  fechaOperacion.value = "";
+  fechaOperacion.value = generarFechaActual();
 };
 //Funcion limpiar input-Nueva-operacion
 
