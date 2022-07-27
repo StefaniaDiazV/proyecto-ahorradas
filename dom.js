@@ -57,6 +57,11 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+// ***********************************************
+//                CATEGORIAS
+// **********************************************
+
+
 // Función agregar categorias-select
 
 const categorias = [
@@ -84,19 +89,19 @@ const generarCategorias = () => {
   }
 };
 
-
 generarCategorias();
 
 const btnAgregarCategorias = document.getElementById("boton-categorias");
 
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
-  limpiarInputCategorias()
+  limpiarInputCategorias();
+  pintarCategorias(categorias);
 });
 
-const inputAgregarCategorias = document.getElementById(
-  "agregar-categoria-input"
-);
+// FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELETS
+
+const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
 
 const agregarCategorias = () => {
   categorias.push(inputAgregarCategorias.value);
@@ -110,15 +115,41 @@ const agregarCategorias = () => {
       }
     }
   };
-
   vaciarselects();
-
   generarCategorias();
 };
 
+// FUNCION PARA VACIAR LOS INPUT DE CATEGORIAS
 const limpiarInputCategorias = () => {
   inputAgregarCategorias.value = '';
 }
+
+// FUNCION PARA PINTAR LAS CATEGORIAS
+
+const pintarCategorias = (arr) => {
+  const divListaCategorias = document.getElementById('lista-categorias');
+  let str = '';
+  arr.forEach((categoria) => {
+    str += `<div class="row margen-filas">
+    <div class="col-8">
+      <span class="nombres-categorias">${categoria}</span>
+    </div>
+    <div class="col-4 contenedor">
+      <a class="link-categoria margen-derecho editar-btn"
+        href=""
+        >Editar</a>
+      <a class="link-categoria" href="">Eliminar</a>
+      </div>
+    </div>`
+  });
+  divListaCategorias.innerHTML = str;
+};
+
+pintarCategorias(categorias)
+
+// ***********************************************
+//                 OPERACIONES 
+// **********************************************
 
 operaciones = [];
 
