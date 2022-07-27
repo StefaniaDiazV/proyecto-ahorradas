@@ -57,6 +57,34 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+// FUNCION MOSTRAR LA FECHA ACTUAL 
+
+const generarFechaActual = () => {
+  let fecha = new Date();
+  let mes = fecha.getMonth()+1; 
+  let dia = fecha.getDate(); 
+  let ano = fecha.getFullYear();
+    if(dia<10){dia='0'+dia;}
+    if(mes<10){mes='0'+mes;}
+  return `${ano}-${mes}-${dia}`;
+};
+
+const generarFechaActualValue = () => {
+  const inputsFecha = document.getElementsByClassName('inputs-fecha');
+  for(let i = 0; i < inputsFecha.length; i++){
+    const select = inputsFecha[i];
+    select.value = generarFechaActual();
+}
+};
+generarFechaActualValue();
+
+
+
+// ***********************************************
+//                CATEGORIAS
+// **********************************************
+
+
 // Función agregar categorias-select
 
 const categorias = [
@@ -84,19 +112,19 @@ const generarCategorias = () => {
   }
 };
 
-
 generarCategorias();
 
 const btnAgregarCategorias = document.getElementById("boton-categorias");
 
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
-  limpiarInputCategorias()
+  limpiarInputCategorias();
+  pintarCategorias(categorias);
 });
 
-const inputAgregarCategorias = document.getElementById(
-  "agregar-categoria-input"
-);
+// FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELETS
+
+const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
 
 const agregarCategorias = () => {
   categorias.push(inputAgregarCategorias.value);
@@ -110,15 +138,41 @@ const agregarCategorias = () => {
       }
     }
   };
-
   vaciarselects();
-
   generarCategorias();
 };
 
+// FUNCION PARA VACIAR LOS INPUT DE CATEGORIAS
 const limpiarInputCategorias = () => {
   inputAgregarCategorias.value = '';
 }
+
+// FUNCION PARA PINTAR LAS CATEGORIAS
+
+const pintarCategorias = (arr) => {
+  const divListaCategorias = document.getElementById('lista-categorias');
+  let str = '';
+  arr.forEach((categoria) => {
+    str += `<div class="row margen-filas">
+    <div class="col-8">
+      <span class="nombres-categorias">${categoria}</span>
+    </div>
+    <div class="col-4 contenedor">
+      <a class="link-categoria margen-derecho editar-btn"
+        href=""
+        >Editar</a>
+      <a class="link-categoria" href="">Eliminar</a>
+      </div>
+    </div>`
+  });
+  divListaCategorias.innerHTML = str;
+};
+
+pintarCategorias(categorias)
+
+// ***********************************************
+//                 OPERACIONES 
+// **********************************************
 
 operaciones = [];
 
@@ -140,7 +194,7 @@ const limpiarVistaNuevaOperacion = () => {
   montoOperacion.value = "0";
   tipoOperacion.value = "Gasto";
   categoriaNuevaOperacion.value = "Servicios";
-  fechaOperacion.value = "";
+  fechaOperacion.value = generarFechaActual();
 };
 //Funcion limpiar input-Nueva-operacion
 
@@ -177,24 +231,25 @@ const agregarObjetos = () => {
 };
 
 // Funcion para pintar objetos de las operacion en el HTML
-const pintarObjetos = () => {
+const pintarObjetos = (arr) => {
   const conOperaciones = document.getElementById("operaciones");
+  let str = ''
   mostraroperaciones(operaciones);
-  nuevodiv = document.createElement("div");
-  nuevodiv.classList.add("container");
-  nuevodiv.innerHTML = `
-    <div class="row">
+  arr.forEach((operacion) => {
+    const {id, descripcion, categoria, fecha, monto, tipo} = operacion;
+    str += `
+    <div class="row margen-superior">
       <div class="col-md-3 col-sm-6 fw-bold">
-        <h6>${objOperaciones.descripcion}</h6>
+        <h6>${descripcion}</h6>
       </div>
       <div class="col-md-3 col-sm-6">
-        <span class="nombres-categorias">${objOperaciones.categoria}</span>
+        <span class="nombres-categorias">${categoria}</span>
       </div>
       <div class="col-md-2 col-sm-6 text-end">
-      ${objOperaciones.fecha}
+      ${fecha}
       </div>
-      <div class="col-md-2 col-sm-6 fw-bold text-end">
-      $${objOperaciones.monto}
+      <div class="col-md-2 col-sm-6 fw-bold text-end  ${tipo === 'Ganancia' ? 'text-success' : 'text-danger'}">
+      ${tipo === 'Ganancia' ? '+' : '-'}$${monto}
       </div>
       <div class="col-md-2 col-sm-6 text-wrap text-end">
         <p>
@@ -204,11 +259,16 @@ const pintarObjetos = () => {
       </div>
     </div>
     `;
-  conOperaciones.appendChild(nuevodiv);
+ });
+  conOperaciones.innerHTML = str;
 };
+
+pintarObjetos(operaciones)
 
 // Funcion Boton Agregar Operacion (Crear Objeto, pushear Obj al Array)
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
 
 // Ejecucion funcion btn para pintar los objetos en HTML
-btnAgregarOperacion.addEventListener("click", pintarObjetos);
+btnAgregarOperacion.addEventListener("click", () => {
+  pintarObjetos(operaciones)
+}) ;
