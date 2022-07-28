@@ -16,29 +16,6 @@ body {
 }
 
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
-/* .hidden {
-  display: none;
-} */
-
-/* #balance {
-  display: none;
-} */
-
-/* #nueva-operacion {
-  display: block;
-} */
-
-/* #categorias {
-  display: none;
-} */
-
-/* #editar-categorias {
-  display: none;
-} */
-
-/* #reportes {
-  display: none;
-} */
 
 .tarjetas {
   padding: 3rem 0 4rem 0;
@@ -48,7 +25,7 @@ body {
   margin-bottom: 3rem;
 }
 
-/* ****** TARGETA-REPORTES ****** */
+/* ****** TARJETA-REPORTES ****** */
 
 .contenedor-img {
   padding: 4rem;
@@ -64,9 +41,9 @@ body {
   margin-bottom: 3rem;
 }
 
-/* ******* TARGETA-CATEGORÍAS ******* */
+/* ******* TARJETA-CATEGORÍAS ******* */
 
-.margen-titulos-targetas {
+.margen-titulos-tarjetas {
   margin-top: 3rem;
 }
 
@@ -101,9 +78,9 @@ body {
   margin-bottom: 2rem;
 }
 
-/* ***** TARGETA-EDITAR-CATEGORIAS ****** */
+/* ***** TARJETA-EDITAR-CATEGORIAS ****** */
 
-/* ***** TARGETA-BALANCE ****** */
+/* ***** TARJETA-BALANCE ****** */
 
 .alineacion-monto {
   text-align: end;
@@ -113,7 +90,7 @@ body {
   margin-bottom: 1rem;
 }
 
-/* ***** TARGETA-NUEVA OPERACIÓN****** */
+/* ***** TARJETA-NUEVA OPERACIÓN****** */
 
 .margen-superior {
   margin-top: 1rem;
