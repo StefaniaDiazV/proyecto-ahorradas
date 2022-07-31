@@ -89,7 +89,7 @@ const generarFechaActual = () => {
   if (mes < 10) {
     mes = "0" + mes;
   }
-  //la funcioan devuelve 2022-07-28 (aca hiciste un chiste tonto)
+  //la funcion devuelve 2022-07-28 (aca hiciste un chiste tonto)
   return `${anio}-${mes}-${dia}`;
 };
 
@@ -383,11 +383,11 @@ const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op"); /
 //       console.log(operaciones);
 //     });
 
-//     btnCancelaOpEditada.addEventListener("click", () => {
-//       //click en cancelar vuelve a mostrar la vista balance y oculta Editar Operación
-//       vistaBalance.classList.remove("d-none");
-//       vistaEditarOperacion.classList.add("d-none");
-//     });
+btnCancelaOpEditada.addEventListener("click", () => {
+  //click en cancelar vuelve a mostrar la vista balance y oculta Editar Operación
+  vistaBalance.classList.remove("d-none");
+  vistaEditarOperacion.classList.add("d-none");
+});
 //   });
 // });
 
@@ -488,3 +488,23 @@ filtroXTipo.addEventListener("change", (e) => {
     pintarObjetos(operaciones);
   }
 });
+filtroXCategoria.addEventListener("change", (e) => {
+  if (e.target.value !== "Todas") {
+    const xCategoria = operaciones.filter(
+      (operacion) => operacion.categoria === e.target.value
+    );
+    localStorage.setItem("operaciones", JSON.stringify(xCategoria));
+    pintarObjetos(xCategoria);
+  } else {
+    pintarObjetos(operaciones);
+  }
+});
+
+// filtroXFecha.addEventListener("change", (e) => {
+//   // if(e.target.valueAsDate >= operaciones.fecha){
+
+//   // }
+//   const xFecha = operaciones.filter(
+//     (operacion) => operacion.fecha >= e.target.valueAsDate
+//   );
+// });
