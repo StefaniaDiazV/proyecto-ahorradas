@@ -116,13 +116,13 @@ generarFechaActualValue(); //************************************************/
 
 // Función agregar categorias-select
 
-const categorias = [
-  "Servicios",
-  "Comida",
-  "Salidas",
-  "Transporte",
-  "Educación",
-  "Trabajo",
+const categorias = JSON.parse(localStorage.getItem('categorias')) || [
+  'Servicios',
+  'Comida',
+  'Salidas',
+  'Transporte',
+  'Educación',
+  'Trabajo'
 ];
 
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
@@ -186,6 +186,7 @@ const agregarCategorias = () => {
   };
   vaciarselects();
   generarCategorias();
+  localStorage.setItem('categorias', JSON.stringify(categorias))
 };
 
 // FUNCION PARA VACIAR LOS INPUT DE CATEGORIAS
@@ -421,7 +422,7 @@ const editarOperacion = (arr) => {
 
 // window.onload = inicializar;
 
-//nahuel
+
 
 //a cada editar operacion le agrego mostrar la pantalla
 btnsEditar.forEach((btn) => {
@@ -463,18 +464,58 @@ btnsEditar.forEach((btn) => {
       pintarObjetos(operaciones);
     };
 
-    //agregar objecto
+    //agregar objeto
     btnEditaOp.addEventListener("click", () => {
       agregar();
     });
   });
 });
 
+// BALANCE 
+
+const divGanancias = document.getElementById('div-ganancias');
+const divGastos = document.getElementById('div-gastos');
+const divtotal = document.getElementById('div-total');
+
+const totalGanancias = (arr) => {
+  let str = 0 ;
+  arr.forEach(operaciones => {
+      if(operaciones.tipo === 'Ganancia'){
+        str += Number(operaciones.monto)
+      }
+  });
+  divGanancias.innerHTML = `+$${str}`;
+  return str
+};
+
+totalGanancias(operaciones)
+
+const totalGastos = (arr) => {
+  let str = 0 ;
+  arr.forEach(operaciones => {
+      if(operaciones.tipo === 'Gasto'){
+        str += Number(operaciones.monto)
+      }
+  });
+  divGastos.innerHTML = `-$${str}`;
+  return str
+};
+totalGastos(operaciones)
+
+const total = () => {
+  let str = 0 ;
+  str += (totalGanancias(operaciones) - totalGastos(operaciones))
+  divtotal.innerHTML = `<div class="${str > '0' ? 'text-success' : 'text-danger'}" >${str > '0' ? '+' : '-'}$${Math.abs(str)}</div>`
+  
+};
+
+total()
+
+
+
 //FILTROS
-// const fitroXTipo = document.getElementById("filtros-tipo");
-// const filtroXCategoria = document.getElementById("filtros-categorias");
-// const filtroXFecha = document.getElementById("filtros-fecha");
-// const ordenaX = document.getElementById("filtros-ordenax");
+
+
 filtroXTipo.addEventListener("change", (e) => {
   if (e.target.value !== "Todos") {
     const xTipo = operaciones.filter(
