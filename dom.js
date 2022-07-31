@@ -43,6 +43,7 @@ btnCancelNvaOperacion.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
+  limpiarVistaNuevaOperacion()
 });
 
 btnBalance.addEventListener("click", () => {
