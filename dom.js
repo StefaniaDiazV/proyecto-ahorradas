@@ -14,8 +14,21 @@ const btnBalance = document.getElementById("btn-balance"); //Btn Balance del hea
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); //Btn "cancel" de la section Nueva Operacion
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
 
-// const inputAgregarCategorias = document.getElementById('agregar-categoria-input');
-// const btnAgregarCategorias = document.getElementById('boton-categorias');
+//Imputs Editar Operación
+
+const editarDescripcionOpInput = document.getElementById(
+  "edita-descripcion-op"
+);
+const editarMontoOpInput = document.getElementById("edita-monto-op");
+const editarTipoOpInput = document.getElementById("tipo-op");
+const editarCategoriaOpInput = document.getElementById("edita-categoria-op");
+const editaFechaOpInput = document.getElementById("edita-fecha-op");
+
+//Input de Filtros
+const filtroXTipo = document.getElementById("filtros-tipo");
+const filtroXCategoria = document.getElementById("filtros-categorias");
+const filtroXFecha = document.getElementById("filtros-fecha");
+const ordenaX = document.getElementById("filtros-ordenax");
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -95,7 +108,7 @@ const generarFechaActualValue = () => {
 // aca ejecutamos todo. lo anterior eran definiciones, y en este paso, ejecuto esas
 //definiciones de funcion: primero ejecuto generarFechaActualValue y esa llama a
 //generarFechaActual
-generarFechaActualValue();
+generarFechaActualValue(); //************************************************/
 
 // ***********************************************
 //                CATEGORIAS
@@ -141,7 +154,7 @@ const generarCategorias = () => {
 };
 
 //ahora que definio todo, ejecuto la funcion.
-generarCategorias();
+generarCategorias(); //************************************************/
 
 //me llevo el boton para agregar categorias
 const btnAgregarCategorias = document.getElementById("boton-categorias");
@@ -180,9 +193,6 @@ const limpiarInputCategorias = () => {
   inputAgregarCategorias.value = "";
 };
 
-//Funciones para operaciones
-
-// operaciones = [];
 // FUNCION PARA PINTAR LAS CATEGORIAS
 
 const pintarCategorias = (arr) => {
@@ -204,13 +214,11 @@ const pintarCategorias = (arr) => {
   divListaCategorias.innerHTML = str;
 };
 
-pintarCategorias(categorias);
+pintarCategorias(categorias); //************************************************/
 
 // ***********************************************
 //                 OPERACIONES
 // **********************************************
-
-// operaciones = [];
 
 const mostraroperaciones = (arr) => {
   if (!arr.length) {
@@ -222,7 +230,7 @@ const mostraroperaciones = (arr) => {
   }
 };
 
-mostraroperaciones(operaciones);
+mostraroperaciones(operaciones); //************************************************/
 
 //Funcion limpiar input-Nueva-operacion
 const limpiarVistaNuevaOperacion = () => {
@@ -296,16 +304,17 @@ const pintarObjetos = (arr) => {
       <div class="col-md-2 col-sm-6 text-wrap text-end">
         <p>
           <a id="" href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
-          <a id="" href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
+          <a id="" href="" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
         </p>
       </div>
     </div>
     `;
   });
+
   conOperaciones.innerHTML = str;
 };
 
-pintarObjetos(operaciones);
+pintarObjetos(operaciones); //************************************************/
 
 // Funcion Boton Agregar Operacion (Crear Objeto, pushear Obj al Array)
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
@@ -314,27 +323,21 @@ btnAgregarOperacion.addEventListener("click", () => {
   pintarObjetos(operaciones);
 });
 
-//nahuenuevo poc
-//meter en cualquier variable lo que se haya guardado en LS
-// const banana = JSON.parse(localStorage.getItem("operaciones", operaciones));
-//mostrar que carajo guardo
-// console.log(banana)
-
-// ahora intento meter lo q haya guardado en el html
-//mostraroperaciones(banana);
 const btnsEliminar = document.querySelectorAll(".btn-elimina-op");
 const btnsEditar = document.querySelectorAll(".btn-edita-op");
 // const btnsEliminar = Array.from(document.getElementsByClassName('btn-eliminar'));
+
 btnsEliminar.forEach((btn) => {
   btn.addEventListener("click", (e) => {
     const arrSinOperacion = operaciones.filter(
       (operacion) => operacion.id !== e.target.dataset.id
-      //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando (para separa sólo el que matchee)
+      //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
     );
 
     localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
     //subo a LS los elementos que no voy a eliminar, actualizo LS
     operaciones = JSON.parse(localStorage.getItem("operaciones"));
+
     //traigo de LS el array operaciones actualizado
     pintarObjetos(operaciones);
     //pinto el array operaciones actualizado
@@ -342,40 +345,146 @@ btnsEliminar.forEach((btn) => {
     //ejecuto mostrar operaciones para mantener la vista correspondiente a "con operaciones"
   });
 });
-// const editaOpBtn = document.getElementById("btn-agrega-edicio-op");
+const btnEditaOp = document.getElementById("btn-agrega-edicion-op"); //Btn Agregar de vista Editar Operación
+
+const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op"); //Btn Cancelar de vista Editar Operación
+
 // btnsEditar.forEach((btn) => {
 //   btn.addEventListener("click", (e) => {
-//     const editoOperacion = operaciones.filter(
+//     let editoOperacion = operaciones.filter(
 //       (operacion) => operacion.id === e.target.dataset.id
+//       //con este filter genero un array con el objeto de  la operación que tiene el mismo id en el btn y como valor de propiedad del objeto
 //     );
-
+//     console.log(editoOperacion, "obj");
+//     console.log(editoOperacion[0].id);
 //     editarOperacion(editoOperacion);
-//     editaOpBtn.addEventListener("click", () => {
-//       console.log(editoOperacion);
+
+//     // //subo a LS los elementos que no voy a eliminar, actualizo LS
+
+//     // traigo de LS el array operaciones actualizado
+
+//     //necesito modificar los valores de los inputs por los nuevos. Osea, los valores de las propiedades del obj que obtengo de filter
+//     // operaciones = copiaEditoOperacion;
+
+//     console.log(operaciones);
+//     btnEditaOp.addEventListener("click", () => {
+//       copiaEditoOperacion = [
+//         {
+//           ...editoOperacion,
+//           descripcion: editarDescripcionOpInput.value,
+//           categoria: editarCategoriaOpInput.value,
+//           fecha: editaFechaOpInput.valueAsDate,
+//           monto: editarMontoOpInput.value,
+//           tipo: editarTipoOpInput.value,
+//         },
+//       ];
+//       console.log(copiaEditoOperacion);
+//       // pintarObjetos(operaciones);
+//       console.log(operaciones);
+//     });
+
+//     btnCancelaOpEditada.addEventListener("click", () => {
+//       //click en cancelar vuelve a mostrar la vista balance y oculta Editar Operación
+//       vistaBalance.classList.remove("d-none");
+//       vistaEditarOperacion.classList.add("d-none");
 //     });
 //   });
 // });
 
-// const editarOperacion = (arr) => {
-//   const { descripcion, monto, tipo, categoria, fecha } = arr[0];
+const editarOperacion = (arr) => {
+  const { descripcion, categoria, fecha, monto, tipo } = arr[0];
 
-//   vistaBalance.classList.add("d-none");
-//   vistaEditarOperacion.classList.remove("d-none");
-//   descripcionOperacion.value = descripcion;
-//   montoOperacion.value = monto;
-//   tipoOperacion.value = tipo;
-//   categoriaNuevaOperacion.value = categoria;
-//   fechaOperacion.valueAsDate = new Date(fecha);
-// };
+  vistaBalance.classList.add("d-none");
+  vistaEditarOperacion.classList.remove("d-none");
+  //Necesito tomar el valor de los inputs de la card Editar Operación para reemplazar los actuales
+  editarDescripcionOpInput.value = descripcion;
+  editarMontoOpInput.value = monto;
+  editarTipoOpInput.value = tipo;
+  editarCategoriaOpInput.value = categoria;
+  editaFechaOpInput.valueAsDate = new Date(fecha);
+};
 
 // const inicializar = () => {
-//   const inputsFecha = document.querySelectorAll('input[type="date"]')
-//   inputsFecha.forEach( input => {
-//     input.valueAsDate = new Date()
-//   })
-//   mostraroperaciones(operaciones);
-//   generarCategorias();
-//   pintarOperaciones(operaciones);
-// }
+//   // const inputsFecha = document.querySelectorAll('input[type="date"]')
+//   // inputsFecha.forEach( input => {
+//   //   input.valueAsDate = new Date()
+//   // })
+//   // mostraroperaciones(operaciones);
+//   // generarCategorias();
+//   // pintarOperaciones(operaciones);
+//   // generarFechaActualValue();
+//   // generarCategorias();
+//   // pintarCategorias(categorias);
+//   // mostraroperaciones(operaciones);
+//   // pintarObjetos(operaciones);
+// };
 
-// window.onload = inicializar
+// window.onload = inicializar;
+
+//nahuel
+
+//a cada editar operacion le agrego mostrar la pantalla
+btnsEditar.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    let editoOperacion = operaciones.filter(
+      (operacion) => operacion.id === e.target.dataset.id
+    );
+    editarOperacion(editoOperacion);
+
+    const arrSinOperacion2 = operaciones.filter(
+      (operacion) => operacion.id !== e.target.dataset.id
+    );
+
+    const borrar = () => {
+      localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
+      operaciones = JSON.parse(localStorage.getItem("operaciones"));
+      pintarObjetos(operaciones);
+      // mostraroperaciones(operaciones);
+    };
+
+    //borrar objeto
+    btnEditaOp.addEventListener("click", () => {
+      borrar(operaciones);
+    });
+
+    //definicion funcion para agregar objeto
+    const agregar = () => {
+      objOperaciones2 = {
+        id: editoOperacion[0].id,
+        descripcion: editarDescripcionOpInput.value,
+        monto: editarMontoOpInput.value,
+        tipo: editarTipoOpInput.value,
+        categoria: editarCategoriaOpInput.value,
+        fecha: editaFechaOpInput.value,
+      };
+
+      operaciones.push(objOperaciones2);
+      localStorage.setItem("operaciones", JSON.stringify(operaciones));
+      pintarObjetos(operaciones);
+    };
+
+    //agregar objecto
+    btnEditaOp.addEventListener("click", () => {
+      agregar();
+    });
+  });
+});
+
+//FILTROS
+// const fitroXTipo = document.getElementById("filtros-tipo");
+// const filtroXCategoria = document.getElementById("filtros-categorias");
+// const filtroXFecha = document.getElementById("filtros-fecha");
+// const ordenaX = document.getElementById("filtros-ordenax");
+filtroXTipo.addEventListener("change", (e) => {
+  if (e.target.value !== "Todos") {
+    const xTipo = operaciones.filter(
+      (operacion) => operacion.tipo === e.target.value
+    );
+
+    localStorage.setItem("operaciones", JSON.stringify(xTipo));
+
+    pintarObjetos(xTipo);
+  } else {
+    pintarObjetos(operaciones);
+  }
+});
