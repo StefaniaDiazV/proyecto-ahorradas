@@ -43,6 +43,7 @@ btnCancelNvaOperacion.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
+  limpiarVistaNuevaOperacion()
 });
 
 btnBalance.addEventListener("click", () => {
@@ -75,40 +76,40 @@ btnReportes.addEventListener("click", () => {
 //funcion que toma los datos de fecha del dia y guarda en
 //multiples variables para despues contacternarlas
 //para mantener siempre dos digitos le concatena 0 como caracter
-const generarFechaActual = () => {
-  // variable FECHA recibe la fecha del DIA en formato FECHA
-  let fecha = new Date();
-  //variable MES se lleva el mes actual pero le suma 1 por que january=0
-  let mes = fecha.getMonth() + 1;
-  let dia = fecha.getDate();
-  let anio = fecha.getFullYear();
-  //si tiene menos de 10 entonces es un solo digito, quiero agregarle el 0
-  if (dia < 10) {
-    dia = "0" + dia;
-  }
-  if (mes < 10) {
-    mes = "0" + mes;
-  }
-  //la funcion devuelve 2022-07-28 (aca hiciste un chiste tonto)
-  return `${anio}-${mes}-${dia}`;
-};
+// const generarFechaActual = () => {
+//   // variable FECHA recibe la fecha del DIA en formato FECHA
+//   let fecha = new Date();
+//   //variable MES se lleva el mes actual pero le suma 1 por que january=0
+//   let mes = fecha.getMonth() + 1;
+//   let dia = fecha.getDate();
+//   let anio = fecha.getFullYear();
+//   //si tiene menos de 10 entonces es un solo digito, quiero agregarle el 0
+//   if (dia < 10) {
+//     dia = "0" + dia;
+//   }
+//   if (mes < 10) {
+//     mes = "0" + mes;
+//   }
+//   //la funcion devuelve 2022-07-28 (aca hiciste un chiste tonto)
+//   return `${anio}-${mes}-${dia}`;
+// };
 
 //funcion para a cada input darle la fecha de hoy
-const generarFechaActualValue = () => {
-  // me llevo todos los inputs
-  const inputsFecha = document.getElementsByClassName("inputs-fecha");
-  //voy input por input
-  for (let i = 0; i < inputsFecha.length; i++) {
-    //select va a ser el elemento input
-    const select = inputsFecha[i];
-    //el valor de ese input va a recivir el return de la funcion. ej: 2022-07-28
-    select.value = generarFechaActual();
-  }
-};
+// const generarFechaActualValue = () => {
+//   // me llevo todos los inputs
+//   const inputsFecha = document.getElementsByClassName("inputs-fecha");
+//   //voy input por input
+//   for (let i = 0; i < inputsFecha.length; i++) {
+//     //select va a ser el elemento input
+//     const select = inputsFecha[i];
+//     //el valor de ese input va a recivir el return de la funcion. ej: 2022-07-28
+//     select.value = generarFechaActual();
+//   }
+// };
 // aca ejecutamos todo. lo anterior eran definiciones, y en este paso, ejecuto esas
 //definiciones de funcion: primero ejecuto generarFechaActualValue y esa llama a
 //generarFechaActual
-generarFechaActualValue(); //************************************************/
+//generarFechaActualValue(); //************************************************/
 
 // ***********************************************
 //                CATEGORIAS
@@ -239,7 +240,7 @@ const limpiarVistaNuevaOperacion = () => {
   montoOperacion.value = "0";
   tipoOperacion.value = "Gasto";
   categoriaNuevaOperacion.value = "Servicios";
-  fechaOperacion.value = generarFechaActual();
+  fechaOperacion.valueAsDate = new Date();
 };
 
 // Funcion para crear Objeto de cada operacion
@@ -405,22 +406,22 @@ const editarOperacion = (arr) => {
   editaFechaOpInput.valueAsDate = new Date(fecha);
 };
 
-// const inicializar = () => {
-//   // const inputsFecha = document.querySelectorAll('input[type="date"]')
-//   // inputsFecha.forEach( input => {
-//   //   input.valueAsDate = new Date()
-//   // })
-//   // mostraroperaciones(operaciones);
-//   // generarCategorias();
-//   // pintarOperaciones(operaciones);
-//   // generarFechaActualValue();
-//   // generarCategorias();
-//   // pintarCategorias(categorias);
-//   // mostraroperaciones(operaciones);
-//   // pintarObjetos(operaciones);
-// };
+const inicializar = () => {
+  const inputsFecha = document.querySelectorAll('input[type="date"]')
+  inputsFecha.forEach( input => {
+    input.valueAsDate = new Date()
+  })
+  // mostraroperaciones(operaciones);
+  // generarCategorias();
+  // pintarOperaciones(operaciones);
+  // generarFechaActualValue();
+  // generarCategorias();
+  // pintarCategorias(categorias);
+  // mostraroperaciones(operaciones);
+  // pintarObjetos(operaciones);
+};
 
-// window.onload = inicializar;
+ window.onload = inicializar;
 
 
 
