@@ -43,7 +43,7 @@ btnCancelNvaOperacion.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
-  limpiarVistaNuevaOperacion()
+  limpiarVistaNuevaOperacion();
 });
 
 btnBalance.addEventListener("click", () => {
@@ -117,13 +117,13 @@ btnReportes.addEventListener("click", () => {
 
 // Función agregar categorias-select
 
-const categorias = JSON.parse(localStorage.getItem('categorias')) || [
-  'Servicios',
-  'Comida',
-  'Salidas',
-  'Transporte',
-  'Educación',
-  'Trabajo'
+const categorias = JSON.parse(localStorage.getItem("categorias")) || [
+  "Servicios",
+  "Comida",
+  "Salidas",
+  "Transporte",
+  "Educación",
+  "Trabajo",
 ];
 
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
@@ -154,7 +154,7 @@ const generarCategorias = () => {
   }
 };
 
-//ahora que definio todo, ejecuto la funcion.
+//ahora que definí todo, ejecuto la funcion.
 generarCategorias(); //************************************************/
 
 //me llevo el boton para agregar categorias
@@ -187,7 +187,7 @@ const agregarCategorias = () => {
   };
   vaciarselects();
   generarCategorias();
-  localStorage.setItem('categorias', JSON.stringify(categorias))
+  localStorage.setItem("categorias", JSON.stringify(categorias));
 };
 
 // FUNCION PARA VACIAR LOS INPUT DE CATEGORIAS
@@ -287,6 +287,7 @@ const pintarObjetos = (arr) => {
   mostraroperaciones(operaciones);
   arr.forEach((operacion) => {
     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
+
     str += `
     <div class="row margen-superior">
       <div class="col-md-3 col-sm-6 fw-bold">
@@ -407,23 +408,13 @@ const editarOperacion = (arr) => {
 };
 
 const inicializar = () => {
-  const inputsFecha = document.querySelectorAll('input[type="date"]')
-  inputsFecha.forEach( input => {
-    input.valueAsDate = new Date()
-  })
-  // mostraroperaciones(operaciones);
-  // generarCategorias();
-  // pintarOperaciones(operaciones);
-  // generarFechaActualValue();
-  // generarCategorias();
-  // pintarCategorias(categorias);
-  // mostraroperaciones(operaciones);
-  // pintarObjetos(operaciones);
+  const inputsFecha = document.querySelectorAll('input[type="date"]');
+  inputsFecha.forEach((input) => {
+    input.valueAsDate = new Date();
+  });
 };
 
- window.onload = inicializar;
-
-
+window.onload = inicializar;
 
 //a cada editar operacion le agrego mostrar la pantalla
 btnsEditar.forEach((btn) => {
@@ -472,50 +463,48 @@ btnsEditar.forEach((btn) => {
   });
 });
 
-// BALANCE 
+// BALANCE
 
-const divGanancias = document.getElementById('div-ganancias');
-const divGastos = document.getElementById('div-gastos');
-const divtotal = document.getElementById('div-total');
+const divGanancias = document.getElementById("div-ganancias");
+const divGastos = document.getElementById("div-gastos");
+const divtotal = document.getElementById("div-total");
 
 const totalGanancias = (arr) => {
-  let str = 0 ;
-  arr.forEach(operaciones => {
-      if(operaciones.tipo === 'Ganancia'){
-        str += Number(operaciones.monto)
-      }
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Ganancia") {
+      str += Number(operaciones.monto);
+    }
   });
   divGanancias.innerHTML = `+$${str}`;
-  return str
+  return str;
 };
 
-totalGanancias(operaciones)
+totalGanancias(operaciones);
 
 const totalGastos = (arr) => {
-  let str = 0 ;
-  arr.forEach(operaciones => {
-      if(operaciones.tipo === 'Gasto'){
-        str += Number(operaciones.monto)
-      }
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Gasto") {
+      str += Number(operaciones.monto);
+    }
   });
   divGastos.innerHTML = `-$${str}`;
-  return str
+  return str;
 };
-totalGastos(operaciones)
+totalGastos(operaciones);
 
 const total = () => {
-  let str = 0 ;
-  str += (totalGanancias(operaciones) - totalGastos(operaciones))
-  divtotal.innerHTML = `<div class="${str > '0' ? 'text-success' : 'text-danger'}" >${str > '0' ? '+' : '-'}$${Math.abs(str)}</div>`
-  
+  let str = 0;
+  str += totalGanancias(operaciones) - totalGastos(operaciones);
+  divtotal.innerHTML = `<div class="${
+    str > "0" ? "text-success" : "text-danger"
+  }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
 };
 
-total()
-
-
+total();
 
 //FILTROS
-
 
 filtroXTipo.addEventListener("change", (e) => {
   if (e.target.value !== "Todos") {
@@ -542,11 +531,12 @@ filtroXCategoria.addEventListener("change", (e) => {
   }
 });
 
-// filtroXFecha.addEventListener("change", (e) => {
-//   // if(e.target.valueAsDate >= operaciones.fecha){
-
-//   // }
-//   const xFecha = operaciones.filter(
-//     (operacion) => operacion.fecha >= e.target.valueAsDate
-//   );
-// });
+filtroXFecha.addEventListener("change", (e) => {
+  const xFecha = operaciones.filter(
+    (operacion) => operacion.fecha >= e.target.value
+  );
+  console.log(xFecha);
+  localStorage.setItem("operaciones", JSON.stringify(xFecha));
+  pintarObjetos(xFecha);
+  pintarObjetos(operaciones);
+});
