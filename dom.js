@@ -28,7 +28,7 @@ const editaFechaOpInput = document.getElementById("edita-fecha-op");
 const filtroXTipo = document.getElementById("filtros-tipo");
 const filtroXCategoria = document.getElementById("filtros-categorias");
 const filtroXFecha = document.getElementById("filtros-fecha");
-const ordenaX = document.getElementById("filtros-ordenax");
+const ordenarX = document.getElementById("filtros-ordenax");
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -332,6 +332,8 @@ const btnsEditar = document.querySelectorAll(".btn-edita-op");
 
 btnsEliminar.forEach((btn) => {
   btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(e);
     const arrSinOperacion = operaciones.filter(
       (operacion) => operacion.id !== e.target.dataset.id
       //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
@@ -340,7 +342,7 @@ btnsEliminar.forEach((btn) => {
     localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
     //subo a LS los elementos que no voy a eliminar, actualizo LS
     operaciones = JSON.parse(localStorage.getItem("operaciones"));
-
+    console.log(operaciones);
     //traigo de LS el array operaciones actualizado
     pintarObjetos(operaciones);
     //pinto el array operaciones actualizado
@@ -535,8 +537,82 @@ filtroXFecha.addEventListener("change", (e) => {
   const xFecha = operaciones.filter(
     (operacion) => operacion.fecha >= e.target.value
   );
-  console.log(xFecha);
+
   localStorage.setItem("operaciones", JSON.stringify(xFecha));
   pintarObjetos(xFecha);
   pintarObjetos(operaciones);
 });
+
+const filtroOrden = () => {
+  let orden = ordenarX.value;
+  switch (orden) {
+    case "Más reciente":
+      const masReciente = operaciones.sort(
+        (a, b) => new Date(b.fecha) - new Date(a.fecha)
+      );
+
+      console.log(masReciente);
+      localStorage.setItem("operaciones", JSON.stringify(masReciente));
+      pintarObjetos(masReciente);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Menos reciente":
+      const menosReciente = operaciones.sort(
+        (a, b) => new Date(a.fecha) - new Date(b.fecha)
+      );
+      console.log(menosReciente);
+      localStorage.setItem("operaciones", JSON.stringify(menosReciente));
+      pintarObjetos(menosReciente);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Mayor monto":
+      const mayorMonto = operaciones.sort(
+        (a, b) => Number(b.monto) - Number(a.monto)
+      );
+      console.log(mayorMonto);
+      localStorage.setItem("operaciones", JSON.stringify(mayorMonto));
+      pintarObjetos(mayorMonto);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Menor monto":
+      const menorMonto = operaciones.sort(
+        (a, b) => Number(a.monto) - Number(b.monto)
+      );
+      console.log(menorMonto);
+      localStorage.setItem("operaciones", JSON.stringify(menorMonto));
+      pintarObjetos(menorMonto);
+      pintarObjetos(operaciones);
+      break;
+
+    case "A/Z":
+      const alfabeticaAZ = operaciones.sort((a, b) => {
+        return a.descripcion.localeCompare(b.descripcion, {
+          ignorePunctuation: true,
+        });
+      });
+      console.log(alfabeticaAZ);
+      localStorage.setItem("operaciones", JSON.stringify(alfabeticaAZ));
+      pintarObjetos(alfabeticaAZ);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Z/A":
+      const alfabeticaZA = operaciones
+        .sort((a, b) => {
+          return a.descripcion.localeCompare(b.descripcion, {
+            ignorePunctuation: true,
+          });
+        })
+        .reverse();
+      console.log(alfabeticaZA);
+      localStorage.setItem("operaciones", JSON.stringify(alfabeticaZA));
+      pintarObjetos(alfabeticaZA);
+      pintarObjetos(operaciones);
+      break;
+  }
+};
+
+ordenarX.addEventListener("change", filtroOrden);
