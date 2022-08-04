@@ -126,7 +126,9 @@ const categorias = JSON.parse(localStorage.getItem('categorias')) || [
   'Trabajo'
 ];
 
+
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
+
 
 //me llevo todos los select con label categorias
 const selects = document.getElementsByClassName("categorias-select");
@@ -411,6 +413,7 @@ const inicializar = () => {
   inputsFecha.forEach( input => {
     input.valueAsDate = new Date()
   })
+
   // mostraroperaciones(operaciones);
   // generarCategorias();
   // pintarOperaciones(operaciones);
@@ -550,3 +553,22 @@ filtroXCategoria.addEventListener("change", (e) => {
 //     (operacion) => operacion.fecha >= e.target.valueAsDate
 //   );
 // });
+
+
+
+// REPORTES 
+
+const mostrarReportes = (arr) => {
+  if(arr.length){
+    document.getElementById("sin-reportes").classList.add("d-none");
+    document.getElementById("con-reportes").classList.remove("d-none");
+  } else {
+    document.getElementById("sin-reportes").classList.remove("d-none");
+    document.getElementById("con-reportes").classList.add("d-none");
+  }
+};
+
+mostrarReportes(operaciones)
+
+
+
