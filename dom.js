@@ -28,7 +28,7 @@ const editaFechaOpInput = document.getElementById("edita-fecha-op");
 const filtroXTipo = document.getElementById("filtros-tipo");
 const filtroXCategoria = document.getElementById("filtros-categorias");
 const filtroXFecha = document.getElementById("filtros-fecha");
-const ordenaX = document.getElementById("filtros-ordenax");
+const ordenarX = document.getElementById("filtros-ordenax");
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -43,7 +43,7 @@ btnCancelNvaOperacion.addEventListener("click", () => {
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
-  limpiarVistaNuevaOperacion()
+  limpiarVistaNuevaOperacion();
 });
 
 btnBalance.addEventListener("click", () => {
@@ -80,59 +80,19 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
-// FUNCION MOSTRAR LA FECHA ACTUAL
-
-//funcion que toma los datos de fecha del dia y guarda en
-//multiples variables para despues contacternarlas
-//para mantener siempre dos digitos le concatena 0 como caracter
-// const generarFechaActual = () => {
-//   // variable FECHA recibe la fecha del DIA en formato FECHA
-//   let fecha = new Date();
-//   //variable MES se lleva el mes actual pero le suma 1 por que january=0
-//   let mes = fecha.getMonth() + 1;
-//   let dia = fecha.getDate();
-//   let anio = fecha.getFullYear();
-//   //si tiene menos de 10 entonces es un solo digito, quiero agregarle el 0
-//   if (dia < 10) {
-//     dia = "0" + dia;
-//   }
-//   if (mes < 10) {
-//     mes = "0" + mes;
-//   }
-//   //la funcion devuelve 2022-07-28 (aca hiciste un chiste tonto)
-//   return `${anio}-${mes}-${dia}`;
-// };
-
-//funcion para a cada input darle la fecha de hoy
-// const generarFechaActualValue = () => {
-//   // me llevo todos los inputs
-//   const inputsFecha = document.getElementsByClassName("inputs-fecha");
-//   //voy input por input
-//   for (let i = 0; i < inputsFecha.length; i++) {
-//     //select va a ser el elemento input
-//     const select = inputsFecha[i];
-//     //el valor de ese input va a recivir el return de la funcion. ej: 2022-07-28
-//     select.value = generarFechaActual();
-//   }
-// };
-// aca ejecutamos todo. lo anterior eran definiciones, y en este paso, ejecuto esas
-//definiciones de funcion: primero ejecuto generarFechaActualValue y esa llama a
-//generarFechaActual
-//generarFechaActualValue(); //************************************************/
-
 // ***********************************************
 //                CATEGORIAS
 // **********************************************
 
 // Función agregar categorias-select
 
-const categorias = JSON.parse(localStorage.getItem('categorias')) || [
-  'Servicios',
-  'Comida',
-  'Salidas',
-  'Transporte',
-  'Educación',
-  'Trabajo'
+const categorias = JSON.parse(localStorage.getItem("categorias")) || [
+  "Servicios",
+  "Comida",
+  "Salidas",
+  "Transporte",
+  "Educación",
+  "Trabajo",
 ];
 
 
@@ -165,7 +125,7 @@ const generarCategorias = () => {
   }
 };
 
-//ahora que definio todo, ejecuto la funcion.
+//ahora que definí todo, ejecuto la funcion.
 generarCategorias(); //************************************************/
 
 //me llevo el boton para agregar categorias
@@ -198,7 +158,7 @@ const agregarCategorias = () => {
   };
   vaciarselects();
   generarCategorias();
-  localStorage.setItem('categorias', JSON.stringify(categorias))
+  localStorage.setItem("categorias", JSON.stringify(categorias));
 };
 
 // FUNCION PARA VACIAR LOS INPUT DE CATEGORIAS
@@ -298,6 +258,7 @@ const pintarObjetos = (arr) => {
   mostraroperaciones(operaciones);
   arr.forEach((operacion) => {
     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
+
     str += `
     <div class="row margen-superior">
       <div class="col-md-3 col-sm-6 fw-bold">
@@ -342,6 +303,8 @@ const btnsEditar = document.querySelectorAll(".btn-edita-op");
 
 btnsEliminar.forEach((btn) => {
   btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    console.log(e);
     const arrSinOperacion = operaciones.filter(
       (operacion) => operacion.id !== e.target.dataset.id
       //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
@@ -350,7 +313,7 @@ btnsEliminar.forEach((btn) => {
     localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
     //subo a LS los elementos que no voy a eliminar, actualizo LS
     operaciones = JSON.parse(localStorage.getItem("operaciones"));
-
+    console.log(operaciones);
     //traigo de LS el array operaciones actualizado
     pintarObjetos(operaciones);
     //pinto el array operaciones actualizado
@@ -362,47 +325,11 @@ const btnEditaOp = document.getElementById("btn-agrega-edicion-op"); //Btn Agreg
 
 const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op"); //Btn Cancelar de vista Editar Operación
 
-// btnsEditar.forEach((btn) => {
-//   btn.addEventListener("click", (e) => {
-//     let editoOperacion = operaciones.filter(
-//       (operacion) => operacion.id === e.target.dataset.id
-//       //con este filter genero un array con el objeto de  la operación que tiene el mismo id en el btn y como valor de propiedad del objeto
-//     );
-//     console.log(editoOperacion, "obj");
-//     console.log(editoOperacion[0].id);
-//     editarOperacion(editoOperacion);
-
-//     // //subo a LS los elementos que no voy a eliminar, actualizo LS
-
-//     // traigo de LS el array operaciones actualizado
-
-//     //necesito modificar los valores de los inputs por los nuevos. Osea, los valores de las propiedades del obj que obtengo de filter
-//     // operaciones = copiaEditoOperacion;
-
-//     console.log(operaciones);
-//     btnEditaOp.addEventListener("click", () => {
-//       copiaEditoOperacion = [
-//         {
-//           ...editoOperacion,
-//           descripcion: editarDescripcionOpInput.value,
-//           categoria: editarCategoriaOpInput.value,
-//           fecha: editaFechaOpInput.valueAsDate,
-//           monto: editarMontoOpInput.value,
-//           tipo: editarTipoOpInput.value,
-//         },
-//       ];
-//       console.log(copiaEditoOperacion);
-//       // pintarObjetos(operaciones);
-//       console.log(operaciones);
-//     });
-
 btnCancelaOpEditada.addEventListener("click", () => {
   //click en cancelar vuelve a mostrar la vista balance y oculta Editar Operación
   vistaBalance.classList.remove("d-none");
   vistaEditarOperacion.classList.add("d-none");
 });
-//   });
-// });
 
 const editarOperacion = (arr) => {
   const { descripcion, categoria, fecha, monto, tipo } = arr[0];
@@ -418,10 +345,12 @@ const editarOperacion = (arr) => {
 };
 
 const inicializar = () => {
-  const inputsFecha = document.querySelectorAll('input[type="date"]')
-  inputsFecha.forEach( input => {
-    input.valueAsDate = new Date()
-  })
+
+  const inputsFecha = document.querySelectorAll('input[type="date"]');
+  inputsFecha.forEach((input) => {
+    input.valueAsDate = new Date();
+  });
+
 
   // mostraroperaciones(operaciones);
   // generarCategorias();
@@ -430,12 +359,10 @@ const inicializar = () => {
   // generarCategorias();
   // pintarCategorias(categorias);
   // mostraroperaciones(operaciones);
-  // pintarObjetos(operaciones);
+  // pintarObjetos(operaciones)
 };
 
- window.onload = inicializar;
-
-
+window.onload = inicializar;
 
 //a cada editar operacion le agrego mostrar la pantalla
 btnsEditar.forEach((btn) => {
@@ -484,50 +411,48 @@ btnsEditar.forEach((btn) => {
   });
 });
 
-// BALANCE 
+// BALANCE
 
-const divGanancias = document.getElementById('div-ganancias');
-const divGastos = document.getElementById('div-gastos');
-const divtotal = document.getElementById('div-total');
+const divGanancias = document.getElementById("div-ganancias");
+const divGastos = document.getElementById("div-gastos");
+const divtotal = document.getElementById("div-total");
 
 const totalGanancias = (arr) => {
-  let str = 0 ;
-  arr.forEach(operaciones => {
-      if(operaciones.tipo === 'Ganancia'){
-        str += Number(operaciones.monto)
-      }
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Ganancia") {
+      str += Number(operaciones.monto);
+    }
   });
   divGanancias.innerHTML = `+$${str}`;
-  return str
+  return str;
 };
 
-totalGanancias(operaciones)
+totalGanancias(operaciones);
 
 const totalGastos = (arr) => {
-  let str = 0 ;
-  arr.forEach(operaciones => {
-      if(operaciones.tipo === 'Gasto'){
-        str += Number(operaciones.monto)
-      }
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Gasto") {
+      str += Number(operaciones.monto);
+    }
   });
   divGastos.innerHTML = `-$${str}`;
-  return str
+  return str;
 };
-totalGastos(operaciones)
+totalGastos(operaciones);
 
 const total = () => {
-  let str = 0 ;
-  str += (totalGanancias(operaciones) - totalGastos(operaciones))
-  divtotal.innerHTML = `<div class="${str > '0' ? 'text-success' : 'text-danger'}" >${str > '0' ? '+' : '-'}$${Math.abs(str)}</div>`
-  
+  let str = 0;
+  str += totalGanancias(operaciones) - totalGastos(operaciones);
+  divtotal.innerHTML = `<div class="${
+    str > "0" ? "text-success" : "text-danger"
+  }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
 };
 
-total()
-
-
+total();
 
 //FILTROS
-
 
 filtroXTipo.addEventListener("change", (e) => {
   if (e.target.value !== "Todos") {
@@ -554,15 +479,89 @@ filtroXCategoria.addEventListener("change", (e) => {
   }
 });
 
-// filtroXFecha.addEventListener("change", (e) => {
-//   // if(e.target.valueAsDate >= operaciones.fecha){
+filtroXFecha.addEventListener("change", (e) => {
+  const xFecha = operaciones.filter(
+    (operacion) => operacion.fecha >= e.target.value
+  );
+  console.log(xFecha);
+  localStorage.setItem("operaciones", JSON.stringify(xFecha));
+  pintarObjetos(xFecha);
+  pintarObjetos(operaciones);
+});
 
-//   // }
-//   const xFecha = operaciones.filter(
-//     (operacion) => operacion.fecha >= e.target.valueAsDate
-//   );
-// });
+const filtroOrden = () => {
+  let orden = ordenarX.value;
+  switch (orden) {
+    case "Más reciente":
+      const masReciente = operaciones.sort(
+        (a, b) => new Date(b.fecha) - new Date(a.fecha)
+      );
 
+      console.log(masReciente);
+      localStorage.setItem("operaciones", JSON.stringify(masReciente));
+      pintarObjetos(masReciente);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Menos reciente":
+      const menosReciente = operaciones.sort(
+        (a, b) => new Date(a.fecha) - new Date(b.fecha)
+      );
+
+      localStorage.setItem("operaciones", JSON.stringify(menosReciente));
+      pintarObjetos(menosReciente);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Mayor monto":
+      const mayorMonto = operaciones.sort(
+        (a, b) => Number(b.monto) - Number(a.monto)
+      );
+
+      localStorage.setItem("operaciones", JSON.stringify(mayorMonto));
+      pintarObjetos(mayorMonto);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Menor monto":
+      const menorMonto = operaciones.sort(
+        (a, b) => Number(a.monto) - Number(b.monto)
+      );
+
+      localStorage.setItem("operaciones", JSON.stringify(menorMonto));
+      pintarObjetos(menorMonto);
+      pintarObjetos(operaciones);
+      break;
+
+    case "A/Z":
+      const alfabeticaAZ = operaciones.sort((a, b) => {
+        return a.descripcion.localeCompare(b.descripcion, {
+          ignorePunctuation: true,
+        });
+      });
+
+      localStorage.setItem("operaciones", JSON.stringify(alfabeticaAZ));
+      pintarObjetos(alfabeticaAZ);
+      pintarObjetos(operaciones);
+      break;
+
+    case "Z/A":
+      const alfabeticaZA = operaciones
+        .sort((a, b) => {
+          return a.descripcion.localeCompare(b.descripcion, {
+            ignorePunctuation: true,
+          });
+        })
+        .reverse();
+
+      localStorage.setItem("operaciones", JSON.stringify(alfabeticaZA));
+      pintarObjetos(alfabeticaZA);
+      pintarObjetos(operaciones);
+      break;
+  }
+};
+
+ordenarX.addEventListener("change", filtroOrden);
 
 
 // REPORTES 
@@ -578,6 +577,5 @@ const mostrarReportes = (arr) => {
 };
 
 mostrarReportes(operaciones)
-
 
 
