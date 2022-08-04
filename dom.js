@@ -7,7 +7,7 @@ const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
-
+const vistaPrincipal = document.getElementById('titulo-principal');
 const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn +Nueva Operación de la section vista balance
 const btnCategorias = document.getElementById("btn-categorias"); //Btn Categorias del header
 const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
@@ -55,6 +55,15 @@ btnBalance.addEventListener("click", () => {
   cardEditarCategoria.classList.add("d-none");
 });
 
+vistaPrincipal.addEventListener('click', () => {
+  vistaBalance.classList.remove("d-none");
+  nuevaOperacion.classList.add("d-none");
+  vistaCategorias.classList.add("d-none");
+  vistaReportes.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
+  cardEditarCategoria.classList.add("d-none");
+})
+
 btnCategorias.addEventListener("click", () => {
   vistaCategorias.classList.remove("d-none");
   vistaBalance.classList.add("d-none");
@@ -86,7 +95,9 @@ const categorias = JSON.parse(localStorage.getItem("categorias")) || [
   "Trabajo",
 ];
 
+
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
+
 
 //me llevo todos los select con label categorias
 const selects = document.getElementsByClassName("categorias-select");
@@ -334,10 +345,21 @@ const editarOperacion = (arr) => {
 };
 
 const inicializar = () => {
+
   const inputsFecha = document.querySelectorAll('input[type="date"]');
   inputsFecha.forEach((input) => {
     input.valueAsDate = new Date();
   });
+
+
+  // mostraroperaciones(operaciones);
+  // generarCategorias();
+  // pintarOperaciones(operaciones);
+  // generarFechaActualValue();
+  // generarCategorias();
+  // pintarCategorias(categorias);
+  // mostraroperaciones(operaciones);
+  // pintarObjetos(operaciones)
 };
 
 window.onload = inicializar;
@@ -541,5 +563,19 @@ const filtroOrden = () => {
 
 ordenarX.addEventListener("change", filtroOrden);
 
-//-----------------------//REPORTES//---------------------//
-const divConReportes = document.getElementById("con-reportes");
+
+// REPORTES 
+
+const mostrarReportes = (arr) => {
+  if(arr.length){
+    document.getElementById("sin-reportes").classList.add("d-none");
+    document.getElementById("con-reportes").classList.remove("d-none");
+  } else {
+    document.getElementById("sin-reportes").classList.remove("d-none");
+    document.getElementById("con-reportes").classList.add("d-none");
+  }
+};
+
+mostrarReportes(operaciones)
+
+
