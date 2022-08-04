@@ -7,7 +7,7 @@ const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
-
+const vistaPrincipal = document.getElementById('titulo-principal');
 const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn +Nueva Operación de la section vista balance
 const btnCategorias = document.getElementById("btn-categorias"); //Btn Categorias del header
 const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
@@ -54,6 +54,15 @@ btnBalance.addEventListener("click", () => {
   vistaEditarOperacion.classList.add("d-none");
   cardEditarCategoria.classList.add("d-none");
 });
+
+vistaPrincipal.addEventListener('click', () => {
+  vistaBalance.classList.remove("d-none");
+  nuevaOperacion.classList.add("d-none");
+  vistaCategorias.classList.add("d-none");
+  vistaReportes.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
+  cardEditarCategoria.classList.add("d-none");
+})
 
 btnCategorias.addEventListener("click", () => {
   vistaCategorias.classList.remove("d-none");
