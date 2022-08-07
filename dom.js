@@ -86,25 +86,44 @@ btnReportes.addEventListener("click", () => {
 
 // Función agregar categorias-select
 
-const categorias = JSON.parse(localStorage.getItem("categorias")) || [
-  "Servicios",
-  "Comida",
-  "Salidas",
-  "Transporte",
-  "Educación",
-  "Trabajo",
+let categorias = JSON.parse(localStorage.getItem('categorias')) || [
+  {
+  id:uuidv4(),
+  nombre: 'Servicios' 
+  },
+  {
+    id:uuidv4(),
+    nombre:'Comida'
+  },
+  {
+    id:uuidv4(),
+    nombre: 'Salidas' 
+  },
+  {
+    id:uuidv4(),
+    nombre: 'Transporte'
+  },
+  {
+    id:uuidv4(),
+    nombre:  'Educación' 
+  },
+  {
+    id:uuidv4(),
+    nombre:   'Trabajo'
+  }  
 ];
 
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 
 //me llevo todos los select con label categorias
-const selects = document.getElementsByClassName("categorias-select");
+const selects = document.querySelectorAll(".categorias-select");
 
 //funcion para crear las opciones de los select en base al array "categorias"
 const generarCategorias = () => {
   //por cada select : tres en total
+    let select = '';
   for (let i = 0; i < selects.length; i++) {
-    const select = selects[i];
+     select = selects[i];
     //me fijo si el select que esta pasando por el FOR contiene esta clase
     //para agregarle la opcion "TODAS"
     //si no es, que siga de largo. no hace nada.
@@ -118,7 +137,7 @@ const generarCategorias = () => {
     for (let j = 0; j < categorias.length; j++) {
       select.innerHTML =
         select.innerHTML +
-        `<option value=${categorias[j]}>${categorias[j]}</option>`;
+        `<option value=${categorias[j].nombre}>${categorias[j].nombre}</option>`;
     }
   }
 };
@@ -138,23 +157,10 @@ btnAgregarCategorias.addEventListener("click", () => {
 
 // FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELECTS
 
-const inputAgregarCategorias = document.getElementById(
-  "agregar-categoria-input"
-);
+const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
 
 const agregarCategorias = () => {
-  categorias.push(inputAgregarCategorias.value);
-
-  const vaciarselects = () => {
-    for (let i = 0; i < selects.length; i++) {
-      const select = selects[i];
-
-      for (let j = 0; j < categorias.length; j++) {
-        select.innerHTML = "";
-      }
-    }
-  };
-  vaciarselects();
+  categorias.push({id:uuidv4(),nombre:inputAgregarCategorias.value} );
   generarCategorias();
   localStorage.setItem("categorias", JSON.stringify(categorias));
 };
@@ -172,13 +178,12 @@ const pintarCategorias = (arr) => {
   arr.forEach((categoria) => {
     str += `<div class="row margen-filas">
     <div class="col-8">
-      <span class="nombres-categorias">${categoria}</span>
+      <span class="nombres-categorias">${categoria.nombre}</span>
     </div>
     <div class="col-4 contenedor">
-      <a class="link-categoria margen-derecho editar-btn"
-        href=""
-        >Editar</a>
-      <a class="link-categoria" href="">Eliminar</a>
+      <a class="link-categoria margen-derecho btn-editar-categorias"
+        href="#"  data-id="${categoria.id}">Editar</a>
+      <a class="link-categoria btn-eliminar-categorias" href="" data-id="${categoria.id}">Eliminar</a>
       </div>
     </div>`;
   });
@@ -186,6 +191,88 @@ const pintarCategorias = (arr) => {
 };
 
 pintarCategorias(categorias); //************************************************/
+
+//  FUNCION BTN ELIMINAR CATEGORIAS 
+
+const btnEliminarCategorias = document.querySelectorAll('.btn-eliminar-categorias');
+const btnEditarCategorias = document.querySelectorAll('.btn-editar-categorias');
+
+
+const eliminarCategoria = (arr, e) => {
+const eliminado = arr.filter((categoria) => categoria.id !== e.target.dataset.id);
+  arrActualizado(eliminado)
+};
+
+const arrActualizado = (arr) => {
+  localStorage.setItem('categorias',JSON.stringify(arr));
+  categorias = JSON.parse(localStorage.getItem('categorias'));
+  pintarCategorias(categorias)
+};
+
+btnEliminarCategorias.forEach((btn) => {
+  btn.addEventListener('click', (e) => {
+    e.preventDefault()
+    eliminarCategoria(categorias,e)
+  })
+})
+
+
+//  FUNCION BTN EDITAR CATEGORIAS 
+
+const inputEditarCategoria = document.getElementById('editar-nombre-categoria');
+const btnEditarCategoria = document.getElementById('btn-editar-categoria');
+const btnCancelarCategoria = document.getElementById('btn-cancelar-categoria');
+
+const VistaEditarCategoria = () => {
+  cardEditarCategoria.classList.remove('d-none');
+  vistaCategorias.classList.add("d-none");
+};
+
+btnCancelarCategoria.addEventListener('click', () => {
+  cardEditarCategoria.classList.add('d-none');
+  vistaCategorias.classList.remove("d-none");
+});
+
+
+btnEditarCategorias.forEach((btn) => {
+  btn.addEventListener('click', e => {
+    e.preventDefault()
+    VistaEditarCategoria()
+ 
+  let categoriaAEditar = categorias.filter((categoria) => categoria.id === e.target.dataset.id)
+  categoriaAEditar.forEach((categoria) => {
+    inputEditarCategoria.value = categoria.nombre
+  })
+  pos = categorias.indexOf(categoriaAEditar[0]);
+
+  const arrSinCategoria = categorias.filter((categoria) => categoria.id !== e.target.dataset.id)
+
+  const borrar = () => {
+    localStorage.setItem('categorias', JSON.stringify(arrSinCategoria));
+    categorias = JSON.parse(localStorage.getItem("categorias"));
+    pintarCategorias(categorias)
+  };
+
+  btnEditarCategoria.addEventListener('click', () => {
+    borrar(categorias)
+  })
+
+  const agregar = () => {
+    //categorias.push({id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value })
+    categorias.splice(pos, 0, {id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value });
+    localStorage.setItem('categorias', JSON.stringify(categorias))
+    pintarCategorias(categorias)
+  };
+ 
+  btnEditarCategoria.addEventListener('click', () => {
+    agregar();
+    cardEditarCategoria.classList.add('d-none');
+    vistaCategorias.classList.remove("d-none");
+  })
+
+})
+});
+
 
 // ***********************************************
 //                 OPERACIONES
