@@ -183,7 +183,7 @@ const pintarCategorias = (arr) => {
     <div class="col-4 contenedor">
       <a class="link-categoria margen-derecho btn-editar-categorias"
         href="#"  data-id="${categoria.id}">Editar</a>
-      <a class="link-categoria btn-eliminar-categorias" href="" data-id="${categoria.id}">Eliminar</a>
+      <a class="link-categoria btn-eliminar-categorias" href="#" data-id="${categoria.id}">Eliminar</a>
       </div>
     </div>`;
   });
@@ -337,6 +337,7 @@ const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 
 // Funcion para pintar objetos de las operacion en el HTML
 const pintarObjetos = (arr) => {
+  console.log(arr)
   const conOperaciones = document.getElementById("operaciones");
 
   let str = "";
@@ -362,8 +363,8 @@ const pintarObjetos = (arr) => {
       </div>
       <div class="col-md-2 col-sm-6 text-wrap text-end">
         <p>
-          <a id="" href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
-          <a id="" href="" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
+          <a  href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
+          <a href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
         </p>
       </div> 
     </div>
@@ -371,6 +372,85 @@ const pintarObjetos = (arr) => {
   });
 
   conOperaciones.innerHTML = str;
+  const btnsEditar = document.querySelectorAll(".btn-edita-op");
+
+  btnsEditar.forEach((btn) => {
+    console.log(btnsEditar)
+    btn.addEventListener("click", (e) => {
+      let editoOperacion = operaciones.filter(
+        (operacion) => operacion.id === e.target.dataset.id
+      );
+      ///////////////////
+      pos = operaciones.indexOf(editoOperacion[0]);
+      console.log(editoOperacion);
+  
+      editarOperacion(editoOperacion);
+  
+      const arrSinOperacion2 = operaciones.filter(
+        (operacion) => operacion.id !== e.target.dataset.id
+      );
+  
+      const borrar = () => {
+        localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
+        operaciones = JSON.parse(localStorage.getItem("operaciones"));
+        pintarObjetos(operaciones);
+        mostrarOperaciones(operaciones);
+      };
+  
+      //borrar objeto
+      // btnEditaOp.addEventListener("click", () => {
+        // console.log(editoOperacion[0].id);
+  
+      // });
+  // 
+      //definicion funcion para agregar objeto
+      const agregarOperacion = () => {
+        // console.log('editar')
+        // const filtrado = operaciones.filter()
+        // objOperaciones2 = {
+        //   id: editoOperacion[0].id,
+        //   descripcion: editarDescripcionOpInput.value,
+        //   monto: editarMontoOpInput.value,
+        //   tipo: editarTipoOpInput.value,
+        //   categoria: editarCategoriaOpInput.value,
+        //   fecha: editaFechaOpInput.value,
+        // };
+  
+        //operaciones.push(objOperaciones2);
+        ///////////////////
+        // operaciones.splice(pos, 0, objOperaciones2);
+  
+        // localStorage.setItem("operaciones", JSON.stringify(operaciones));
+        // pintarObjetos(operaciones);
+      };
+  
+      //agregar objeto
+      btnEditaOp.addEventListener("click", () => {
+        // agregarOperacion();
+        const filtrar = operaciones.filter(operacion => operacion.id === editoOperacion[0].id)
+        const filtrado = filtrar[0]
+        filtrado.descripcion = editarDescripcionOpInput.value,
+        filtrado.id = editoOperacion[0].id
+        filtrado.monto = editarMontoOpInput.value
+        filtrado.tipo = editarTipoOpInput.value
+        filtrado.categoria = editarCategoriaOpInput.value
+        filtrado.fecha = editaFechaOpInput.value
+        console.log(
+          operaciones[0].id === editoOperacion[0].id
+  
+        )
+        const nuevas = operaciones.map((operacion) =>
+        operacion.id === editoOperacion[0].id
+        ? filtrado
+        : operacion
+        )
+        localStorage.setItem('operaciones', JSON.stringify(nuevas));
+        const operacionesEditadas = JSON.parse(localStorage.getItem('operaciones'))
+        pintarObjetos(operacionesEditadas)
+  
+      });
+    });
+  });
 };
 
 pintarObjetos(operaciones); //************************************************/
@@ -417,6 +497,7 @@ btnCancelaOpEditada.addEventListener("click", () => {
 });
 
 const editarOperacion = (arr) => {
+  if(arr.length == 0) return
   const { descripcion, categoria, fecha, monto, tipo } = arr[0];
 
   vistaBalance.classList.add("d-none");
@@ -427,6 +508,7 @@ const editarOperacion = (arr) => {
   editarTipoOpInput.value = tipo;
   editarCategoriaOpInput.value = categoria;
   editaFechaOpInput.valueAsDate = new Date(fecha);
+ 
 };
 
 const inicializar = () => {
@@ -439,58 +521,7 @@ const inicializar = () => {
 window.onload = inicializar;
 
 //a cada editar operacion le agrego mostrar la pantalla
-btnsEditar.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    let editoOperacion = operaciones.filter(
-      (operacion) => operacion.id === e.target.dataset.id
-    );
-    ///////////////////
-    pos = operaciones.indexOf(editoOperacion[0]);
-    console.log(pos);
 
-    editarOperacion(editoOperacion);
-
-    const arrSinOperacion2 = operaciones.filter(
-      (operacion) => operacion.id !== e.target.dataset.id
-    );
-
-    const borrar = () => {
-      localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
-      operaciones = JSON.parse(localStorage.getItem("operaciones"));
-      pintarObjetos(operaciones);
-      mostrarOperaciones(operaciones);
-    };
-
-    //borrar objeto
-    btnEditaOp.addEventListener("click", () => {
-      borrar(operaciones);
-    });
-
-    //definicion funcion para agregar objeto
-    const agregar = () => {
-      objOperaciones2 = {
-        id: editoOperacion[0].id,
-        descripcion: editarDescripcionOpInput.value,
-        monto: editarMontoOpInput.value,
-        tipo: editarTipoOpInput.value,
-        categoria: editarCategoriaOpInput.value,
-        fecha: editaFechaOpInput.value,
-      };
-
-      //operaciones.push(objOperaciones2);
-      ///////////////////
-      operaciones.splice(pos, 0, objOperaciones2);
-
-      localStorage.setItem("operaciones", JSON.stringify(operaciones));
-      pintarObjetos(operaciones);
-    };
-
-    //agregar objeto
-    btnEditaOp.addEventListener("click", () => {
-      agregar();
-    });
-  });
-});
 
 // BALANCE
 
