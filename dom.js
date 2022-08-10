@@ -3,7 +3,6 @@
 const vistaBalance = document.getElementById("vista-balance"); //Section vista balance
 const nuevaOperacion = document.getElementById("nueva-operacion"); //Section Nueva Operación
 const vistaCategorias = document.getElementById("categorias"); // Section Categorías
-const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
@@ -12,7 +11,12 @@ const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn 
 const btnCategorias = document.getElementById("btn-categorias"); //Btn Categorias del header
 const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); //Btn "cancel" de la section Nueva Operacion
+
+//Elementos Reportes
+const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
+const divSinReportes = document.getElementById("sin-reportes");
+const divConReportes = document.getElementById("con-reportes");
 
 //Imputs Editar Operación
 
@@ -78,6 +82,17 @@ btnReportes.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
+
+  if (!operaciones.length) {
+    divConReportes.classList.add("d-none");
+    divSinReportes.classList.remove("d-none");
+  } else {
+    divConReportes.classList.remove("d-none");
+    divSinReportes.classList.add("d-none");
+  }
+  // totalesPorMes(operaciones);
+  ///NAHUE cambiar "categorias" por "categoriasSinRepetir"
+  totalesPorCategoria(operaciones, categoriasSinRepetir);
 });
 
 // ***********************************************
@@ -86,31 +101,31 @@ btnReportes.addEventListener("click", () => {
 
 // Función agregar categorias-select
 
-let categorias = JSON.parse(localStorage.getItem('categorias')) || [
+let categorias = JSON.parse(localStorage.getItem("categorias")) || [
   {
-  id:uuidv4(),
-  nombre: 'Servicios' 
+    id: uuidv4(),
+    nombre: "Servicios",
   },
   {
-    id:uuidv4(),
-    nombre:'Comida'
+    id: uuidv4(),
+    nombre: "Comida",
   },
   {
-    id:uuidv4(),
-    nombre: 'Salidas' 
+    id: uuidv4(),
+    nombre: "Salidas",
   },
   {
-    id:uuidv4(),
-    nombre: 'Transporte'
+    id: uuidv4(),
+    nombre: "Transporte",
   },
   {
-    id:uuidv4(),
-    nombre:  'Educación' 
+    id: uuidv4(),
+    nombre: "Educación",
   },
   {
-    id:uuidv4(),
-    nombre:   'Trabajo'
-  }  
+    id: uuidv4(),
+    nombre: "Trabajo",
+  },
 ];
 
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
@@ -121,9 +136,9 @@ const selects = document.querySelectorAll(".categorias-select");
 //funcion para crear las opciones de los select en base al array "categorias"
 const generarCategorias = () => {
   //por cada select : tres en total
-    let select = '';
+  let select = "";
   for (let i = 0; i < selects.length; i++) {
-     select = selects[i];
+    select = selects[i];
     //me fijo si el select que esta pasando por el FOR contiene esta clase
     //para agregarle la opcion "TODAS"
     //si no es, que siga de largo. no hace nada.
@@ -157,10 +172,12 @@ btnAgregarCategorias.addEventListener("click", () => {
 
 // FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELECTS
 
-const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
+const inputAgregarCategorias = document.getElementById(
+  "agregar-categoria-input"
+);
 
 const agregarCategorias = () => {
-  categorias.push({id:uuidv4(),nombre:inputAgregarCategorias.value} );
+  categorias.push({ id: uuidv4(), nombre: inputAgregarCategorias.value });
   generarCategorias();
   localStorage.setItem("categorias", JSON.stringify(categorias));
 };
@@ -192,87 +209,93 @@ const pintarCategorias = (arr) => {
 
 pintarCategorias(categorias); //************************************************/
 
-//  FUNCION BTN ELIMINAR CATEGORIAS 
+//  FUNCION BTN ELIMINAR CATEGORIAS
 
-const btnEliminarCategorias = document.querySelectorAll('.btn-eliminar-categorias');
-const btnEditarCategorias = document.querySelectorAll('.btn-editar-categorias');
-
+const btnEliminarCategorias = document.querySelectorAll(
+  ".btn-eliminar-categorias"
+);
+const btnEditarCategorias = document.querySelectorAll(".btn-editar-categorias");
 
 const eliminarCategoria = (arr, e) => {
-const eliminado = arr.filter((categoria) => categoria.id !== e.target.dataset.id);
-  arrActualizado(eliminado)
+  const eliminado = arr.filter(
+    (categoria) => categoria.id !== e.target.dataset.id
+  );
+  arrActualizado(eliminado);
 };
 
 const arrActualizado = (arr) => {
-  localStorage.setItem('categorias',JSON.stringify(arr));
-  categorias = JSON.parse(localStorage.getItem('categorias'));
-  pintarCategorias(categorias)
+  localStorage.setItem("categorias", JSON.stringify(arr));
+  categorias = JSON.parse(localStorage.getItem("categorias"));
+  pintarCategorias(categorias);
 };
 
 btnEliminarCategorias.forEach((btn) => {
-  btn.addEventListener('click', (e) => {
-    e.preventDefault()
-    eliminarCategoria(categorias,e)
-  })
-})
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    eliminarCategoria(categorias, e);
+  });
+});
 
+//  FUNCION BTN EDITAR CATEGORIAS
 
-//  FUNCION BTN EDITAR CATEGORIAS 
-
-const inputEditarCategoria = document.getElementById('editar-nombre-categoria');
-const btnEditarCategoria = document.getElementById('btn-editar-categoria');
-const btnCancelarCategoria = document.getElementById('btn-cancelar-categoria');
+const inputEditarCategoria = document.getElementById("editar-nombre-categoria");
+const btnEditarCategoria = document.getElementById("btn-editar-categoria");
+const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 
 const VistaEditarCategoria = () => {
-  cardEditarCategoria.classList.remove('d-none');
+  cardEditarCategoria.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
 };
 
-btnCancelarCategoria.addEventListener('click', () => {
-  cardEditarCategoria.classList.add('d-none');
+btnCancelarCategoria.addEventListener("click", () => {
+  cardEditarCategoria.classList.add("d-none");
   vistaCategorias.classList.remove("d-none");
 });
 
-
 btnEditarCategorias.forEach((btn) => {
-  btn.addEventListener('click', e => {
-    e.preventDefault()
-    VistaEditarCategoria()
- 
-  let categoriaAEditar = categorias.filter((categoria) => categoria.id === e.target.dataset.id)
-  categoriaAEditar.forEach((categoria) => {
-    inputEditarCategoria.value = categoria.nombre
-  })
-  pos = categorias.indexOf(categoriaAEditar[0]);
+  btn.addEventListener("click", (e) => {
+    e.preventDefault();
+    VistaEditarCategoria();
 
-  const arrSinCategoria = categorias.filter((categoria) => categoria.id !== e.target.dataset.id)
+    let categoriaAEditar = categorias.filter(
+      (categoria) => categoria.id === e.target.dataset.id
+    );
+    categoriaAEditar.forEach((categoria) => {
+      inputEditarCategoria.value = categoria.nombre;
+    });
+    pos = categorias.indexOf(categoriaAEditar[0]);
 
-  const borrar = () => {
-    localStorage.setItem('categorias', JSON.stringify(arrSinCategoria));
-    categorias = JSON.parse(localStorage.getItem("categorias"));
-    pintarCategorias(categorias)
-  };
+    const arrSinCategoria = categorias.filter(
+      (categoria) => categoria.id !== e.target.dataset.id
+    );
 
-  btnEditarCategoria.addEventListener('click', () => {
-    borrar(categorias)
-  })
+    const borrar = () => {
+      localStorage.setItem("categorias", JSON.stringify(arrSinCategoria));
+      categorias = JSON.parse(localStorage.getItem("categorias"));
+      pintarCategorias(categorias);
+    };
 
-  const agregar = () => {
-    //categorias.push({id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value })
-    categorias.splice(pos, 0, {id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value });
-    localStorage.setItem('categorias', JSON.stringify(categorias))
-    pintarCategorias(categorias)
-  };
- 
-  btnEditarCategoria.addEventListener('click', () => {
-    agregar();
-    cardEditarCategoria.classList.add('d-none');
-    vistaCategorias.classList.remove("d-none");
-  })
+    btnEditarCategoria.addEventListener("click", () => {
+      borrar(categorias);
+    });
 
-})
+    const agregar = () => {
+      //categorias.push({id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value })
+      categorias.splice(pos, 0, {
+        id: categoriaAEditar[0].id,
+        nombre: inputEditarCategoria.value,
+      });
+      localStorage.setItem("categorias", JSON.stringify(categorias));
+      pintarCategorias(categorias);
+    };
+
+    btnEditarCategoria.addEventListener("click", () => {
+      agregar();
+      cardEditarCategoria.classList.add("d-none");
+      vistaCategorias.classList.remove("d-none");
+    });
+  });
 });
-
 
 // ***********************************************
 //                 OPERACIONES
@@ -446,7 +469,6 @@ btnsEditar.forEach((btn) => {
     );
     ///////////////////
     pos = operaciones.indexOf(editoOperacion[0]);
-    console.log(pos);
 
     editarOperacion(editoOperacion);
 
@@ -467,7 +489,7 @@ btnsEditar.forEach((btn) => {
     });
 
     //definicion funcion para agregar objeto
-    const agregar = () => {
+    const agregarObjeto = () => {
       objOperaciones2 = {
         id: editoOperacion[0].id,
         descripcion: editarDescripcionOpInput.value,
@@ -487,7 +509,7 @@ btnsEditar.forEach((btn) => {
 
     //agregar objeto
     btnEditaOp.addEventListener("click", () => {
-      agregar();
+      agregarObjeto();
     });
   });
 });
@@ -645,86 +667,50 @@ ordenarX.addEventListener("change", filtroOrden);
 
 // REPORTES
 
-const mostrarReportes = (arr) => {
-  if (arr.length) {
-    document.getElementById("sin-reportes").classList.add("d-none");
-    document.getElementById("con-reportes").classList.remove("d-none");
-  } else {
-    document.getElementById("sin-reportes").classList.remove("d-none");
-    document.getElementById("con-reportes").classList.add("d-none");
-  }
+const categoriasSinRepetir = [
+  ...new Set(operaciones.map((operacion) => operacion.categoria)),
+];
+
+const totalesPorCategoria = (operaciones, categorias) => {
+  let str2 = "";
+  categorias.forEach((categoria) => {
+    const porCategoria = operaciones.filter(
+      (operacion) => operacion.categoria === categoria
+    );
+    const gananciasTotalesPorCategoria = porCategoria
+      .filter((operacion) => operacion.tipo === "Ganancia")
+      .reduce((count, current) => count + Number(current.monto), 0);
+    const gastosTotalesPorCategoria = porCategoria
+      .filter((operacion) => operacion.tipo === "Gasto")
+      .reduce((count, current) => count + Number(current.monto), 0);
+
+    const balanceCategoria =
+      gananciasTotalesPorCategoria - gastosTotalesPorCategoria;
+
+    const reporteCategorias = document.getElementById("reportes-por-categoria");
+
+    console.log(porCategoria, "q mande?");
+
+    str2 += `
+      <div class="row margen-superior">
+      <div class="col fw-semibold">
+       ${categoria}
+      </div>
+      <div class="col fw-semibold text-end text-success">
+        +${gananciasTotalesPorCategoria}
+      </div>
+      <div class="col fw-semibold text-end text-danger">
+        -${gastosTotalesPorCategoria}
+      </div>
+      <div class="col fw-semibold text-end  ${
+        balanceCategoria > 0 ? "text-success" : "text-danger"
+      }">
+      ${balanceCategoria > 0 ? "+" : ""}$ ${balanceCategoria}
+       
+      </div>
+    </div>
+    `;
+
+    reporteCategorias.innerHTML = str2;
+  });
 };
-
-mostrarReportes(operaciones);
-console.log(operaciones);
-
-//TOTALES POR CATEGORIA
-// const operCategorias = operaciones.filter(
-//   (operacion) => operacion.categoria
-//   // (operacion) => operacion == operacion.categoria
-// );
-// console.log(operCategorias);
-// const pintarReportes = (arr) => {
-//   const reporteCategorias = document.getElementById("reportes-por-categoria");
-
-//   let str = "";
-//   mostrarReportes(operaciones);
-//   arr.forEach((operacion) => {
-//     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
-
-//     str += `
-//     <div class="row margen-superior">
-//     <div class="col fw-semibold">
-//      ${categoria}
-//     </div>
-//     <div class="col fw-semibold text-end text-success">
-//       +$0
-//     </div>
-//     <div class="col fw-semibold text-end text-danger">
-//       -$7020
-//     </div>
-//     <div class="col fw-semibold text-end">
-//       $-7020
-//     </div>
-//   </div>
-//   `;
-//   });
-
-//   reporteCategorias.innerHTML = str;
-// };
-
-// pintarObjetos(operaciones);
-// const totalGanancias = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Ganancia") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGanancias.innerHTML = `+$${str}`;
-//   return str;
-// };
-
-// totalGanancias(operaciones);
-
-// const totalGastos = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Gasto") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGastos.innerHTML = `-$${str}`;
-//   return str;
-// };
-// totalGastos(operaciones);
-
-// const total = () => {
-//   let str = 0;
-//   str += totalGanancias(operaciones) - totalGastos(operaciones);
-//   divtotal.innerHTML = `<div class="${
-//     str > "0" ? "text-success" : "text-danger"
-//   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
-// };
-
-// total();
