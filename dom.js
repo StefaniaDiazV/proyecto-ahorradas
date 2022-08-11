@@ -183,7 +183,7 @@ const pintarCategorias = (arr) => {
     <div class="col-4 contenedor">
       <a class="link-categoria margen-derecho btn-editar-categorias"
         href="#"  data-id="${categoria.id}">Editar</a>
-      <a class="link-categoria btn-eliminar-categorias" href="" data-id="${categoria.id}">Eliminar</a>
+      <a class="link-categoria btn-eliminar-categorias" href="#" data-id="${categoria.id}">Eliminar</a>
       </div>
     </div>`;
   });
@@ -362,8 +362,8 @@ const pintarObjetos = (arr) => {
       </div>
       <div class="col-md-2 col-sm-6 text-wrap text-end">
         <p>
-          <a id="" href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
-          <a id="" href="" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
+          <a  href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
+          <a  href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
         </p>
       </div> 
     </div>
@@ -417,6 +417,7 @@ btnCancelaOpEditada.addEventListener("click", () => {
 });
 
 const editarOperacion = (arr) => {
+  if(arr.length == 0) return
   const { descripcion, categoria, fecha, monto, tipo } = arr[0];
 
   vistaBalance.classList.add("d-none");
@@ -434,63 +435,84 @@ const inicializar = () => {
   inputsFecha.forEach((input) => {
     input.valueAsDate = new Date();
   });
+  totalGanancias(operaciones);
+  totalGastos(operaciones);
+  total();
+
 };
 
 window.onload = inicializar;
 
 //a cada editar operacion le agrego mostrar la pantalla
 btnsEditar.forEach((btn) => {
+  console.log(btn)
   btn.addEventListener("click", (e) => {
-    let editoOperacion = operaciones.filter(
+    editoOperacion = operaciones.filter(
       (operacion) => operacion.id === e.target.dataset.id
     );
     ///////////////////
-    pos = operaciones.indexOf(editoOperacion[0]);
-    console.log(pos);
+    // pos = operaciones.indexOf(editoOperacion[0]);
+    // console.log(pos);
 
     editarOperacion(editoOperacion);
 
-    const arrSinOperacion2 = operaciones.filter(
-      (operacion) => operacion.id !== e.target.dataset.id
-    );
+    // const arrSinOperacion2 = operaciones.filter(
+    //   (operacion) => operacion.id !== e.target.dataset.id
+    // );
 
-    const borrar = () => {
-      localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
-      operaciones = JSON.parse(localStorage.getItem("operaciones"));
-      pintarObjetos(operaciones);
-      mostrarOperaciones(operaciones);
-    };
+    // const borrar = () => {
+    //   localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
+    //   operaciones = JSON.parse(localStorage.getItem("operaciones"));
+    //   pintarObjetos(operaciones);
+    //   mostrarOperaciones(operaciones);
+    // };
 
-    //borrar objeto
-    btnEditaOp.addEventListener("click", () => {
-      borrar(operaciones);
-    });
+    // //borrar objeto
+    // btnEditaOp.addEventListener("click", () => {
+    //   borrar(operaciones);
+    // });
 
     //definicion funcion para agregar objeto
-    const agregar = () => {
-      objOperaciones2 = {
-        id: editoOperacion[0].id,
-        descripcion: editarDescripcionOpInput.value,
-        monto: editarMontoOpInput.value,
-        tipo: editarTipoOpInput.value,
-        categoria: editarCategoriaOpInput.value,
-        fecha: editaFechaOpInput.value,
-      };
+    // const agregar = () => {
+    //   objOperaciones2 = {
+    //     id: editoOperacion[0].id,
+    //     descripcion: editarDescripcionOpInput.value,
+    //     monto: editarMontoOpInput.value,
+    //     tipo: editarTipoOpInput.value,
+    //     categoria: editarCategoriaOpInput.value,
+    //     fecha: editaFechaOpInput.value,
+    //   };
 
-      //operaciones.push(objOperaciones2);
-      ///////////////////
-      operaciones.splice(pos, 0, objOperaciones2);
+    //   //operaciones.push(objOperaciones2);
+    //   ///////////////////
+    //   operaciones.splice(pos, 0, objOperaciones2);
 
-      localStorage.setItem("operaciones", JSON.stringify(operaciones));
-      pintarObjetos(operaciones);
-    };
+    //   localStorage.setItem("operaciones", JSON.stringify(operaciones));
+    //   pintarObjetos(operaciones);
+    // };
 
     //agregar objeto
-    btnEditaOp.addEventListener("click", () => {
-      agregar();
-    });
+
   });
 });
+
+// btnEditaOp.addEventListener("click", () => {
+//   const filtrar = operaciones.filter(operacion => operacion.id === editoOperacion[0].id);
+//   const filtrado = filtrar[0]
+//   filtrado.descripcion = editarDescripcionOpInput.value,
+//   filtrado.id = editoOperacion[0].id
+//   filtrado.monto = editarMontoOpInput.value
+//   filtrado.tipo = editarTipoOpInput.value
+//   filtrado.categoria = editarCategoriaOpInput.value
+//   filtrado.fecha = editaFechaOpInput.value
+
+//   const nuevas = operaciones.map((operacion) =>
+//   operacion.id === editoOperacion[0].id ? filtrado : operacion)
+//   localStorage.setItem('operaciones', JSON.stringify(nuevas));
+//   const operacionesEditadas = JSON.parse(localStorage.getItem('operaciones'))
+//   pintarObjetos(operacionesEditadas)      
+// });
+
 
 // BALANCE
 
@@ -509,7 +531,7 @@ const totalGanancias = (arr) => {
   return str;
 };
 
-totalGanancias(operaciones);
+//totalGanancias(operaciones);
 
 const totalGastos = (arr) => {
   let str = 0;
@@ -521,7 +543,7 @@ const totalGastos = (arr) => {
   divGastos.innerHTML = `-$${str}`;
   return str;
 };
-totalGastos(operaciones);
+//totalGastos(operaciones);
 
 const total = () => {
   let str = 0;
@@ -531,7 +553,7 @@ const total = () => {
   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
 };
 
-total();
+//total();
 
 //FILTROS
 
@@ -656,75 +678,90 @@ const mostrarReportes = (arr) => {
 };
 
 mostrarReportes(operaciones);
-console.log(operaciones);
 
-//TOTALES POR CATEGORIA
-// const operCategorias = operaciones.filter(
-//   (operacion) => operacion.categoria
-//   // (operacion) => operacion == operacion.categoria
-// );
-// console.log(operCategorias);
-// const pintarReportes = (arr) => {
-//   const reporteCategorias = document.getElementById("reportes-por-categoria");
 
-//   let str = "";
-//   mostrarReportes(operaciones);
-//   arr.forEach((operacion) => {
-//     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
 
-//     str += `
-//     <div class="row margen-superior">
-//     <div class="col fw-semibold">
-//      ${categoria}
-//     </div>
-//     <div class="col fw-semibold text-end text-success">
-//       +$0
-//     </div>
-//     <div class="col fw-semibold text-end text-danger">
-//       -$7020
-//     </div>
-//     <div class="col fw-semibold text-end">
-//       $-7020
-//     </div>
-//   </div>
-//   `;
-//   });
 
-//   reporteCategorias.innerHTML = str;
-// };
 
-// pintarObjetos(operaciones);
-// const totalGanancias = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Ganancia") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGanancias.innerHTML = `+$${str}`;
-//   return str;
-// };
+//TOTALES POR MES
 
-// totalGanancias(operaciones);
+const totalPorMes = (arr) => {
+  const meses =  [...new Set(arr.map(operacion => `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}`))].sort()
+  console.log(meses)
+  let totalesPorMes = []
+  for (let i = 0; i < meses.length; i++) {
+    const totalOperacionesPorMes = arr.filter((operacion) => `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}` === meses[i]);
+    console.log(totalOperacionesPorMes)
+    const gananciasXMes = totalOperacionesPorMes.filter(operacion => operacion.tipo === 'Ganancia').reduce((count,current) => count + Number(current.monto), 0)
+    console.log(gananciasXMes)
+    const gastosXMes = totalOperacionesPorMes.filter(operacion => operacion.tipo === 'Gasto').reduce((count,current) => count + Number(current.monto), 0)
+    console.log(gastosXMes)
+    const balanceXMes = gananciasXMes - gastosXMes
+    console.log(balanceXMes)
+    const obj = {
+      mes : meses[i],
+      ganancia: gananciasXMes,
+      gasto: gastosXMes,
+      balance: balanceXMes,
+    }
+    console.log(obj)
+    totalesPorMes.push(obj)
+  }
+  console.log(totalesPorMes)
+pintarTotalesPorMes(totalesPorMes)
+mayorGanancia(...totalesPorMes)
+pintarMayorGananciaPorMes(mayorGanancia(...totalesPorMes))
+mayorGasto(...totalesPorMes)
+pintarMayorGastoPorMes(mayorGasto(...totalesPorMes))
+};
 
-// const totalGastos = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Gasto") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGastos.innerHTML = `-$${str}`;
-//   return str;
-// };
-// totalGastos(operaciones);
+const pintarTotalesPorMes = (arr) => {
+const string = arr.reduce((str, actual ) => 
+str + `
+<div class="row margen-superior">
+  <div class="col fw-semibold">
+    ${actual.mes}
+  </div>
+  <div class="col fw-semibold text-end text-success">
+   +$${actual.ganancia}
+  </div>
+  <div class="col fw-semibold text-end text-danger">
+    -$${actual.gasto}
+  </div>
+  <div class="col fw-semibold text-end">
+  $${actual.balance}
+  </div>
+</div>`  ,'')
+document.getElementById('reportes-por-mes').innerHTML = string;
+};
 
-// const total = () => {
-//   let str = 0;
-//   str += totalGanancias(operaciones) - totalGastos(operaciones);
-//   divtotal.innerHTML = `<div class="${
-//     str > "0" ? "text-success" : "text-danger"
-//   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
-// };
+const mayorGanancia = (...arr) => {
+  const mayorGanancia = arr.sort(
+     (a, b) => Number(b.ganancia) - Number(a.ganancia)
+   );
+    return mayorGanancia
+}
 
-// total();
+const pintarMayorGananciaPorMes = (arr) => {
+  document.getElementById('mes-mayor-ganancia').innerHTML = arr[0].mes  
+  document.getElementById('monto-mes-mayor-ganancia').innerHTML = `+$${arr[0].ganancia}`;
+};
+
+const mayorGasto = (...arr) => {
+  const mayorGasto = arr.sort(
+     (a, b) => Number(b.gasto) - Number(a.gasto)
+   );
+    return mayorGasto
+}
+
+const pintarMayorGastoPorMes = (arr) => {
+  document.getElementById('mes-mayor-gasto').innerHTML = arr[0].mes  
+ document.getElementById('monto-mes-mayor-gasto').innerHTML = `-$${arr[0].gasto}`;
+};
+
+totalPorMes(operaciones)
+
+
+
+
+
