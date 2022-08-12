@@ -17,6 +17,14 @@ const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
 const divSinReportes = document.getElementById("sin-reportes");
 const divConReportes = document.getElementById("con-reportes");
+const reporteCategorias = document.getElementById("reportes-por-categoria");
+const divCategoriaMayorGanacia = document.getElementById(
+  "categoria-mayor-ganancia"
+);
+const divCategoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
+const divCategoriaMayorBalance = document.getElementById(
+  "categoria-mayor-balace"
+);
 
 //Imputs Editar Operación
 
@@ -353,11 +361,6 @@ const fechaOperacion = document.getElementById("fecha-operacion");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 // Funcion llenar array operaciones
 
-// const agregarObjetos = (obj) => {
-//   operaciones.push(obj);
-//   // localStorage.setItem("operaciones", JSON.stringify(operaciones));
-// };
-
 // Funcion para pintar objetos de las operacion en el HTML
 const pintarObjetos = (arr) => {
   const conOperaciones = document.getElementById("operaciones");
@@ -499,7 +502,6 @@ btnsEditar.forEach((btn) => {
         fecha: editaFechaOpInput.value,
       };
 
-      //operaciones.push(objOperaciones2);
       ///////////////////
       operaciones.splice(pos, 0, objOperaciones2);
 
@@ -673,6 +675,15 @@ const categoriasSinRepetir = [
 
 const totalesPorCategoria = (operaciones, categorias) => {
   let str2 = "";
+  let str3 = "";
+  let str4 = "";
+  let str5 = "";
+  let categoriaMayorGanancia = " ";
+  let montoMayorGanancia = 0;
+  let categoriaMayorGasto = " ";
+  let montoMayorGasto = 0;
+  let categoriaMayorBalance = "";
+  let montoMayorBalance = 0;
   categorias.forEach((categoria) => {
     const porCategoria = operaciones.filter(
       (operacion) => operacion.categoria === categoria
@@ -680,37 +691,89 @@ const totalesPorCategoria = (operaciones, categorias) => {
     const gananciasTotalesPorCategoria = porCategoria
       .filter((operacion) => operacion.tipo === "Ganancia")
       .reduce((count, current) => count + Number(current.monto), 0);
+
+    if (categoriaMayorGanancia === " " && montoMayorGanancia === 0) {
+      montoMayorGanancia = gananciasTotalesPorCategoria;
+      categoriaMayorGanancia = categoria;
+    } else if (gananciasTotalesPorCategoria > montoMayorGanancia) {
+      categoriaMayorGanancia = categoria;
+      montoMayorGanancia = gananciasTotalesPorCategoria;
+    }
+
     const gastosTotalesPorCategoria = porCategoria
       .filter((operacion) => operacion.tipo === "Gasto")
       .reduce((count, current) => count + Number(current.monto), 0);
 
+    if (categoriaMayorGasto === " " && montoMayorGasto === 0) {
+      montoMayorGasto = gastosTotalesPorCategoria;
+      categoriaMayorGasto = categoria;
+    } else if (gastosTotalesPorCategoria > montoMayorGasto) {
+      categoriaMayorGasto = categoria;
+      montoMayorGasto = gastosTotalesPorCategoria;
+    }
+
     const balanceCategoria =
       gananciasTotalesPorCategoria - gastosTotalesPorCategoria;
+    console.log("el balance para", categoria, "es", balanceCategoria);
 
-    const reporteCategorias = document.getElementById("reportes-por-categoria");
-
-    console.log(porCategoria, "q mande?");
+    if (categoriaMayorBalance === " " && montoMayorBalance === 0) {
+      montoMayorBalance = balanceCategoria;
+      categoriaMayorBalance = categoria;
+    } else if (balanceCategoria > montoMayorBalance) {
+      categoriaMayorBalance = categoria;
+      montoMayorBalance = balanceCategoria;
+    }
 
     str2 += `
-      <div class="row margen-superior">
-      <div class="col fw-semibold">
-       ${categoria}
-      </div>
-      <div class="col fw-semibold text-end text-success">
-        +${gananciasTotalesPorCategoria}
-      </div>
-      <div class="col fw-semibold text-end text-danger">
-        -${gastosTotalesPorCategoria}
-      </div>
-      <div class="col fw-semibold text-end  ${
-        balanceCategoria > 0 ? "text-success" : "text-danger"
-      }">
-      ${balanceCategoria > 0 ? "+" : ""}$ ${balanceCategoria}
-       
-      </div>
+    <div class="row margen-superior">
+    <div class="col fw-semibold">
+     ${categoria}
     </div>
-    `;
+    <div class="col fw-semibold text-end text-success">
+      +$${gananciasTotalesPorCategoria}
+    </div>
+    <div class="col fw-semibold text-end text-danger">
+      -$${gastosTotalesPorCategoria}
+    </div>
+    <div class="col fw-semibold text-end  ${
+      balanceCategoria > 0 ? "text-success" : "text-danger"
+    }">
+    ${balanceCategoria > 0 ? "+" : ""} ${balanceCategoria}
+     
+    </div>
+  </div>
+  `;
 
     reporteCategorias.innerHTML = str2;
+
+    str3 = ` <div class="col-6 fw-semibold">
+    Categoría con mayor ganancia
+  </div>
+  <div  class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorGanancia}</span>
+  </div>
+  <div class="col-3 text-end">${montoMayorGanancia}</div>
+              `;
+    divCategoriaMayorGanacia.innerHTML = str3;
+
+    str4 = `<div class="col-6 fw-semibold">
+    Categoría con mayor gasto
+  </div>
+  <div id="categoria-mayor-gasto" class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorGasto}</span>
+  </div>
+  <div class="col-3 text-end">${montoMayorGasto}</div>`;
+
+    divCategoriaMayorGasto.innerHTML = str4;
+
+    str5 = `<div class="col-6 fw-semibold">
+    Categoría con mayor balance
+  </div>
+  <div class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorBalance}</span>
+  </div>
+  <div class="col-3 text-end">${montoMayorBalance}</div>`;
+    divCategoriaMayorBalance.innerHTML = str5;
   });
 };
+totalesPorCategoria(operaciones, categoriasSinRepetir);
