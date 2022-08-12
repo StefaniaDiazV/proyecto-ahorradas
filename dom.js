@@ -80,6 +80,52 @@ btnReportes.addEventListener("click", () => {
   vistaCategorias.classList.add("d-none");
 });
 
+
+// BALANCE
+
+const divGanancias = document.getElementById("div-ganancias");
+const divGastos = document.getElementById("div-gastos");
+const divtotal = document.getElementById("div-total");
+
+const totalGanancias = (arr) => {
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Ganancia") {
+      str += Number(operaciones.monto);
+    }
+  });
+  divGanancias.innerHTML = `+$${str}`;
+  return str;
+};
+
+//totalGanancias(operaciones);
+
+const totalGastos = (arr) => {
+  let str = 0;
+  arr.forEach((operaciones) => {
+    if (operaciones.tipo === "Gasto") {
+      str += Number(operaciones.monto);
+    }
+  });
+  divGastos.innerHTML = `-$${str}`;
+  return str;
+};
+//totalGastos(operaciones);
+
+const total = () => {
+  let str = 0;
+  str += totalGanancias(operaciones) - totalGastos(operaciones);
+  divtotal.innerHTML = `<div class="${
+    str > "0" ? "text-success" : "text-danger"
+  }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
+};
+
+//total();
+
+
+
+
+
 // ***********************************************
 //                CATEGORIAS
 // **********************************************
@@ -119,7 +165,7 @@ let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 const selects = document.querySelectorAll(".categorias-select");
 
 //funcion para crear las opciones de los select en base al array "categorias"
-const generarCategorias = () => {
+const generarCategorias = (arr) => {
   //por cada select : tres en total
     let select = '';
   for (let i = 0; i < selects.length; i++) {
@@ -129,21 +175,24 @@ const generarCategorias = () => {
     //si no es, que siga de largo. no hace nada.
     if (select.classList.contains("filtro-categoria")) {
       select.innerHTML = "<option>Todas</option>";
-    } else {
-    }
+    } 
     //por cada select, recorro el array de sus categorias y le agrego la opcion
     //en total ejecuta 3 * 6 (cantidad de categorias) = 18
     //porque este FOR esta dentro del otro FOR
-    for (let j = 0; j < categorias.length; j++) {
-      select.innerHTML =
-        select.innerHTML +
-        `<option value=${categorias[j].nombre}>${categorias[j].nombre}</option>`;
-    }
+  
+      for (let j = 0; j < arr.length; j++) {
+        select.innerHTML =
+          select.innerHTML +
+          `<option value=${arr[j].id}>${arr[j].nombre}</option>`;
+      }
+  
+
+
   }
 };
 
 //ahora que definí todo, ejecuto la funcion.
-generarCategorias(); //************************************************/
+//generarCategorias(categorias); //************************************************/
 
 //me llevo el boton para agregar categorias
 const btnAgregarCategorias = document.getElementById("boton-categorias");
@@ -243,36 +292,24 @@ btnEditarCategorias.forEach((btn) => {
   categoriaAEditar.forEach((categoria) => {
     inputEditarCategoria.value = categoria.nombre
   })
-  pos = categorias.indexOf(categoriaAEditar[0]);
-
-  const arrSinCategoria = categorias.filter((categoria) => categoria.id !== e.target.dataset.id)
-
-  const borrar = () => {
-    localStorage.setItem('categorias', JSON.stringify(arrSinCategoria));
-    categorias = JSON.parse(localStorage.getItem("categorias"));
-    pintarCategorias(categorias)
-  };
 
   btnEditarCategoria.addEventListener('click', () => {
-    borrar(categorias)
-  })
-
-  const agregar = () => {
-    //categorias.push({id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value })
-    categorias.splice(pos, 0, {id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value });
-    localStorage.setItem('categorias', JSON.stringify(categorias))
-    pintarCategorias(categorias)
-  };
- 
-  btnEditarCategoria.addEventListener('click', () => {
-    agregar();
     cardEditarCategoria.classList.add('d-none');
     vistaCategorias.classList.remove("d-none");
+    const cambioCategoria = categorias.filter(categoria => categoria.id === categoriaAEditar[0].id);
+    const filtrada = cambioCategoria[0]
+    filtrada.nombre = inputEditarCategoria.value
+    const accionEditar = categorias.map((categoria) =>
+    categoria.id === categoriaAEditar[0].id ? filtrada : categoria)
+    localStorage.setItem('categorias', JSON.stringify(accionEditar));
+    categorias = JSON.parse(localStorage.getItem('categorias'));
+    pintarCategorias(categorias)  
+    
   })
-
+  
 })
 });
-
+generarCategorias(categorias)
 
 // ***********************************************
 //                 OPERACIONES
@@ -313,9 +350,10 @@ const crearObjOperaciones = () => {
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
-
+ 
   limpiarVistaNuevaOperacion();
   operaciones.push(objOperaciones);
+  console.log(categoriaNuevaOperacion.value)
   localStorage.setItem("operaciones", JSON.stringify(operaciones));
 };
 
@@ -341,16 +379,18 @@ const pintarObjetos = (arr) => {
 
   let str = "";
   mostrarOperaciones(operaciones);
-  arr.forEach((operacion) => {
-    const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
 
+  arr.forEach((operacion) => {
+     const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
+   
+    const { id, descripcion, fecha, monto, tipo } = operacion;
     str += `
     <div class="row margen-superior">
       <div class="col-md-3 col-sm-6 fw-bold">
         <h6>${descripcion}</h6>
       </div>
       <div class="col-md-3 col-sm-6">                                                   
-        <span class="nombres-categorias">${categoria}</span>
+        <span class="nombres-categorias">${categoria.nombre}</span>
       </div>
       <div class="col-md-2 col-sm-6 text-end">
       ${fecha}
@@ -362,7 +402,7 @@ const pintarObjetos = (arr) => {
       </div>
       <div class="col-md-2 col-sm-6 text-wrap text-end">
         <p>
-          <a  href="#" data-id= "${id}" class="link-categoria btn-edita-op">Editar</a>
+          <a  href="#" data-id="${id}" class="link-categoria btn-edita-op">Editar</a>
           <a  href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
         </p>
       </div> 
@@ -371,6 +411,61 @@ const pintarObjetos = (arr) => {
   });
 
   conOperaciones.innerHTML = str;
+  totalGanancias(operaciones);
+  totalGastos(operaciones);
+  total();
+
+  const btnsEditar = document.querySelectorAll(".btn-edita-op");
+  const btnEditaOp = document.getElementById("btn-agrega-edicion-op");
+  const btnsEliminar = document.querySelectorAll(".btn-elimina-op");
+
+  btnsEditar.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault()
+      editoOperacion = operaciones.filter((operacion) => operacion.id === e.target.dataset.id);
+      editarOperacion(editoOperacion);
+  
+    });
+  });
+    
+   btnEditaOp.addEventListener("click", () => {
+    const filtrar = operaciones.filter(operacion => operacion.id === editoOperacion[0].id);
+    const filtrado = filtrar[0]
+    filtrado.descripcion = editarDescripcionOpInput.value,
+    filtrado.id = editoOperacion[0].id
+    filtrado.monto = editarMontoOpInput.value
+    filtrado.tipo = editarTipoOpInput.value
+    filtrado.categoria = editarCategoriaOpInput.value
+    filtrado.fecha = editaFechaOpInput.value
+  
+    const nuevas = operaciones.map((operacion) =>
+    operacion.id === editoOperacion[0].id ? filtrado : operacion)
+    localStorage.setItem('operaciones', JSON.stringify(nuevas));
+    const operacionesEditadas = JSON.parse(localStorage.getItem('operaciones'))
+    pintarObjetos(operacionesEditadas)  
+   })
+
+   btnsEliminar.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+  
+      const arrSinOperacion = operaciones.filter(
+        (operacion) => operacion.id !== e.target.dataset.id
+        //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
+      );
+  
+      localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
+      // //subo a LS los elementos que no voy a eliminar, actualizo LS
+      operaciones = JSON.parse(localStorage.getItem("operaciones"));
+  
+      //traigo de LS el array operaciones actualizado
+      pintarObjetos(operaciones);
+      //pinto el array operaciones actualizado
+      mostrarOperaciones(operaciones);
+      //ejecuto mostrar operaciones para mantener la vista correspondiente a "con operaciones"
+    });
+  });
+
 };
 
 pintarObjetos(operaciones); //************************************************/
@@ -382,31 +477,13 @@ btnAgregarOperacion.addEventListener("click", () => {
   pintarObjetos(operaciones);
 });
 
-const btnsEliminar = document.querySelectorAll(".btn-elimina-op");
-const btnsEditar = document.querySelectorAll(".btn-edita-op");
+
+
+
 // const btnsEliminar = Array.from(document.getElementsByClassName('btn-eliminar'));
 
-btnsEliminar.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
 
-    const arrSinOperacion = operaciones.filter(
-      (operacion) => operacion.id !== e.target.dataset.id
-      //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
-    );
-
-    localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
-    // //subo a LS los elementos que no voy a eliminar, actualizo LS
-    operaciones = JSON.parse(localStorage.getItem("operaciones"));
-
-    //traigo de LS el array operaciones actualizado
-    pintarObjetos(operaciones);
-    //pinto el array operaciones actualizado
-    mostrarOperaciones(operaciones);
-    //ejecuto mostrar operaciones para mantener la vista correspondiente a "con operaciones"
-  });
-});
-const btnEditaOp = document.getElementById("btn-agrega-edicion-op"); //Btn Agregar de vista Editar Operación
+ //Btn Agregar de vista Editar Operación
 
 const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op"); //Btn Cancelar de vista Editar Operación
 
@@ -430,130 +507,53 @@ const editarOperacion = (arr) => {
   editaFechaOpInput.valueAsDate = new Date(fecha);
 };
 
-const inicializar = () => {
-  const inputsFecha = document.querySelectorAll('input[type="date"]');
-  inputsFecha.forEach((input) => {
-    input.valueAsDate = new Date();
-  });
-  totalGanancias(operaciones);
-  totalGastos(operaciones);
-  total();
-
-};
-
-window.onload = inicializar;
 
 //a cada editar operacion le agrego mostrar la pantalla
-btnsEditar.forEach((btn) => {
-  console.log(btn)
-  btn.addEventListener("click", (e) => {
-    editoOperacion = operaciones.filter(
-      (operacion) => operacion.id === e.target.dataset.id
-    );
-    ///////////////////
-    // pos = operaciones.indexOf(editoOperacion[0]);
-    // console.log(pos);
-
-    editarOperacion(editoOperacion);
-
-    // const arrSinOperacion2 = operaciones.filter(
-    //   (operacion) => operacion.id !== e.target.dataset.id
-    // );
-
-    // const borrar = () => {
-    //   localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion2));
-    //   operaciones = JSON.parse(localStorage.getItem("operaciones"));
-    //   pintarObjetos(operaciones);
-    //   mostrarOperaciones(operaciones);
-    // };
-
-    // //borrar objeto
-    // btnEditaOp.addEventListener("click", () => {
-    //   borrar(operaciones);
-    // });
-
-    //definicion funcion para agregar objeto
-    // const agregar = () => {
-    //   objOperaciones2 = {
-    //     id: editoOperacion[0].id,
-    //     descripcion: editarDescripcionOpInput.value,
-    //     monto: editarMontoOpInput.value,
-    //     tipo: editarTipoOpInput.value,
-    //     categoria: editarCategoriaOpInput.value,
-    //     fecha: editaFechaOpInput.value,
-    //   };
-
-    //   //operaciones.push(objOperaciones2);
-    //   ///////////////////
-    //   operaciones.splice(pos, 0, objOperaciones2);
-
-    //   localStorage.setItem("operaciones", JSON.stringify(operaciones));
-    //   pintarObjetos(operaciones);
-    // };
-
-    //agregar objeto
-
-  });
-});
-
-// btnEditaOp.addEventListener("click", () => {
-//   const filtrar = operaciones.filter(operacion => operacion.id === editoOperacion[0].id);
-//   const filtrado = filtrar[0]
-//   filtrado.descripcion = editarDescripcionOpInput.value,
-//   filtrado.id = editoOperacion[0].id
-//   filtrado.monto = editarMontoOpInput.value
-//   filtrado.tipo = editarTipoOpInput.value
-//   filtrado.categoria = editarCategoriaOpInput.value
-//   filtrado.fecha = editaFechaOpInput.value
-
-//   const nuevas = operaciones.map((operacion) =>
-//   operacion.id === editoOperacion[0].id ? filtrado : operacion)
-//   localStorage.setItem('operaciones', JSON.stringify(nuevas));
-//   const operacionesEditadas = JSON.parse(localStorage.getItem('operaciones'))
-//   pintarObjetos(operacionesEditadas)      
-// });
 
 
-// BALANCE
 
-const divGanancias = document.getElementById("div-ganancias");
-const divGastos = document.getElementById("div-gastos");
-const divtotal = document.getElementById("div-total");
 
-const totalGanancias = (arr) => {
-  let str = 0;
-  arr.forEach((operaciones) => {
-    if (operaciones.tipo === "Ganancia") {
-      str += Number(operaciones.monto);
-    }
-  });
-  divGanancias.innerHTML = `+$${str}`;
-  return str;
-};
 
-//totalGanancias(operaciones);
+// // BALANCE
 
-const totalGastos = (arr) => {
-  let str = 0;
-  arr.forEach((operaciones) => {
-    if (operaciones.tipo === "Gasto") {
-      str += Number(operaciones.monto);
-    }
-  });
-  divGastos.innerHTML = `-$${str}`;
-  return str;
-};
-//totalGastos(operaciones);
+// const divGanancias = document.getElementById("div-ganancias");
+// const divGastos = document.getElementById("div-gastos");
+// const divtotal = document.getElementById("div-total");
 
-const total = () => {
-  let str = 0;
-  str += totalGanancias(operaciones) - totalGastos(operaciones);
-  divtotal.innerHTML = `<div class="${
-    str > "0" ? "text-success" : "text-danger"
-  }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
-};
+// const totalGanancias = (arr) => {
+//   let str = 0;
+//   arr.forEach((operaciones) => {
+//     if (operaciones.tipo === "Ganancia") {
+//       str += Number(operaciones.monto);
+//     }
+//   });
+//   divGanancias.innerHTML = `+$${str}`;
+//   return str;
+// };
 
-//total();
+// //totalGanancias(operaciones);
+
+// const totalGastos = (arr) => {
+//   let str = 0;
+//   arr.forEach((operaciones) => {
+//     if (operaciones.tipo === "Gasto") {
+//       str += Number(operaciones.monto);
+//     }
+//   });
+//   divGastos.innerHTML = `-$${str}`;
+//   return str;
+// };
+// //totalGastos(operaciones);
+
+// const total = () => {
+//   let str = 0;
+//   str += totalGanancias(operaciones) - totalGastos(operaciones);
+//   divtotal.innerHTML = `<div class="${
+//     str > "0" ? "text-success" : "text-danger"
+//   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
+// };
+
+// //total();
 
 //FILTROS
 
@@ -686,6 +686,7 @@ mostrarReportes(operaciones);
 //TOTALES POR MES
 
 const totalPorMes = (arr) => {
+  if(arr.length == 0) return
   const meses =  [...new Set(arr.map(operacion => `${new Date(operacion.fecha).getMonth() + 1}/${new Date(operacion.fecha).getFullYear()}`))].sort()
   console.log(meses)
   let totalesPorMes = []
@@ -760,6 +761,17 @@ const pintarMayorGastoPorMes = (arr) => {
 };
 
 totalPorMes(operaciones)
+
+
+const inicializar = () => {
+  const inputsFecha = document.querySelectorAll('input[type="date"]');
+  inputsFecha.forEach((input) => {
+    input.valueAsDate = new Date();
+  });
+
+};
+
+window.onload = inicializar;
 
 
 
