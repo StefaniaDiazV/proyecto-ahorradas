@@ -98,8 +98,7 @@ btnReportes.addEventListener("click", () => {
     divConReportes.classList.remove("d-none");
     divSinReportes.classList.add("d-none");
   }
-  // totalesPorMes(operaciones);
-  ///NAHUE cambiar "categorias" por "categoriasSinRepetir"
+
   totalesPorCategoria(operaciones, categoriasSinRepetir);
 });
 
@@ -738,7 +737,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
     <div class="col fw-semibold text-end  ${
       balanceCategoria > 0 ? "text-success" : "text-danger"
     }">
-    ${balanceCategoria > 0 ? "+" : ""} ${balanceCategoria}
+    ${balanceCategoria > 0 ? "+" : "-"} $${Math.abs(balanceCategoria)}
      
     </div>
   </div>
@@ -746,17 +745,19 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     reporteCategorias.innerHTML = str2;
 
-    str3 = ` <div class="col-6 fw-semibold">
+    str3 = ` <div class="col-6 fw-bold">
     Categoría con mayor ganancia
   </div>
   <div  class="col-3 text-end">
     <span class="nombres-categorias">${categoriaMayorGanancia}</span>
   </div>
-  <div class="col-3 text-end">${montoMayorGanancia}</div>
+  <div class="col-3 text-end ${
+    balanceCategoria > 0 ? "text-success" : "text-danger"
+  }">${balanceCategoria > 0 ? "+" : "-"} $${Math.abs(montoMayorGanancia)}</div>
               `;
     divCategoriaMayorGanacia.innerHTML = str3;
 
-    str4 = `<div class="col-6 fw-semibold">
+    str4 = `<div class="col-6 fw-bold">
     Categoría con mayor gasto
   </div>
   <div id="categoria-mayor-gasto" class="col-3 text-end">
@@ -766,7 +767,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     divCategoriaMayorGasto.innerHTML = str4;
 
-    str5 = `<div class="col-6 fw-semibold">
+    str5 = `<div class="col-6 fw-bold">
     Categoría con mayor balance
   </div>
   <div class="col-3 text-end">
