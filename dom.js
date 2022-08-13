@@ -312,68 +312,24 @@ btnEditarCategorias.forEach((btn) => {
     categoriaAEditar.forEach((categoria) => {
       inputEditarCategoria.value = categoria.nombre;
     });
-    pos = categorias.indexOf(categoriaAEditar[0]);
-
-    const arrSinCategoria = categorias.filter(
-      (categoria) => categoria.id !== e.target.dataset.id
-    );
-
-    const borrar = () => {
-      localStorage.setItem("categorias", JSON.stringify(arrSinCategoria));
-      categorias = JSON.parse(localStorage.getItem("categorias"));
-      pintarCategorias(categorias);
-    };
 
     btnEditarCategoria.addEventListener("click", () => {
-      borrar(categorias);
-    });
-
-    const agregar = () => {
-      //categorias.push({id:categoriaAEditar[0].id, nombre: inputEditarCategoria.value })
-      categorias.splice(pos, 0, {
-        id: categoriaAEditar[0].id,
-        nombre: inputEditarCategoria.value,
-      });
-      localStorage.setItem("categorias", JSON.stringify(categorias));
-      pintarCategorias(categorias);
-    };
-
-    btnEditarCategoria.addEventListener("click", () => {
-      agregar();
       cardEditarCategoria.classList.add("d-none");
       vistaCategorias.classList.remove("d-none");
+      const cambioCategoria = categorias.filter(
+        (categoria) => categoria.id === categoriaAEditar[0].id
+      );
+      const filtrada = cambioCategoria[0];
+      filtrada.nombre = inputEditarCategoria.value;
+      const accionEditar = categorias.map((categoria) =>
+        categoria.id === categoriaAEditar[0].id ? filtrada : categoria
+      );
+      localStorage.setItem("categorias", JSON.stringify(accionEditar));
+      categorias = JSON.parse(localStorage.getItem("categorias"));
+      pintarCategorias(categorias);
     });
   });
 });
-
-btn.addEventListener("click", (e) => {
-  e.preventDefault();
-  VistaEditarCategoria();
-
-  let categoriaAEditar = categorias.filter(
-    (categoria) => categoria.id === e.target.dataset.id
-  );
-  categoriaAEditar.forEach((categoria) => {
-    inputEditarCategoria.value = categoria.nombre;
-  });
-
-  btnEditarCategoria.addEventListener("click", () => {
-    cardEditarCategoria.classList.add("d-none");
-    vistaCategorias.classList.remove("d-none");
-    const cambioCategoria = categorias.filter(
-      (categoria) => categoria.id === categoriaAEditar[0].id
-    );
-    const filtrada = cambioCategoria[0];
-    filtrada.nombre = inputEditarCategoria.value;
-    const accionEditar = categorias.map((categoria) =>
-      categoria.id === categoriaAEditar[0].id ? filtrada : categoria
-    );
-    localStorage.setItem("categorias", JSON.stringify(accionEditar));
-    categorias = JSON.parse(localStorage.getItem("categorias"));
-    pintarCategorias(categorias);
-  });
-});
-// });
 generarCategorias(categorias);
 
 // ***********************************************
@@ -432,6 +388,11 @@ const categoriaNuevaOperacion = document.getElementById(
 const fechaOperacion = document.getElementById("fecha-operacion");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 // Funcion llenar array operaciones
+
+// const agregarObjetos = (obj) => {
+//   operaciones.push(obj);
+//   // localStorage.setItem("operaciones", JSON.stringify(operaciones));
+// };
 
 // Funcion para pintar objetos de las operacion en el HTML
 const pintarObjetos = (arr) => {
@@ -568,38 +529,46 @@ const editarOperacion = (arr) => {
 
 //a cada editar operacion le agrego mostrar la pantalla
 
-btnsEditar.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    let editoOperacion = operaciones.filter(
-      (operacion) => operacion.id === e.target.dataset.id
-    );
-    ///////////////////
-    // pos = operaciones.indexOf(editoOperacion[0]);
-  });
-});
+// // BALANCE
 
-// //definicion funcion para agregar objeto
-// const agregarObjeto = () => {
-//   objOperaciones2 = {
-//     id: editoOperacion[0].id,
-//     descripcion: editarDescripcionOpInput.value,
-//     monto: editarMontoOpInput.value,
-//     tipo: editarTipoOpInput.value,
-//     categoria: editarCategoriaOpInput.value,
-//     fecha: editaFechaOpInput.value,
-//   };
+// const divGanancias = document.getElementById("div-ganancias");
+// const divGastos = document.getElementById("div-gastos");
+// const divtotal = document.getElementById("div-total");
+
+// const totalGanancias = (arr) => {
+//   let str = 0;
+//   arr.forEach((operaciones) => {
+//     if (operaciones.tipo === "Ganancia") {
+//       str += Number(operaciones.monto);
+//     }
+//   });
+//   divGanancias.innerHTML = `+$${str}`;
+//   return str;
 // };
-///////////////////
-// operaciones.splice(pos, 0, objOperaciones2);
-
-// // BALANC;
-
-//agregar objeto
-// btnEditaOp.addEventListener("click", () => {
-//   agregarObjeto();
-// });
 
 // //totalGanancias(operaciones);
+
+// const totalGastos = (arr) => {
+//   let str = 0;
+//   arr.forEach((operaciones) => {
+//     if (operaciones.tipo === "Gasto") {
+//       str += Number(operaciones.monto);
+//     }
+//   });
+//   divGastos.innerHTML = `-$${str}`;
+//   return str;
+// };
+// //totalGastos(operaciones);
+
+// const total = () => {
+//   let str = 0;
+//   str += totalGanancias(operaciones) - totalGastos(operaciones);
+//   divtotal.innerHTML = `<div class="${
+//     str > "0" ? "text-success" : "text-danger"
+//   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
+// };
+
+// //total();
 
 //FILTROS
 
@@ -804,24 +773,12 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     reporteCategorias.innerHTML = str2;
 
-    str3 = ` <div class="col-6 fw-bold">
-
-    
-
+    str3 = ` <div class="col-6 fw-semibold">
     Categoría con mayor ganancia
   </div>
   <div  class="col-3 text-end">
     <span class="nombres-categorias">${categoriaMayorGanancia}</span>
   </div>
-
-  <div class="col-3 text-end ${
-    balanceCategoria > 0 ? "text-success" : "text-danger"
-  }">${balanceCategoria > 0 ? "+" : "-"} $${Math.abs(montoMayorGanancia)}</div>
-              `;
-    divCategoriaMayorGanacia.innerHTML = str3;
-
-    str4 = `<div class="col-6 fw-bold">
-
   <div class="col-3 text-end fw-bold  ${
     balanceCategoria > 0 ? "text-success" : "text-danger"
   }">${balanceCategoria > 0 ? "+" : "-"} $${montoMayorGanancia}</div>
@@ -829,7 +786,6 @@ const totalesPorCategoria = (operaciones, categorias) => {
     divCategoriaMayorGanacia.innerHTML = str3;
 
     str4 = `<div class="col-6 fw-semibold">
-
     Categoría con mayor gasto
   </div>
   <div id="categoria-mayor-gasto" class="col-3 text-end">
@@ -839,9 +795,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     divCategoriaMayorGasto.innerHTML = str4;
 
-    str5 = `<div class="col-6 fw-bold">
-
-
+    str5 = `<div class="col-6 fw-semibold">
     Categoría con mayor balance
   </div>
   <div class="col-3 text-end">

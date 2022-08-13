@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -22,13 +21,9 @@
     <title>AhorrADAs</title>
   </head>
 
-  
-
-  
-
-<body>
-  <!-- *********************************************
-                  MENÚ-SUPERIOR
+  <body>
+    <!-- *********************************************
+                    MENÚ-SUPERIOR
     ********************************************* -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav">
@@ -103,20 +98,14 @@
                           -$0
                         </div>
                       </div>
-
                       <div class="row margen-filas">
                         <div class="col-6 fs-3">Total</div>
                         <div
                           id="div-total"
                           class="col-6 alineacion-monto fw-bold"
-                        ></div>
-
-                    </div>
-                    <div class="row margen-filas">
-                      <div class="col-6 fs-3">Total</div>
-                      <div id="div-total" class="col-6 alineacion-monto fw-bold">
-                        $0
-
+                        >
+                          $0
+                        </div>
                       </div>
                     </div>
                   </div>
@@ -534,7 +523,6 @@
                     VISTA-REPORTES
     ********************************************* -->
 
-
     <section id="reportes" class="tarjetas d-none">
       <div class="container con-reportes">
         <div class="row d-flex justify-content-center">
@@ -553,12 +541,14 @@
                         class="row margen-superior"
                       >
                         <!-- <div class="col-6 fw-semibold">
-                          Categoría con mayor ganancia
-                        </div>
-                        <div  class="col-3 text-end">
-                          <span class="nombres-categorias">xxxxx</span>
-                        </div>
-                        <div class="col-3 text-end">1000</div> -->
+                        Categoría con mayor ganancia
+                      </div>
+                      <div  class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
                       </div>
                       <!-- Categoría con mayor gasto-->
                       <div
@@ -566,12 +556,14 @@
                         class="row margen-superior"
                       >
                         <!-- <div class="col-6 fw-semibold">
-                          Categoría con mayor gasto
-                        </div>
-                        <div id="categoria-mayor-gasto" class="col-3 text-end">
-                          <span class="nombres-categorias">Servicios</span>
-                        </div>
-                        <div class="col-3 text-end">1000</div> -->
+                        Categoría con mayor gasto
+                      </div>
+                      <div class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
                       </div>
                       <!-- Categoría con mayor balance-->
                       <div
@@ -579,30 +571,45 @@
                         class="row margen-superior"
                       >
                         <!-- <div class="col-6 fw-semibold">
-                          Categoría con mayor balance
-                        </div>
-                        <div class="col-3 text-end">
-                          <span class="nombres-categorias">Servicios</span>
-                        </div>
-                        <div class="col-3 text-end">1000</div> -->
+                        Categoría con mayor balance
+                      </div>
+                      <div class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
                       </div>
                       <!-- Mes con mayor ganancia-->
                       <div class="row margen-superior">
                         <div class="col-6 fw-semibold">
                           Mes con mayor ganancia
                         </div>
-                        <div class="col-3 text-end">2022/08/03</div>
-                        <div class="col-3 text-end">1000</div>
+                        <div id="mes-mayor-ganancia" class="col-3 text-end">
+                          2022/08/03
+                        </div>
+                        <div
+                          id="monto-mes-mayor-ganancia"
+                          class="col-3 text-end fw-bold text-success"
+                        >
+                          1000
+                        </div>
                       </div>
                       <!-- Mes con mayor gasto-->
                       <div class="row margen-superior">
                         <div class="col-6 fw-semibold">Mes con mayor gasto</div>
-                        <div class="col-3 text-end">2022/08/03</div>
-                        <div class="col-3 text-end">1000</div>
+                        <div id="mes-mayor-gasto" class="col-3 text-end">
+                          2022/08/03
+                        </div>
+                        <div
+                          id="monto-mes-mayor-gasto"
+                          class="col-3 text-end fw-bold text-danger"
+                        >
+                          1000
+                        </div>
                       </div>
-
- 
-             
+                    </div>
+                  </section>
 
                   <!-- TOTALES POR CATEGORIAS-->
                   <section id="totales-por-categoria" class="margen-setcion">
@@ -661,6 +668,7 @@
                   <h3>Operaciones insuficientes</h3>
                   <p>Prueba agregando más operaciones</p>
                 </div>
+                <div id="con-reportes" class="d-none"></div>
               </div>
             </div>
           </div>
