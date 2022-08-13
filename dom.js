@@ -3,7 +3,7 @@
 const vistaBalance = document.getElementById("vista-balance"); //Section vista balance
 const nuevaOperacion = document.getElementById("nueva-operacion"); //Section Nueva Operación
 const vistaCategorias = document.getElementById("categorias"); // Section Categorías
-const vistaReportes = document.getElementById("reportes"); // Section Reportes
+
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
 
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
@@ -12,7 +12,22 @@ const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn 
 const btnCategorias = document.getElementById("btn-categorias"); //Btn Categorias del header
 const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); //Btn "cancel" de la section Nueva Operacion
+
+
+//Elementos Reportes
+const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
+const divSinReportes = document.getElementById("sin-reportes");
+const divConReportes = document.getElementById("con-reportes");
+const reporteCategorias = document.getElementById("reportes-por-categoria");
+const divCategoriaMayorGanacia = document.getElementById(
+  "categoria-mayor-ganancia"
+);
+const divCategoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
+const divCategoriaMayorBalance = document.getElementById(
+  "categoria-mayor-balace"
+);
+
 
 //Imputs Editar Operación
 
@@ -78,6 +93,18 @@ btnReportes.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
+
+  if (!operaciones.length) {
+    divConReportes.classList.add("d-none");
+    divSinReportes.classList.remove("d-none");
+  } else {
+    divConReportes.classList.remove("d-none");
+    divSinReportes.classList.add("d-none");
+  }
+
+  totalesPorCategoria(operaciones, categoriasSinRepetir);
+
+
 });
 
 
@@ -183,7 +210,7 @@ const generarCategorias = (arr) => {
       for (let j = 0; j < arr.length; j++) {
         select.innerHTML =
           select.innerHTML +
-          `<option value=${arr[j].id}>${arr[j].nombre}</option>`;
+          `<option value=${arr[j].nombre}>${arr[j].nombre}</option>`;
       }
   
 
@@ -381,16 +408,16 @@ const pintarObjetos = (arr) => {
   mostrarOperaciones(operaciones);
 
   arr.forEach((operacion) => {
-     const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
+     //const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
    
-    const { id, descripcion, fecha, monto, tipo } = operacion;
+    const { id, descripcion,categoria, fecha, monto, tipo } = operacion;
     str += `
     <div class="row margen-superior">
       <div class="col-md-3 col-sm-6 fw-bold">
         <h6>${descripcion}</h6>
       </div>
       <div class="col-md-3 col-sm-6">                                                   
-        <span class="nombres-categorias">${categoria.nombre}</span>
+        <span class="nombres-categorias">${categoria}</span>
       </div>
       <div class="col-md-2 col-sm-6 text-end">
       ${fecha}
@@ -667,18 +694,131 @@ ordenarX.addEventListener("change", filtroOrden);
 
 // REPORTES
 
-const mostrarReportes = (arr) => {
-  if (arr.length) {
-    document.getElementById("sin-reportes").classList.add("d-none");
-    document.getElementById("con-reportes").classList.remove("d-none");
-  } else {
-    document.getElementById("sin-reportes").classList.remove("d-none");
-    document.getElementById("con-reportes").classList.add("d-none");
-  }
+// const mostrarReportes = (arr) => {
+//   if (arr.length) {
+//     document.getElementById("sin-reportes").classList.add("d-none");
+//     document.getElementById("con-reportes").classList.remove("d-none");
+//   } else {
+//     document.getElementById("sin-reportes").classList.remove("d-none");
+//     document.getElementById("con-reportes").classList.add("d-none");
+//   }
+// };
+
+// mostrarReportes(operaciones);
+
+
+// TOTALES POR CATEGORIA 
+
+const categoriasSinRepetir = [
+  ...new Set(operaciones.map((operacion) => operacion.categoria)),
+];
+
+const totalesPorCategoria = (operaciones, categorias) => {
+  let str2 = "";
+  let str3 = "";
+  let str4 = "";
+  let str5 = "";
+  let categoriaMayorGanancia = " ";
+  let montoMayorGanancia = 0;
+  let categoriaMayorGasto = " ";
+  let montoMayorGasto = 0;
+  let categoriaMayorBalance = "";
+  let montoMayorBalance = 0;
+  categorias.forEach((categoria) => {
+    const porCategoria = operaciones.filter(
+      (operacion) => operacion.categoria === categoria
+    );
+    const gananciasTotalesPorCategoria = porCategoria
+      .filter((operacion) => operacion.tipo === "Ganancia")
+      .reduce((count, current) => count + Number(current.monto), 0);
+
+    if (categoriaMayorGanancia === " " && montoMayorGanancia === 0) {
+      montoMayorGanancia = gananciasTotalesPorCategoria;
+      categoriaMayorGanancia = categoria;
+    } else if (gananciasTotalesPorCategoria > montoMayorGanancia) {
+      categoriaMayorGanancia = categoria;
+      montoMayorGanancia = gananciasTotalesPorCategoria;
+    }
+
+    const gastosTotalesPorCategoria = porCategoria
+      .filter((operacion) => operacion.tipo === "Gasto")
+      .reduce((count, current) => count + Number(current.monto), 0);
+
+    if (categoriaMayorGasto === " " && montoMayorGasto === 0) {
+      montoMayorGasto = gastosTotalesPorCategoria;
+      categoriaMayorGasto = categoria;
+    } else if (gastosTotalesPorCategoria > montoMayorGasto) {
+      categoriaMayorGasto = categoria;
+      montoMayorGasto = gastosTotalesPorCategoria;
+    }
+
+    const balanceCategoria =
+      gananciasTotalesPorCategoria - gastosTotalesPorCategoria;
+    console.log("el balance para", categoria, "es", balanceCategoria);
+
+    if (categoriaMayorBalance === " " && montoMayorBalance === 0) {
+      montoMayorBalance = balanceCategoria;
+      categoriaMayorBalance = categoria;
+    } else if (balanceCategoria > montoMayorBalance) {
+      categoriaMayorBalance = categoria;
+      montoMayorBalance = balanceCategoria;
+    }
+
+    str2 += `
+    <div class="row margen-superior">
+    <div class="col fw-semibold">
+     ${categoria}
+    </div>
+    <div class="col fw-semibold text-end text-success">
+      +$${gananciasTotalesPorCategoria}
+    </div>
+    <div class="col fw-semibold text-end text-danger">
+      -$${gastosTotalesPorCategoria}
+    </div>
+    <div class="col fw-semibold text-end  ${
+      balanceCategoria > 0 ? "text-success" : "text-danger"
+    }">
+    ${balanceCategoria > 0 ? "+" : "-"} $${Math.abs(balanceCategoria)}
+     
+    </div>
+  </div>
+  `;
+
+    reporteCategorias.innerHTML = str2;
+
+    str3 = ` <div class="col-6 fw-semibold">
+    Categoría con mayor ganancia
+  </div>
+  <div  class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorGanancia}</span>
+  </div>
+  <div class="col-3 text-end fw-bold  ${
+    balanceCategoria > 0 ? "text-success" : "text-danger"
+  }">${balanceCategoria > 0 ? "+" : "-"} $${montoMayorGanancia}</div>
+              `;
+    divCategoriaMayorGanacia.innerHTML = str3;
+
+    str4 = `<div class="col-6 fw-semibold">
+    Categoría con mayor gasto
+  </div>
+  <div id="categoria-mayor-gasto" class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorGasto}</span>
+  </div>
+  <div class="col-3 text-end">${montoMayorGasto}</div>`;
+
+    divCategoriaMayorGasto.innerHTML = str4;
+
+    str5 = `<div class="col-6 fw-semibold">
+    Categoría con mayor balance
+  </div>
+  <div class="col-3 text-end">
+    <span class="nombres-categorias">${categoriaMayorBalance}</span>
+  </div>
+  <div class="col-3 text-end">${montoMayorBalance}</div>`;
+    divCategoriaMayorBalance.innerHTML = str5;
+  });
 };
-
-mostrarReportes(operaciones);
-
+totalesPorCategoria(operaciones, categoriasSinRepetir);
 
 
 
@@ -761,6 +901,11 @@ const pintarMayorGastoPorMes = (arr) => {
 };
 
 totalPorMes(operaciones)
+
+
+
+
+
 
 
 const inicializar = () => {
