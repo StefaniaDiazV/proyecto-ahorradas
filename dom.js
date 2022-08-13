@@ -451,6 +451,13 @@ const pintarObjetos = (arr) => {
   });
 
   btnEditaOp.addEventListener("click", () => {
+    vistaBalance.classList.remove("d-none");
+    nuevaOperacion.classList.add("d-none");
+    vistaCategorias.classList.add("d-none");
+    vistaReportes.classList.add("d-none");
+    vistaEditarOperacion.classList.add("d-none");
+    cardEditarCategoria.classList.add("d-none");
+
     const filtrar = operaciones.filter(
       (operacion) => operacion.id === editoOperacion[0].id
     );
