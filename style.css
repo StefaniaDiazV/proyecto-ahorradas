@@ -15,6 +15,18 @@ body {
   margin-bottom: 1rem;
 }
 
+#titulo-principal{
+  padding: 0 10px 0 10px;
+}
+
+.mi-hover{
+  border-radius: 5px;
+}
+
+.mi-hover:hover{
+  background-color: #393e49;
+}
+
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
 
 .tarjetas {
