@@ -37,6 +37,11 @@ body {
   margin-bottom: 3rem;
 }
 
+.btn-hover:hover{
+  background-color: #393e49;
+  border-color: #393e49;
+}
+
 /* ****** TARJETA-REPORTES ****** */
 
 .contenedor-img {
