@@ -335,14 +335,15 @@ generarCategorias(categorias);
 // ***********************************************
 //                 OPERACIONES
 // **********************************************
-
+const sinOperaciones = document.getElementById("sin-operaciones");
+const conOperaciones = document.getElementById("con-operaciones");
 const mostrarOperaciones = (arr) => {
   if (!arr.length) {
-    document.getElementById("sin-operaciones").classList.remove("d-none");
-    document.getElementById("con-operaciones").classList.add("d-none");
+    sinOperaciones.classList.remove("d-none");
+    conOperaciones.classList.add("d-none");
   } else {
-    document.getElementById("sin-operaciones").classList.add("d-none");
-    document.getElementById("con-operaciones").classList.remove("d-none");
+    sinOperaciones.classList.add("d-none");
+    conOperaciones.classList.remove("d-none");
   }
 };
 
@@ -388,11 +389,6 @@ const categoriaNuevaOperacion = document.getElementById(
 const fechaOperacion = document.getElementById("fecha-operacion");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 // Funcion llenar array operaciones
-
-// const agregarObjetos = (obj) => {
-//   operaciones.push(obj);
-//   // localStorage.setItem("operaciones", JSON.stringify(operaciones));
-// };
 
 // Funcion para pintar objetos de las operacion en el HTML
 const pintarObjetos = (arr) => {
@@ -449,7 +445,6 @@ const pintarObjetos = (arr) => {
       editarOperacion(editoOperacion);
     });
   });
-
   btnEditaOp.addEventListener("click", () => {
     vistaBalance.classList.remove("d-none");
     nuevaOperacion.classList.add("d-none");
@@ -526,56 +521,13 @@ const editarOperacion = (arr) => {
 
   vistaBalance.classList.add("d-none");
   vistaEditarOperacion.classList.remove("d-none");
-  //Necesito tomar el valor de los inputs de la card Editar Operación para reemplazar los actuales
+
   editarDescripcionOpInput.value = descripcion;
   editarMontoOpInput.value = monto;
   editarTipoOpInput.value = tipo;
   editarCategoriaOpInput.value = categoria;
   editaFechaOpInput.valueAsDate = new Date(fecha);
 };
-
-//a cada editar operacion le agrego mostrar la pantalla
-
-// // BALANCE
-
-// const divGanancias = document.getElementById("div-ganancias");
-// const divGastos = document.getElementById("div-gastos");
-// const divtotal = document.getElementById("div-total");
-
-// const totalGanancias = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Ganancia") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGanancias.innerHTML = `+$${str}`;
-//   return str;
-// };
-
-// //totalGanancias(operaciones);
-
-// const totalGastos = (arr) => {
-//   let str = 0;
-//   arr.forEach((operaciones) => {
-//     if (operaciones.tipo === "Gasto") {
-//       str += Number(operaciones.monto);
-//     }
-//   });
-//   divGastos.innerHTML = `-$${str}`;
-//   return str;
-// };
-// //totalGastos(operaciones);
-
-// const total = () => {
-//   let str = 0;
-//   str += totalGanancias(operaciones) - totalGastos(operaciones);
-//   divtotal.innerHTML = `<div class="${
-//     str > "0" ? "text-success" : "text-danger"
-//   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
-// };
-
-// //total();
 
 //FILTROS
 
@@ -585,34 +537,56 @@ filtroXTipo.addEventListener("change", (e) => {
       (operacion) => operacion.tipo === e.target.value
     );
 
-    localStorage.setItem("operaciones", JSON.stringify(xTipo));
+    // localStorage.setItem("operaciones", JSON.stringify(xTipo));
 
     pintarObjetos(xTipo);
   } else {
     pintarObjetos(operaciones);
   }
 });
+
 filtroXCategoria.addEventListener("change", (e) => {
   if (e.target.value !== "Todas") {
     const xCategoria = operaciones.filter(
       (operacion) => operacion.categoria === e.target.value
     );
-    localStorage.setItem("operaciones", JSON.stringify(xCategoria));
+    // localStorage.setItem("operaciones", JSON.stringify(xCategoria));
     pintarObjetos(xCategoria);
   } else {
     pintarObjetos(operaciones);
   }
 });
 
+//para borrar
+// const xfiltro = operaciones;
+
+// filtroXFecha.addEventListener("change", (e) => {
+//   filtrar(e.target.value, xfiltro);
+// });
+
+// const filtrar = (target, array) => {
+//   if (target !== new Date()) {
+//     array = operaciones.filter((operacion) => operacion.fecha >= target);
+//     pintarObjetos(array);
+//   }
+//   return array;
+// };
+//borrar hasta aca
+
 filtroXFecha.addEventListener("change", (e) => {
-  const xFecha = operaciones.filter(
+  let xFecha = operaciones.filter(
     (operacion) => operacion.fecha >= e.target.value
   );
-  console.log(xFecha);
-  localStorage.setItem("operaciones", JSON.stringify(xFecha));
-  pintarObjetos(xFecha);
-  pintarObjetos(operaciones);
+
+  if (!xFecha.length) {
+    sinOperaciones.classList.remove("d-none");
+    conOperaciones.classList.add("d-none");
+  } else {
+    pintarObjetos(xFecha);
+  }
 });
+
+mostrarOperaciones(operaciones);
 
 const filtroOrden = () => {
   let orden = ordenarX.value;
@@ -687,20 +661,6 @@ const filtroOrden = () => {
 
 ordenarX.addEventListener("change", filtroOrden);
 
-// REPORTES
-
-// const mostrarReportes = (arr) => {
-//   if (arr.length) {
-//     document.getElementById("sin-reportes").classList.add("d-none");
-//     document.getElementById("con-reportes").classList.remove("d-none");
-//   } else {
-//     document.getElementById("sin-reportes").classList.remove("d-none");
-//     document.getElementById("con-reportes").classList.add("d-none");
-//   }
-// };
-
-// mostrarReportes(operaciones);
-
 // TOTALES POR CATEGORIA
 
 const categoriasSinRepetir = [
@@ -748,7 +708,6 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     const balanceCategoria =
       gananciasTotalesPorCategoria - gastosTotalesPorCategoria;
-    console.log("el balance para", categoria, "es", balanceCategoria);
 
     if (categoriaMayorBalance === " " && montoMayorBalance === 0) {
       montoMayorBalance = balanceCategoria;
@@ -760,35 +719,30 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     str2 += `
     <div class="row margen-superior">
-    <div class="col fw-semibold">
+    <div class="col fw-semibold responsive-reportes">
+   
      ${categoria}
     </div>
-    <div class="col fw-semibold text-end text-success">
+    <div class="col fw-bold text-end text-success responsive-reportes">
       +$${gananciasTotalesPorCategoria}
     </div>
-    <div class="col fw-semibold text-end text-danger">
+    <div class="col fw-bold text-end text-danger responsive-reportes">
       -$${gastosTotalesPorCategoria}
     </div>
-    <div class="col fw-semibold text-end  ${
-      balanceCategoria > 0 ? "text-success" : "text-danger"
-    }">
-    ${balanceCategoria > 0 ? "+" : "-"} $${Math.abs(balanceCategoria)}
-     
-    </div>
+    <div class="col fw-bold text-end responsive-reportes">
+    ${balanceCategoria < 0 ? "-" : ""} $${Math.abs(balanceCategoria)}
+     </div>
   </div>
   `;
-
     reporteCategorias.innerHTML = str2;
 
     str3 = ` <div class="col-6 fw-semibold">
     Categoría con mayor ganancia
   </div>
   <div  class="col-3 text-end">
-    <span class="nombres-categorias">${categoriaMayorGanancia}</span>
+    <span class="nombres-categorias responsive-reportes">${categoriaMayorGanancia}</span>
   </div>
-  <div class="col-3 text-end fw-bold  ${
-    balanceCategoria > 0 ? "text-success" : "text-danger"
-  }">${balanceCategoria > 0 ? "+" : "-"} $${montoMayorGanancia}</div>
+  <div class="col-3 text-end fw-bold text-success responsive-reportes">+$${montoMayorGanancia}</div>
               `;
     divCategoriaMayorGanacia.innerHTML = str3;
 
@@ -796,9 +750,9 @@ const totalesPorCategoria = (operaciones, categorias) => {
     Categoría con mayor gasto
   </div>
   <div id="categoria-mayor-gasto" class="col-3 text-end">
-    <span class="nombres-categorias">${categoriaMayorGasto}</span>
+    <span class="nombres-categorias responsive-reportes">${categoriaMayorGasto}</span>
   </div>
-  <div class="col-3 text-end">${montoMayorGasto}</div>`;
+  <div class="col-3 text-end fw-bold text-danger responsive-reportes">-$${montoMayorGasto}</div>`;
 
     divCategoriaMayorGasto.innerHTML = str4;
 
@@ -806,9 +760,11 @@ const totalesPorCategoria = (operaciones, categorias) => {
     Categoría con mayor balance
   </div>
   <div class="col-3 text-end">
-    <span class="nombres-categorias">${categoriaMayorBalance}</span>
+    <span class="nombres-categorias responsive-reportes">${categoriaMayorBalance}</span>
   </div>
-  <div class="col-3 text-end">${montoMayorBalance}</div>`;
+  <div class="col-3 text-end fw-bold responsive-reportes"> ${
+    montoMayorBalance < 0 ? "-" : ""
+  } $${montoMayorBalance}</div>`;
     divCategoriaMayorBalance.innerHTML = str5;
   });
 };
@@ -871,17 +827,17 @@ const pintarTotalesPorMes = (arr) => {
       str +
       `
 <div class="row margen-superior">
-  <div class="col fw-semibold">
+  <div class="col fw-semibold responsive-reportes">
     ${actual.mes}
   </div>
-  <div class="col fw-semibold text-end text-success">
+  <div class="col fw-semibold text-end text-success responsive-reportes">
    +$${actual.ganancia}
   </div>
-  <div class="col fw-semibold text-end text-danger">
+  <div class="col fw-semibold text-end text-danger responsive-reportes">
     -$${actual.gasto}
   </div>
-  <div class="col fw-semibold text-end">
-  $${actual.balance}
+  <div class="col fw-semibold text-end responsive-reportes">
+   $${actual.balance}
   </div>
 </div>`,
     ""
