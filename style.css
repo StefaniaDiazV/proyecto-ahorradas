@@ -41,7 +41,7 @@ body {
   margin-bottom: 3rem;
 }
 
-.margen-setcion{
+.margen-setcion {
   margin-top: 5rem;
 }
 
@@ -98,4 +98,17 @@ body {
 
 .margen-superior {
   margin-top: 1rem;
+}
+
+@media (max-width: 403px) {
+  .responsive-reportes {
+    padding: 1px;
+    margin: 0;
+    font-size: smaller;
+  }
+
+  .titulo-responsive {
+    font-size: small !important;
+    background-color: yellowgreen;
+  }
 }
