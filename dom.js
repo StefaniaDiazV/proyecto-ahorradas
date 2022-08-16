@@ -91,6 +91,8 @@ btnReportes.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
+  cardEditarCategoria.classList.add("d-none");
 
   if (!operaciones.length) {
     divConReportes.classList.add("d-none");
@@ -854,6 +856,29 @@ const pintarMayorGastoPorMes = (arr) => {
 };
 
 totalPorMes(operaciones);
+
+
+// FUNCION OCULTAR Y MOSTRAR FILTROS
+
+const contenedorFiltros = document.getElementById('contenedor-filtros');
+const linkOcultarFiltros = document.getElementById('link-ocultar-filtros');
+const linlMostrarFiltros = document.getElementById('link-mostrar-filtros');
+
+
+linkOcultarFiltros.addEventListener('click', () => {
+    contenedorFiltros.classList.add('d-none');
+    linlMostrarFiltros.classList.remove('d-none');
+    linkOcultarFiltros.classList.add('d-none');
+});
+
+linlMostrarFiltros.addEventListener('click', () => {
+  contenedorFiltros.classList.remove('d-none');
+  linlMostrarFiltros.classList.add('d-none');
+  linkOcultarFiltros.classList.remove('d-none');
+});
+
+
+
 
 const inicializar = () => {
   const inputsFecha = document.querySelectorAll('input[type="date"]');
