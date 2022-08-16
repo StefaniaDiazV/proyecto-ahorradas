@@ -91,6 +91,8 @@ btnReportes.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
   nuevaOperacion.classList.add("d-none");
   vistaCategorias.classList.add("d-none");
+  vistaEditarOperacion.classList.add("d-none");
+  cardEditarCategoria.classList.add("d-none");
 
   if (!operaciones.length) {
     divConReportes.classList.add("d-none");
