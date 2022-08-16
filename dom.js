@@ -537,8 +537,6 @@ filtroXTipo.addEventListener("change", (e) => {
       (operacion) => operacion.tipo === e.target.value
     );
 
-    // localStorage.setItem("operaciones", JSON.stringify(xTipo));
-
     pintarObjetos(xTipo);
   } else {
     pintarObjetos(operaciones);
@@ -550,7 +548,7 @@ filtroXCategoria.addEventListener("change", (e) => {
     const xCategoria = operaciones.filter(
       (operacion) => operacion.categoria === e.target.value
     );
-    // localStorage.setItem("operaciones", JSON.stringify(xCategoria));
+
     pintarObjetos(xCategoria);
   } else {
     pintarObjetos(operaciones);
