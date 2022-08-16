@@ -555,22 +555,6 @@ filtroXCategoria.addEventListener("change", (e) => {
   }
 });
 
-//para borrar
-// const xfiltro = operaciones;
-
-// filtroXFecha.addEventListener("change", (e) => {
-//   filtrar(e.target.value, xfiltro);
-// });
-
-// const filtrar = (target, array) => {
-//   if (target !== new Date()) {
-//     array = operaciones.filter((operacion) => operacion.fecha >= target);
-//     pintarObjetos(array);
-//   }
-//   return array;
-// };
-//borrar hasta aca
-
 filtroXFecha.addEventListener("change", (e) => {
   let xFecha = operaciones.filter(
     (operacion) => operacion.fecha >= e.target.value

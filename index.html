@@ -28,7 +28,7 @@
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav">
       <div class="container-fluid">
-        <a id="titulo-principal" class="navbar-brand fs-1" href="#">
+        <a id="titulo-principal" class="navbar-brand fs-1 mi-hover" href="#">
           <i class="fa-solid fa-wallet"></i>
           AhorrADAs
         </a>
@@ -50,15 +50,18 @@
           <div class="navbar-nav">
             <a
               id="btn-balance"
-              class="nav-link active fs-5"
+              class="nav-link active fs-5 mi-hover"
               aria-current="page"
               href="#"
               ><i class="fa-solid fa-chart-line"></i> Balance</a
             >
-            <a id="btn-categorias" class="nav-link fs-5" href="#"
+            <a
+              id="btn-categorias"
+              class="nav-link active fs-5 mi-hover"
+              href="#"
               ><i class="fa-solid fa-tags"></i> Categorías</a
             >
-            <a id="btn-reportes" class="nav-link fs-5" href="#"
+            <a id="btn-reportes" class="nav-link active fs-5 mi-hover" href="#"
               ><i class="fa-solid fa-chart-pie"></i> Reportes</a
             >
           </div>
@@ -77,7 +80,7 @@
             <div class="row margen-inferior">
               <div class="col-12">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body shadow">
                     <div class="container">
                       <h2 class="fw-bolder fs-1">Balance</h2>
                       <div class="row margen-filas margen-titulos-tarjetas">
@@ -115,7 +118,7 @@
             <div class="row">
               <div class="col-12">
                 <div class="card">
-                  <div class="card-body">
+                  <div class="card-body shadow">
                     <div
                       class="d-flex justify-content-between align-items-center"
                     >
@@ -187,7 +190,7 @@
           </div>
           <div class="col-md-8 col-sm-12">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body shadow">
                 <div class="container">
                   <div class="row margen-filas">
                     <div class="col-6 fs-5">
@@ -197,7 +200,7 @@
                       <button
                         id="btn-agrega-operación"
                         type="button"
-                        class="btn btn-dark"
+                        class="btn btn-dark btn-hover"
                       >
                         + Nueva operación
                       </button>
@@ -251,7 +254,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body shadow">
                 <h2 class="fw-bolder fs-1">Nueva operación</h2>
                 <div class="margen-filas">
                   <label
@@ -317,7 +320,7 @@
                   <button
                     id="btn-agregar-operacion"
                     type="button"
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-hover"
                   >
                     Agregar
                   </button>
@@ -344,8 +347,8 @@
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
-            <div class="card">
-              <div class="card-body">
+            <div class="card border border-opacity-10 shadow">
+              <div class="card-body shadow">
                 <h2 class="fw-bolder fs-1">Editar operación</h2>
                 <div class="margen-filas">
                   <label
@@ -411,7 +414,7 @@
                   <button
                     id="btn-agrega-edicion-op"
                     type="button"
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-hover"
                   >
                     Editar
                   </button>
@@ -438,7 +441,7 @@
       <div class="container">
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
-            <div class="card">
+            <div class="card border border-opacity-10 shadow">
               <div class="card-body">
                 <h2 class="fw-bolder fs-1 titulos-tarjetas">Categorías</h2>
                 <div class="input-group mb-3">
@@ -451,7 +454,7 @@
                     aria-describedby="boton-categorias"
                   />
                   <button
-                    class="btn btn-dark"
+                    class="btn btn-dark btn-hover"
                     type="button"
                     id="boton-categorias"
                   >
@@ -478,7 +481,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body shadow">
                 <h2 class="fw-bolder fs-1 titulos-tarjetas">
                   Editar categoría
                 </h2>
@@ -498,7 +501,7 @@
                   <div class="d-flex flex-row-reverse">
                     <button
                       type="button"
-                      class="btn btn-dark"
+                      class="btn btn-dark btn-hover"
                       id="btn-editar-categoria"
                     >
                       Editar
@@ -528,30 +531,58 @@
         <div class="row d-flex justify-content-center">
           <div class="col-sm-12 col-md-12 col-lg-8">
             <div class="card">
-              <div class="card-body">
+              <div class="card-body shadow">
                 <h2 class="fw-bolder fs-1">Reportes</h2>
                 <div id="con-reportes" class="d-none margen-setcion">
                   <!-- RESUMEN -->
                   <section id="resumen">
                     <div class="container">
-                      <h3 class="fs-4 margen-filas titulo-responsive">
-                        Resumen
-                      </h3>
+                      <h3 class="fs-4 margen-filas">Resumen</h3>
                       <!-- Categoría con mayor ganancia -->
                       <div
                         id="categoria-mayor-ganancia"
                         class="row margen-superior"
-                      ></div>
+                      >
+                        <!-- <div class="col-6 fw-semibold">
+                        Categoría con mayor ganancia
+                      </div>
+                      <div  class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
+                      </div>
                       <!-- Categoría con mayor gasto-->
                       <div
                         id="categoria-mayor-gasto"
                         class="row margen-superior"
-                      ></div>
+                      >
+                        <!-- <div class="col-6 fw-semibold">
+                        Categoría con mayor gasto
+                      </div>
+                      <div class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
+                      </div>
                       <!-- Categoría con mayor balance-->
                       <div
                         id="categoria-mayor-balace"
                         class="row margen-superior"
-                      ></div>
+                      >
+                        <!-- <div class="col-6 fw-semibold">
+                        Categoría con mayor balance
+                      </div>
+                      <div class="col-3 text-end">
+                        <span class="nombres-categorias">Servicios</span>
+                      </div>
+                      <div class="col-3 text-end">
+                       1000
+                      </div> -->
+                      </div>
                       <!-- Mes con mayor ganancia-->
                       <div class="row margen-superior">
                         <div class="col-6 fw-semibold">
@@ -586,33 +617,14 @@
                   <!-- TOTALES POR CATEGORIAS-->
                   <section id="totales-por-categoria" class="margen-setcion">
                     <div class="container">
-                      <h3 class="fs-4 margen-filas titulo-responsive">
-                        Totales por categorías
-                      </h3>
-                      <div class="row margen-superior responsive-reportes">
-                        <div class="col fw-semibold responsive-reportes">
-                          Categoria
-                        </div>
-                        <div
-                          class="col fw-semibold text-end responsive-reportes"
-                        >
-                          Ganancias
-                        </div>
-                        <div
-                          class="col fw-semibold text-end responsive-reportes"
-                        >
-                          Gastos
-                        </div>
-                        <div
-                          class="col fw-semibold text-end responsive-reportes"
-                        >
-                          Balance
-                        </div>
+                      <h3 class="fs-4 margen-filas">Totales por categorías</h3>
+                      <div class="row margen-superior">
+                        <div class="col fw-semibold">Categoria</div>
+                        <div class="col fw-semibold text-end">Ganancias</div>
+                        <div class="col fw-semibold text-end">Gastos</div>
+                        <div class="col fw-semibold text-end">Balance</div>
                       </div>
-                      <div
-                        id="reportes-por-categoria"
-                        class="responsive-reportes"
-                      ></div>
+                      <div id="reportes-por-categoria"></div>
                     </div>
                   </section>
 
@@ -622,9 +634,7 @@
                     class="margen-setcion titulos-tarjetas"
                   >
                     <div class="container">
-                      <h3 class="fs-4 margen-filas titulo-responsive">
-                        Totales por mes
-                      </h3>
+                      <h3 class="fs-4 margen-filas">Totales por mes</h3>
                       <div class="row margen-superior">
                         <div class="col fw-semibold">Mes</div>
                         <div class="col fw-semibold text-end">Ganancias</div>
