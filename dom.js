@@ -1,11 +1,9 @@
-// Eventos en btn para las diferentes vistas
+// Elementos para cambiar de vistas
 
 const vistaBalance = document.getElementById("vista-balance"); //Section vista balance
 const nuevaOperacion = document.getElementById("nueva-operacion"); //Section Nueva Operación
 const vistaCategorias = document.getElementById("categorias"); // Section Categorías
-
 const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
-
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
 const vistaPrincipal = document.getElementById("titulo-principal");
 const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn +Nueva Operación de la section vista balance
@@ -13,7 +11,47 @@ const btnCategorias = document.getElementById("btn-categorias"); //Btn Categoria
 const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); //Btn "cancel" de la section Nueva Operacion
 
-//Elementos Reportes
+
+//************************************* */
+//         ELEMENTOS BALANCE
+//************************************* */
+
+const divGanancias = document.getElementById("div-ganancias");
+const divGastos = document.getElementById("div-gastos");
+const divtotal = document.getElementById("div-total");
+
+
+//Input de Filtros
+const filtroXTipo = document.getElementById("filtros-tipo");
+const filtroXCategoria = document.getElementById("filtros-categorias");
+const filtroXFecha = document.getElementById("filtros-fecha");
+const ordenarX = document.getElementById("filtros-ordenax");
+
+//Imputs Editar Operación
+const editarDescripcionOpInput = document.getElementById(
+  "edita-descripcion-op"
+);
+const editarMontoOpInput = document.getElementById("edita-monto-op");
+const editarTipoOpInput = document.getElementById("tipo-op");
+const editarCategoriaOpInput = document.getElementById("edita-categoria-op");
+const editaFechaOpInput = document.getElementById("edita-fecha-op");
+
+
+//************************************* */
+//        ELEMENTOS CATEGORIAS
+//************************************* */
+const selects = document.querySelectorAll(".categorias-select");
+const btnAgregarCategorias = document.getElementById("boton-categorias");
+const inputAgregarCategorias = document.getElementById(
+  "agregar-categoria-input"
+);
+
+
+
+
+//************************************* */
+//        ELEMENTOS RESPORTES
+//************************************* */
 const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
 const divSinReportes = document.getElementById("sin-reportes");
@@ -27,21 +65,15 @@ const divCategoriaMayorBalance = document.getElementById(
   "categoria-mayor-balace"
 );
 
-//Imputs Editar Operación
 
-const editarDescripcionOpInput = document.getElementById(
-  "edita-descripcion-op"
-);
-const editarMontoOpInput = document.getElementById("edita-monto-op");
-const editarTipoOpInput = document.getElementById("tipo-op");
-const editarCategoriaOpInput = document.getElementById("edita-categoria-op");
-const editaFechaOpInput = document.getElementById("edita-fecha-op");
 
-//Input de Filtros
-const filtroXTipo = document.getElementById("filtros-tipo");
-const filtroXCategoria = document.getElementById("filtros-categorias");
-const filtroXFecha = document.getElementById("filtros-fecha");
-const ordenarX = document.getElementById("filtros-ordenax");
+
+
+
+
+
+
+
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -107,9 +139,7 @@ btnReportes.addEventListener("click", () => {
 
 // BALANCE
 
-const divGanancias = document.getElementById("div-ganancias");
-const divGastos = document.getElementById("div-gastos");
-const divtotal = document.getElementById("div-total");
+
 
 const totalGanancias = (arr) => {
   let str = 0;
@@ -181,8 +211,8 @@ let categorias = JSON.parse(localStorage.getItem("categorias")) || [
 
 let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 
-//me llevo todos los select con label categorias
-const selects = document.querySelectorAll(".categorias-select");
+
+
 
 //funcion para crear las opciones de los select en base al array "categorias"
 const generarCategorias = (arr) => {
@@ -212,7 +242,7 @@ const generarCategorias = (arr) => {
 //generarCategorias(categorias); //************************************************/
 
 //me llevo el boton para agregar categorias
-const btnAgregarCategorias = document.getElementById("boton-categorias");
+
 
 //defino un listener con click y ejecuto las funciones
 btnAgregarCategorias.addEventListener("click", () => {
@@ -223,9 +253,7 @@ btnAgregarCategorias.addEventListener("click", () => {
 
 // FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELECTS
 
-const inputAgregarCategorias = document.getElementById(
-  "agregar-categoria-input"
-);
+
 
 const agregarCategorias = () => {
   categorias.push({ id: uuidv4(), nombre: inputAgregarCategorias.value });
@@ -256,16 +284,55 @@ const pintarCategorias = (arr) => {
     </div>`;
   });
   divListaCategorias.innerHTML = str;
+
+  const btnEditarCategoria = document.getElementById("btn-editar-categoria");
+  const inputEditarCategoria = document.getElementById("editar-nombre-categoria");
+  const btnEditarCategorias = document.querySelectorAll(".btn-editar-categorias");
+
+  btnEditarCategorias.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      VistaEditarCategoria();
+  
+      let categoriaAEditar = categorias.filter(
+        (categoria) => categoria.id === e.target.dataset.id
+      );
+      categoriaAEditar.forEach((categoria) => {
+        inputEditarCategoria.value = categoria.nombre;
+      });
+  
+      btnEditarCategoria.addEventListener("click", () => {
+        cardEditarCategoria.classList.add("d-none");
+        vistaCategorias.classList.remove("d-none");
+        const cambioCategoria = categorias.filter(
+          (categoria) => categoria.id === categoriaAEditar[0].id
+        );
+        const filtrada = cambioCategoria[0];
+        filtrada.nombre = inputEditarCategoria.value;
+        const accionEditar = categorias.map((categoria) =>
+          categoria.id === categoriaAEditar[0].id ? filtrada : categoria
+        );
+        localStorage.setItem("categorias", JSON.stringify(accionEditar));
+        categorias = JSON.parse(localStorage.getItem("categorias"));
+        pintarCategorias(categorias);
+      });
+    });
+  });
+
+  const VistaEditarCategoria = () => {
+    cardEditarCategoria.classList.remove("d-none");
+    vistaCategorias.classList.add("d-none");
+  };
+
+
 };
 
 pintarCategorias(categorias); //************************************************/
 
 //  FUNCION BTN ELIMINAR CATEGORIAS
-
 const btnEliminarCategorias = document.querySelectorAll(
   ".btn-eliminar-categorias"
 );
-const btnEditarCategorias = document.querySelectorAll(".btn-editar-categorias");
 
 const eliminarCategoria = (arr, e) => {
   const eliminado = arr.filter(
@@ -287,51 +354,16 @@ btnEliminarCategorias.forEach((btn) => {
   });
 });
 
+
 //  FUNCION BTN EDITAR CATEGORIAS
 
-const inputEditarCategoria = document.getElementById("editar-nombre-categoria");
-const btnEditarCategoria = document.getElementById("btn-editar-categoria");
 const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
-
-const VistaEditarCategoria = () => {
-  cardEditarCategoria.classList.remove("d-none");
-  vistaCategorias.classList.add("d-none");
-};
-
 btnCancelarCategoria.addEventListener("click", () => {
   cardEditarCategoria.classList.add("d-none");
   vistaCategorias.classList.remove("d-none");
 });
 
-btnEditarCategorias.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    VistaEditarCategoria();
 
-    let categoriaAEditar = categorias.filter(
-      (categoria) => categoria.id === e.target.dataset.id
-    );
-    categoriaAEditar.forEach((categoria) => {
-      inputEditarCategoria.value = categoria.nombre;
-    });
-
-    btnEditarCategoria.addEventListener("click", () => {
-      cardEditarCategoria.classList.add("d-none");
-      vistaCategorias.classList.remove("d-none");
-      const cambioCategoria = categorias.filter(
-        (categoria) => categoria.id === categoriaAEditar[0].id
-      );
-      const filtrada = cambioCategoria[0];
-      filtrada.nombre = inputEditarCategoria.value;
-      const accionEditar = categorias.map((categoria) =>
-        categoria.id === categoriaAEditar[0].id ? filtrada : categoria
-      );
-      localStorage.setItem("categorias", JSON.stringify(accionEditar));
-      categorias = JSON.parse(localStorage.getItem("categorias"));
-      pintarCategorias(categorias);
-    });
-  });
-});
 generarCategorias(categorias);
 
 // ***********************************************
@@ -339,6 +371,8 @@ generarCategorias(categorias);
 // **********************************************
 const sinOperaciones = document.getElementById("sin-operaciones");
 const conOperaciones = document.getElementById("con-operaciones");
+
+
 const mostrarOperaciones = (arr) => {
   if (!arr.length) {
     sinOperaciones.classList.remove("d-none");
