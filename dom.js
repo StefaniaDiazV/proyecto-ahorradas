@@ -1,15 +1,17 @@
-// Elementos para cambiar de vistas
+//************************************* */
+//  ELEMENTOS PARA LOS BOTONES DEL NAV
+//************************************* */
 
-const vistaBalance = document.getElementById("vista-balance"); //Section vista balance
-const nuevaOperacion = document.getElementById("nueva-operacion"); //Section Nueva Operación
-const vistaCategorias = document.getElementById("categorias"); // Section Categorías
-const cardEditarCategoria = document.getElementById("editar-categorias"); // Section Editar Categorías
+const vistaBalance = document.getElementById("vista-balance"); 
+const nuevaOperacion = document.getElementById("nueva-operacion"); 
+const vistaCategorias = document.getElementById("categorias");
+const cardEditarCategoria = document.getElementById("editar-categorias");
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
 const vistaPrincipal = document.getElementById("titulo-principal");
-const btnNvaOperacion = document.getElementById("btn-agrega-operación"); //Btn +Nueva Operación de la section vista balance
-const btnCategorias = document.getElementById("btn-categorias"); //Btn Categorias del header
-const btnBalance = document.getElementById("btn-balance"); //Btn Balance del header
-const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); //Btn "cancel" de la section Nueva Operacion
+const btnNvaOperacion = document.getElementById("btn-agrega-operación");
+const btnCategorias = document.getElementById("btn-categorias");
+const btnBalance = document.getElementById("btn-balance"); 
+const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); 
 
 
 //************************************* */
@@ -19,7 +21,18 @@ const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); 
 const divGanancias = document.getElementById("div-ganancias");
 const divGastos = document.getElementById("div-gastos");
 const divtotal = document.getElementById("div-total");
-
+const sinOperaciones = document.getElementById("sin-operaciones");
+const conOperaciones = document.getElementById("con-operaciones");
+const descripcionOperacion = document.getElementById("descripcion-operacion"); // input-descripcion vista nueva operacion
+const montoOperacion = document.getElementById("monto-operacion"); // input-monto
+const tipoOperacion = document.getElementById("tipo-operacion"); // select-tipo de operacion
+const categoriaNuevaOperacion = document.getElementById("categoria-nueva-operacion");
+const fechaOperacion = document.getElementById("fecha-operacion");
+const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
+const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op");
+const contenedorFiltros = document.getElementById('contenedor-filtros');
+const linkOcultarFiltros = document.getElementById('link-ocultar-filtros');
+const linlMostrarFiltros = document.getElementById('link-mostrar-filtros');
 
 //Input de Filtros
 const filtroXTipo = document.getElementById("filtros-tipo");
@@ -28,9 +41,7 @@ const filtroXFecha = document.getElementById("filtros-fecha");
 const ordenarX = document.getElementById("filtros-ordenax");
 
 //Imputs Editar Operación
-const editarDescripcionOpInput = document.getElementById(
-  "edita-descripcion-op"
-);
+const editarDescripcionOpInput = document.getElementById("edita-descripcion-op");
 const editarMontoOpInput = document.getElementById("edita-monto-op");
 const editarTipoOpInput = document.getElementById("tipo-op");
 const editarCategoriaOpInput = document.getElementById("edita-categoria-op");
@@ -42,10 +53,8 @@ const editaFechaOpInput = document.getElementById("edita-fecha-op");
 //************************************* */
 const selects = document.querySelectorAll(".categorias-select");
 const btnAgregarCategorias = document.getElementById("boton-categorias");
-const inputAgregarCategorias = document.getElementById(
-  "agregar-categoria-input"
-);
-
+const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
+const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 
 
 
@@ -57,23 +66,15 @@ const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes de
 const divSinReportes = document.getElementById("sin-reportes");
 const divConReportes = document.getElementById("con-reportes");
 const reporteCategorias = document.getElementById("reportes-por-categoria");
-const divCategoriaMayorGanacia = document.getElementById(
-  "categoria-mayor-ganancia"
-);
+const divCategoriaMayorGanacia = document.getElementById("categoria-mayor-ganancia");
 const divCategoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
-const divCategoriaMayorBalance = document.getElementById(
-  "categoria-mayor-balace"
-);
+const divCategoriaMayorBalance = document.getElementById("categoria-mayor-balace");
 
 
 
-
-
-
-
-
-
-
+// ***************************************
+//        FUNCIONES BOTONES DEL NAV
+// **************************************
 
 btnNvaOperacion.addEventListener("click", () => {
   vistaBalance.classList.add("d-none");
@@ -137,10 +138,12 @@ btnReportes.addEventListener("click", () => {
   totalesPorCategoria(operaciones, categoriasSinRepetir);
 });
 
-// BALANCE
 
+// ********************************************
+//                BALANCE 
+//********************************************
 
-
+// FUNCIÓN OBTENER GANANCIAS TOTALES
 const totalGanancias = (arr) => {
   let str = 0;
   arr.forEach((operaciones) => {
@@ -152,8 +155,7 @@ const totalGanancias = (arr) => {
   return str;
 };
 
-//totalGanancias(operaciones);
-
+// FUNCIÓN OBTENER GASTOS TOTALES
 const totalGastos = (arr) => {
   let str = 0;
   arr.forEach((operaciones) => {
@@ -164,8 +166,8 @@ const totalGastos = (arr) => {
   divGastos.innerHTML = `-$${str}`;
   return str;
 };
-//totalGastos(operaciones);
 
+// FUNCIÓN OBTENER  TOTAL BALANCE
 const total = () => {
   let str = 0;
   str += totalGanancias(operaciones) - totalGastos(operaciones);
@@ -174,13 +176,10 @@ const total = () => {
   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
 };
 
-//total();
 
-// ***********************************************
+// **********************************************
 //                CATEGORIAS
 // **********************************************
-
-// Función agregar categorias-select
 
 let categorias = JSON.parse(localStorage.getItem("categorias")) || [
   {
@@ -209,27 +208,15 @@ let categorias = JSON.parse(localStorage.getItem("categorias")) || [
   },
 ];
 
-let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
+// FUNCIÓN PARA GENERAR CATEGORIAS EN LOS SELECTS
 
-
-
-
-//funcion para crear las opciones de los select en base al array "categorias"
 const generarCategorias = (arr) => {
-  //por cada select : tres en total
   let select = "";
   for (let i = 0; i < selects.length; i++) {
     select = selects[i];
-    //me fijo si el select que esta pasando por el FOR contiene esta clase
-    //para agregarle la opcion "TODAS"
-    //si no es, que siga de largo. no hace nada.
     if (select.classList.contains("filtro-categoria")) {
       select.innerHTML = "<option>Todas</option>";
     }
-    //por cada select, recorro el array de sus categorias y le agrego la opcion
-    //en total ejecuta 3 * 6 (cantidad de categorias) = 18
-    //porque este FOR esta dentro del otro FOR
-
     for (let j = 0; j < arr.length; j++) {
       select.innerHTML =
         select.innerHTML +
@@ -238,13 +225,9 @@ const generarCategorias = (arr) => {
   }
 };
 
-//ahora que definí todo, ejecuto la funcion.
 //generarCategorias(categorias); //************************************************/
 
-//me llevo el boton para agregar categorias
-
-
-//defino un listener con click y ejecuto las funciones
+// FUNCIÓN BOTON AGREGAR CATEGORIAS
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
   limpiarInputCategorias();
@@ -252,9 +235,6 @@ btnAgregarCategorias.addEventListener("click", () => {
 });
 
 // FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELECTS
-
-
-
 const agregarCategorias = () => {
   categorias.push({ id: uuidv4(), nombre: inputAgregarCategorias.value });
   generarCategorias();
@@ -355,9 +335,8 @@ btnEliminarCategorias.forEach((btn) => {
 });
 
 
-//  FUNCION BTN EDITAR CATEGORIAS
+//  FUNCION BTN CANCELAR EDITAR CATEGORIAS
 
-const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 btnCancelarCategoria.addEventListener("click", () => {
   cardEditarCategoria.classList.add("d-none");
   vistaCategorias.classList.remove("d-none");
@@ -369,10 +348,10 @@ generarCategorias(categorias);
 // ***********************************************
 //                 OPERACIONES
 // **********************************************
-const sinOperaciones = document.getElementById("sin-operaciones");
-const conOperaciones = document.getElementById("con-operaciones");
 
+let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 
+// FUNCIÓN MOSTRAR OPERACIONES
 const mostrarOperaciones = (arr) => {
   if (!arr.length) {
     sinOperaciones.classList.remove("d-none");
@@ -385,7 +364,7 @@ const mostrarOperaciones = (arr) => {
 
 mostrarOperaciones(operaciones); //************************************************/
 
-//Funcion limpiar input-Nueva-operacion
+// FUNCIÓN LIMPIAR INPUT-NUEVA-OPERACION
 const limpiarVistaNuevaOperacion = () => {
   descripcionOperacion.value = "";
   montoOperacion.value = "0";
@@ -394,7 +373,7 @@ const limpiarVistaNuevaOperacion = () => {
   fechaOperacion.valueAsDate = new Date();
 };
 
-// Funcion para crear Objeto de cada operacion
+// FUNCIÓN CREAR OBJETO DE CADA OPERACIÓN Y LLENAR ARRAY OPERACIONES 
 const crearObjOperaciones = () => {
   objOperaciones = {
     id: uuidv4(),
@@ -404,35 +383,20 @@ const crearObjOperaciones = () => {
     categoria: categoriaNuevaOperacion.value,
     fecha: fechaOperacion.value,
   };
-
   nuevaOperacion.classList.add("d-none");
   vistaBalance.classList.remove("d-none");
   vistaCategorias.classList.add("d-none");
-
   limpiarVistaNuevaOperacion();
   operaciones.push(objOperaciones);
   console.log(categoriaNuevaOperacion.value);
   localStorage.setItem("operaciones", JSON.stringify(operaciones));
 };
 
-// Funcion llenar array operaciones
-const descripcionOperacion = document.getElementById("descripcion-operacion"); // input-descripcion vista nueva operacion
-const montoOperacion = document.getElementById("monto-operacion"); // input-monto
-const tipoOperacion = document.getElementById("tipo-operacion"); // select-tipo de operacion
-const categoriaNuevaOperacion = document.getElementById(
-  "categoria-nueva-operacion"
-);
-const fechaOperacion = document.getElementById("fecha-operacion");
-const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
-// Funcion llenar array operaciones
-
-// Funcion para pintar objetos de las operacion en el HTML
+// FUNCION PARA PINTAR OBJETOS DE LAS OPERACIONES EN HTML
 const pintarObjetos = (arr) => {
   const conOperaciones = document.getElementById("operaciones");
-
   let str = "";
   mostrarOperaciones(operaciones);
-
   arr.forEach((operacion) => {
     //const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
 
@@ -472,6 +436,7 @@ const pintarObjetos = (arr) => {
   const btnEditaOp = document.getElementById("btn-agrega-edicion-op");
   const btnsEliminar = document.querySelectorAll(".btn-elimina-op");
 
+  // FUNCIÓN EDITAR OPERACIÓN
   btnsEditar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
@@ -508,56 +473,43 @@ const pintarObjetos = (arr) => {
     pintarObjetos(operacionesEditadas);
   });
 
+   // FUNCIÓN ELIMINAR OPERACIÓN
   btnsEliminar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-
       const arrSinOperacion = operaciones.filter(
-        (operacion) => operacion.id !== e.target.dataset.id
-        //El filter devuelve un array de los objetos cuyo valor de la propiedad id es diferente de el id de cada botón agregado por innerHTML que se está clickeando ( separa sólo el que matchee)
-      );
-
+      (operacion) => operacion.id !== e.target.dataset.id);
       localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
-      // //subo a LS los elementos que no voy a eliminar, actualizo LS
       operaciones = JSON.parse(localStorage.getItem("operaciones"));
-
-      //traigo de LS el array operaciones actualizado
       pintarObjetos(operaciones);
-      //pinto el array operaciones actualizado
       mostrarOperaciones(operaciones);
-      //ejecuto mostrar operaciones para mantener la vista correspondiente a "con operaciones"
+    
     });
   });
 };
 
 pintarObjetos(operaciones); //************************************************/
 
-// Funcion Boton Agregar Operacion (Crear Objeto, pushear Obj al Array)
+// FUNCIÓN BOTON PARA CREAR OBJETOS 
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
-// Ejecucion funcion btn para pintar los objetos en HTML
+
+// FUNCIÓN BOTON PARA PINTAR OBJETOS
 btnAgregarOperacion.addEventListener("click", () => {
   pintarObjetos(operaciones);
 });
 
-// const btnsEliminar = Array.from(document.getElementsByClassName('btn-eliminar'));
-
-//Btn Agregar de vista Editar Operación
-
-const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op"); //Btn Cancelar de vista Editar Operación
-
+// EVENTO BTN CANCELAR OPERACIÓN
 btnCancelaOpEditada.addEventListener("click", () => {
-  //click en cancelar vuelve a mostrar la vista balance y oculta Editar Operación
   vistaBalance.classList.remove("d-none");
   vistaEditarOperacion.classList.add("d-none");
 });
 
+// FUNCIÓN PARA MOSTRAR VALORES DE LA OPERACIÓN EN LOS INPUT
 const editarOperacion = (arr) => {
   if (arr.length == 0) return;
   const { descripcion, categoria, fecha, monto, tipo } = arr[0];
-
   vistaBalance.classList.add("d-none");
   vistaEditarOperacion.classList.remove("d-none");
-
   editarDescripcionOpInput.value = descripcion;
   editarMontoOpInput.value = monto;
   editarTipoOpInput.value = tipo;
@@ -565,37 +517,53 @@ const editarOperacion = (arr) => {
   editaFechaOpInput.valueAsDate = new Date(fecha);
 };
 
-//FILTROS
+// *********************************************
+//                  FILTROS
+// *********************************************
 
+// FUNCION OCULTAR Y MOSTRAR FILTROS
+
+linkOcultarFiltros.addEventListener('click', () => {
+  contenedorFiltros.classList.add('d-none');
+  linlMostrarFiltros.classList.remove('d-none');
+  linkOcultarFiltros.classList.add('d-none');
+});
+
+linlMostrarFiltros.addEventListener('click', () => {
+contenedorFiltros.classList.remove('d-none');
+linlMostrarFiltros.classList.add('d-none');
+linkOcultarFiltros.classList.remove('d-none');
+});
+
+// FILTRO POR TIPO 
 filtroXTipo.addEventListener("change", (e) => {
   if (e.target.value !== "Todos") {
     const xTipo = operaciones.filter(
       (operacion) => operacion.tipo === e.target.value
     );
-
     pintarObjetos(xTipo);
   } else {
     pintarObjetos(operaciones);
   }
 });
 
+// FILTRO POR CATEGORIA
 filtroXCategoria.addEventListener("change", (e) => {
   if (e.target.value !== "Todas") {
     const xCategoria = operaciones.filter(
       (operacion) => operacion.categoria === e.target.value
     );
-
     pintarObjetos(xCategoria);
   } else {
     pintarObjetos(operaciones);
   }
 });
 
+// FILTRO POR FECHA
 filtroXFecha.addEventListener("change", (e) => {
   let xFecha = operaciones.filter(
     (operacion) => operacion.fecha >= e.target.value
   );
-
   if (!xFecha.length) {
     sinOperaciones.classList.remove("d-none");
     conOperaciones.classList.add("d-none");
@@ -606,6 +574,7 @@ filtroXFecha.addEventListener("change", (e) => {
 
 mostrarOperaciones(operaciones);
 
+// FILTRO POR ORDEN
 const filtroOrden = () => {
   let orden = ordenarX.value;
   switch (orden) {
@@ -676,8 +645,11 @@ const filtroOrden = () => {
       break;
   }
 };
-
 ordenarX.addEventListener("change", filtroOrden);
+
+// *******************************************************
+//                    REPORTES
+// *******************************************************
 
 // TOTALES POR CATEGORIA
 
@@ -788,7 +760,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
 };
 totalesPorCategoria(operaciones, categoriasSinRepetir);
 
-//TOTALES POR MES
+// FUNCIÓN OBTENER TOTALES POR MES
 
 const totalPorMes = (arr) => {
   if (arr.length == 0) return;
@@ -839,6 +811,8 @@ const totalPorMes = (arr) => {
   pintarMayorGastoPorMes(mayorGasto(...totalesPorMes));
 };
 
+// FUNCIÓN PINTAR TOTALES POR MES
+
 const pintarTotalesPorMes = (arr) => {
   const string = arr.reduce(
     (str, actual) =>
@@ -863,12 +837,16 @@ const pintarTotalesPorMes = (arr) => {
   document.getElementById("reportes-por-mes").innerHTML = string;
 };
 
+// FUNCIÓN OBTENER MES CON MAYOR GANANCIAS
+
 const mayorGanancia = (...arr) => {
   const mayorGanancia = arr.sort(
     (a, b) => Number(b.ganancia) - Number(a.ganancia)
   );
   return mayorGanancia;
 };
+
+// FUNCIÓN PINTAR MES CON MAYOR GANANCIAS
 
 const pintarMayorGananciaPorMes = (arr) => {
   document.getElementById("mes-mayor-ganancia").innerHTML = arr[0].mes;
@@ -877,10 +855,14 @@ const pintarMayorGananciaPorMes = (arr) => {
   ).innerHTML = `+$${arr[0].ganancia}`;
 };
 
+// FUNCIÓN OBTENER MES CON MAYOR GASTO
+
 const mayorGasto = (...arr) => {
   const mayorGasto = arr.sort((a, b) => Number(b.gasto) - Number(a.gasto));
   return mayorGasto;
 };
+
+// FUNCIÓN PINTAR MES CON MAYOR GASTO
 
 const pintarMayorGastoPorMes = (arr) => {
   document.getElementById("mes-mayor-gasto").innerHTML = arr[0].mes;
@@ -892,27 +874,8 @@ const pintarMayorGastoPorMes = (arr) => {
 totalPorMes(operaciones);
 
 
-// FUNCION OCULTAR Y MOSTRAR FILTROS
 
-const contenedorFiltros = document.getElementById('contenedor-filtros');
-const linkOcultarFiltros = document.getElementById('link-ocultar-filtros');
-const linlMostrarFiltros = document.getElementById('link-mostrar-filtros');
-
-
-linkOcultarFiltros.addEventListener('click', () => {
-    contenedorFiltros.classList.add('d-none');
-    linlMostrarFiltros.classList.remove('d-none');
-    linkOcultarFiltros.classList.add('d-none');
-});
-
-linlMostrarFiltros.addEventListener('click', () => {
-  contenedorFiltros.classList.remove('d-none');
-  linlMostrarFiltros.classList.add('d-none');
-  linkOcultarFiltros.classList.remove('d-none');
-});
-
-
-
+// FUNCIÓN INICIALIZAR
 
 const inicializar = () => {
   const inputsFecha = document.querySelectorAll('input[type="date"]');
