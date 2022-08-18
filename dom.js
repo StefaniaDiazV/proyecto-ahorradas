@@ -237,7 +237,7 @@ btnAgregarCategorias.addEventListener("click", () => {
 // FUNCION PARA AGREGAR LAS CATEGORIAS AL ARRAY Y VACIAR LOS SELECTS
 const agregarCategorias = () => {
   categorias.push({ id: uuidv4(), nombre: inputAgregarCategorias.value });
-  generarCategorias();
+  generarCategorias(categorias);
   localStorage.setItem("categorias", JSON.stringify(categorias));
 };
 
