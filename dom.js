@@ -2,17 +2,16 @@
 //  ELEMENTOS PARA LOS BOTONES DEL NAV
 //************************************* */
 
-const vistaBalance = document.getElementById("vista-balance"); 
-const nuevaOperacion = document.getElementById("nueva-operacion"); 
+const vistaBalance = document.getElementById("vista-balance");
+const nuevaOperacion = document.getElementById("nueva-operacion");
 const vistaCategorias = document.getElementById("categorias");
 const cardEditarCategoria = document.getElementById("editar-categorias");
 const vistaEditarOperacion = document.getElementById("vista-editar-operacion");
 const vistaPrincipal = document.getElementById("titulo-principal");
 const btnNvaOperacion = document.getElementById("btn-agrega-operación");
 const btnCategorias = document.getElementById("btn-categorias");
-const btnBalance = document.getElementById("btn-balance"); 
-const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion"); 
-
+const btnBalance = document.getElementById("btn-balance");
+const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion");
 
 //************************************* */
 //         ELEMENTOS BALANCE
@@ -26,13 +25,15 @@ const conOperaciones = document.getElementById("con-operaciones");
 const descripcionOperacion = document.getElementById("descripcion-operacion"); // input-descripcion vista nueva operacion
 const montoOperacion = document.getElementById("monto-operacion"); // input-monto
 const tipoOperacion = document.getElementById("tipo-operacion"); // select-tipo de operacion
-const categoriaNuevaOperacion = document.getElementById("categoria-nueva-operacion");
+const categoriaNuevaOperacion = document.getElementById(
+  "categoria-nueva-operacion"
+);
 const fechaOperacion = document.getElementById("fecha-operacion");
 const btnAgregarOperacion = document.getElementById("btn-agregar-operacion");
 const btnCancelaOpEditada = document.getElementById("btn-cancela-edicion-op");
-const contenedorFiltros = document.getElementById('contenedor-filtros');
-const linkOcultarFiltros = document.getElementById('link-ocultar-filtros');
-const linlMostrarFiltros = document.getElementById('link-mostrar-filtros');
+const contenedorFiltros = document.getElementById("contenedor-filtros");
+const linkOcultarFiltros = document.getElementById("link-ocultar-filtros");
+const linlMostrarFiltros = document.getElementById("link-mostrar-filtros");
 
 //Input de Filtros
 const filtroXTipo = document.getElementById("filtros-tipo");
@@ -41,22 +42,23 @@ const filtroXFecha = document.getElementById("filtros-fecha");
 const ordenarX = document.getElementById("filtros-ordenax");
 
 //Imputs Editar Operación
-const editarDescripcionOpInput = document.getElementById("edita-descripcion-op");
+const editarDescripcionOpInput = document.getElementById(
+  "edita-descripcion-op"
+);
 const editarMontoOpInput = document.getElementById("edita-monto-op");
 const editarTipoOpInput = document.getElementById("tipo-op");
 const editarCategoriaOpInput = document.getElementById("edita-categoria-op");
 const editaFechaOpInput = document.getElementById("edita-fecha-op");
-
 
 //************************************* */
 //        ELEMENTOS CATEGORIAS
 //************************************* */
 const selects = document.querySelectorAll(".categorias-select");
 const btnAgregarCategorias = document.getElementById("boton-categorias");
-const inputAgregarCategorias = document.getElementById("agregar-categoria-input");
+const inputAgregarCategorias = document.getElementById(
+  "agregar-categoria-input"
+);
 const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
-
-
 
 //************************************* */
 //        ELEMENTOS RESPORTES
@@ -66,11 +68,13 @@ const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes de
 const divSinReportes = document.getElementById("sin-reportes");
 const divConReportes = document.getElementById("con-reportes");
 const reporteCategorias = document.getElementById("reportes-por-categoria");
-const divCategoriaMayorGanacia = document.getElementById("categoria-mayor-ganancia");
+const divCategoriaMayorGanacia = document.getElementById(
+  "categoria-mayor-ganancia"
+);
 const divCategoriaMayorGasto = document.getElementById("categoria-mayor-gasto");
-const divCategoriaMayorBalance = document.getElementById("categoria-mayor-balace");
-
-
+const divCategoriaMayorBalance = document.getElementById(
+  "categoria-mayor-balace"
+);
 
 // ***************************************
 //        FUNCIONES BOTONES DEL NAV
@@ -138,9 +142,8 @@ btnReportes.addEventListener("click", () => {
   totalesPorCategoria(operaciones, categoriasSinRepetir);
 });
 
-
 // ********************************************
-//                BALANCE 
+//                BALANCE
 //********************************************
 
 // FUNCIÓN OBTENER GANANCIAS TOTALES
@@ -175,7 +178,6 @@ const total = () => {
     str > "0" ? "text-success" : "text-danger"
   }" >${str > "0" ? "+" : "-"}$${Math.abs(str)}</div>`;
 };
-
 
 // **********************************************
 //                CATEGORIAS
@@ -266,21 +268,25 @@ const pintarCategorias = (arr) => {
   divListaCategorias.innerHTML = str;
 
   const btnEditarCategoria = document.getElementById("btn-editar-categoria");
-  const inputEditarCategoria = document.getElementById("editar-nombre-categoria");
-  const btnEditarCategorias = document.querySelectorAll(".btn-editar-categorias");
+  const inputEditarCategoria = document.getElementById(
+    "editar-nombre-categoria"
+  );
+  const btnEditarCategorias = document.querySelectorAll(
+    ".btn-editar-categorias"
+  );
 
   btnEditarCategorias.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       VistaEditarCategoria();
-  
+
       let categoriaAEditar = categorias.filter(
         (categoria) => categoria.id === e.target.dataset.id
       );
       categoriaAEditar.forEach((categoria) => {
         inputEditarCategoria.value = categoria.nombre;
       });
-  
+
       btnEditarCategoria.addEventListener("click", () => {
         cardEditarCategoria.classList.add("d-none");
         vistaCategorias.classList.remove("d-none");
@@ -303,8 +309,6 @@ const pintarCategorias = (arr) => {
     cardEditarCategoria.classList.remove("d-none");
     vistaCategorias.classList.add("d-none");
   };
-
-
 };
 
 pintarCategorias(categorias); //************************************************/
@@ -334,14 +338,12 @@ btnEliminarCategorias.forEach((btn) => {
   });
 });
 
-
 //  FUNCION BTN CANCELAR EDITAR CATEGORIAS
 
 btnCancelarCategoria.addEventListener("click", () => {
   cardEditarCategoria.classList.add("d-none");
   vistaCategorias.classList.remove("d-none");
 });
-
 
 generarCategorias(categorias);
 
@@ -373,7 +375,7 @@ const limpiarVistaNuevaOperacion = () => {
   fechaOperacion.valueAsDate = new Date();
 };
 
-// FUNCIÓN CREAR OBJETO DE CADA OPERACIÓN Y LLENAR ARRAY OPERACIONES 
+// FUNCIÓN CREAR OBJETO DE CADA OPERACIÓN Y LLENAR ARRAY OPERACIONES
 const crearObjOperaciones = () => {
   objOperaciones = {
     id: uuidv4(),
@@ -473,24 +475,24 @@ const pintarObjetos = (arr) => {
     pintarObjetos(operacionesEditadas);
   });
 
-   // FUNCIÓN ELIMINAR OPERACIÓN
+  // FUNCIÓN ELIMINAR OPERACIÓN
   btnsEliminar.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
       const arrSinOperacion = operaciones.filter(
-      (operacion) => operacion.id !== e.target.dataset.id);
+        (operacion) => operacion.id !== e.target.dataset.id
+      );
       localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
       operaciones = JSON.parse(localStorage.getItem("operaciones"));
       pintarObjetos(operaciones);
       mostrarOperaciones(operaciones);
-    
     });
   });
 };
 
 pintarObjetos(operaciones); //************************************************/
 
-// FUNCIÓN BOTON PARA CREAR OBJETOS 
+// FUNCIÓN BOTON PARA CREAR OBJETOS
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
 
 // FUNCIÓN BOTON PARA PINTAR OBJETOS
@@ -523,19 +525,19 @@ const editarOperacion = (arr) => {
 
 // FUNCION OCULTAR Y MOSTRAR FILTROS
 
-linkOcultarFiltros.addEventListener('click', () => {
-  contenedorFiltros.classList.add('d-none');
-  linlMostrarFiltros.classList.remove('d-none');
-  linkOcultarFiltros.classList.add('d-none');
+linkOcultarFiltros.addEventListener("click", () => {
+  contenedorFiltros.classList.add("d-none");
+  linlMostrarFiltros.classList.remove("d-none");
+  linkOcultarFiltros.classList.add("d-none");
 });
 
-linlMostrarFiltros.addEventListener('click', () => {
-contenedorFiltros.classList.remove('d-none');
-linlMostrarFiltros.classList.add('d-none');
-linkOcultarFiltros.classList.remove('d-none');
+linlMostrarFiltros.addEventListener("click", () => {
+  contenedorFiltros.classList.remove("d-none");
+  linlMostrarFiltros.classList.add("d-none");
+  linkOcultarFiltros.classList.remove("d-none");
 });
 
-// FILTRO POR TIPO 
+// FILTRO POR TIPO
 filtroXTipo.addEventListener("change", (e) => {
   if (e.target.value !== "Todos") {
     const xTipo = operaciones.filter(
@@ -873,8 +875,6 @@ const pintarMayorGastoPorMes = (arr) => {
 
 totalPorMes(operaciones);
 
-
-
 // FUNCIÓN INICIALIZAR
 
 const inicializar = () => {
@@ -885,3 +885,9 @@ const inicializar = () => {
 };
 
 window.onload = inicializar;
+
+// if (window.matchMedia("(min-width: 200px)").matches) {
+//   /* La pantalla tiene al menos 400 píxeles de ancho */
+// } else {
+//   /* La pantalla tiene menos de 400 píxeles de ancho */
+// }
