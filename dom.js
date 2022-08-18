@@ -403,21 +403,21 @@ const pintarObjetos = (arr) => {
     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
     str += `
     <div class="row margen-superior">
-      <div class="col-md-3 col-sm-6 fw-bold">
+      <div class="col-md-3 col-sm-6 col-6 fw-bold">
         <h6>${descripcion}</h6>
       </div>
-      <div class="col-md-3 col-sm-6">                                                   
+      <div class="col-md-3 col-sm-6 col-6 categorias-operaciones">                                                   
         <span class="nombres-categorias">${categoria}</span>
       </div>
-      <div class="col-md-2 col-sm-6 text-end">
+      <div class="col-md-2 col-sm-6 text-end fechas-operaciones">
       ${fecha}
       </div>
-      <div class="col-md-2 col-sm-6 fw-bold text-end  ${
+      <div class="monto-operaciones col-md-2 col-sm-6 col-6 fw-bold text-end  ${
         tipo === "Ganancia" ? "text-success" : "text-danger"
       }">
       ${tipo === "Ganancia" ? "+" : "-"}$${monto}
       </div>
-      <div class="col-md-2 col-sm-6 text-wrap text-end">
+      <div class="col-md-2 col-sm-6 col-6 text-wrap text-end">
         <p>
           <a  href="#" data-id="${id}" class="link-categoria btn-edita-op">Editar</a>
           <a  href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
@@ -822,13 +822,13 @@ const pintarTotalesPorMes = (arr) => {
   <div class="col fw-semibold responsive-reportes">
     ${actual.mes}
   </div>
-  <div class="col fw-semibold text-end text-success responsive-reportes">
+  <div class="col fw-bold text-end text-success responsive-reportes">
    +$${actual.ganancia}
   </div>
-  <div class="col fw-semibold text-end text-danger responsive-reportes">
+  <div class="col fw-bold text-end text-danger responsive-reportes">
     -$${actual.gasto}
   </div>
-  <div class="col fw-semibold text-end responsive-reportes">
+  <div class="col fw-bold text-end responsive-reportes">
    $${actual.balance}
   </div>
 </div>`,
