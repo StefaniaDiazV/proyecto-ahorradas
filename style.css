@@ -117,6 +117,26 @@ body {
   margin-top: 1rem;
 }
 
+@media (max-width: 765px) {
+  #titulos-operaciones{
+   display: none;
+  }
+  .fechas-operaciones{
+   display: none;
+  }
+  .categorias-operaciones{
+   text-align: right;
+  }
+ .monto-operaciones{
+   text-align: start !important;
+ }
+ .aliniar-btn{
+   text-align: start;
+ }
+ 
+ }
+
+
 @media (max-width: 403px) {
   .responsive-reportes {
     padding: 1px;
