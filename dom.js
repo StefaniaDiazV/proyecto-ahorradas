@@ -131,7 +131,7 @@ btnReportes.addEventListener("click", () => {
   vistaEditarOperacion.classList.add("d-none");
   cardEditarCategoria.classList.add("d-none");
 
-  if (!operaciones.length) {
+  if (operaciones.length < 3) {
     divConReportes.classList.add("d-none");
     divSinReportes.classList.remove("d-none");
   } else {
@@ -140,6 +140,7 @@ btnReportes.addEventListener("click", () => {
   }
 
   totalesPorCategoria(operaciones, categoriasSinRepetir);
+  totalPorMes(operaciones);
 });
 
 // ********************************************
@@ -309,11 +310,8 @@ const pintarCategorias = (arr) => {
     cardEditarCategoria.classList.remove("d-none");
     vistaCategorias.classList.add("d-none");
   };
-};
 
-pintarCategorias(categorias); //************************************************/
-
-//  FUNCION BTN ELIMINAR CATEGORIAS
+  //  FUNCION BTN ELIMINAR CATEGORIAS
 const btnEliminarCategorias = document.querySelectorAll(
   ".btn-eliminar-categorias"
 );
@@ -337,6 +335,12 @@ btnEliminarCategorias.forEach((btn) => {
     eliminarCategoria(categorias, e);
   });
 });
+
+
+};
+
+pintarCategorias(categorias); //************************************************/
+
 
 //  FUNCION BTN CANCELAR EDITAR CATEGORIAS
 
@@ -401,7 +405,6 @@ const pintarObjetos = (arr) => {
   mostrarOperaciones(operaciones);
   arr.forEach((operacion) => {
     //const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
-
     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
     str += `
     <div class="row margen-superior">
@@ -777,7 +780,6 @@ const totalPorMes = (arr) => {
       )
     ),
   ].sort();
-  console.log(meses);
   let totalesPorMes = [];
   for (let i = 0; i < meses.length; i++) {
     const totalOperacionesPorMes = arr.filter(
@@ -786,27 +788,21 @@ const totalPorMes = (arr) => {
           operacion.fecha
         ).getFullYear()}` === meses[i]
     );
-    console.log(totalOperacionesPorMes);
     const gananciasXMes = totalOperacionesPorMes
       .filter((operacion) => operacion.tipo === "Ganancia")
       .reduce((count, current) => count + Number(current.monto), 0);
-    console.log(gananciasXMes);
     const gastosXMes = totalOperacionesPorMes
       .filter((operacion) => operacion.tipo === "Gasto")
       .reduce((count, current) => count + Number(current.monto), 0);
-    console.log(gastosXMes);
     const balanceXMes = gananciasXMes - gastosXMes;
-    console.log(balanceXMes);
     const obj = {
       mes: meses[i],
       ganancia: gananciasXMes,
       gasto: gastosXMes,
       balance: balanceXMes,
     };
-    console.log(obj);
     totalesPorMes.push(obj);
   }
-  console.log(totalesPorMes);
   pintarTotalesPorMes(totalesPorMes);
   mayorGanancia(...totalesPorMes);
   pintarMayorGananciaPorMes(mayorGanancia(...totalesPorMes));
