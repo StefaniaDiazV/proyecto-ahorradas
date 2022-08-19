@@ -538,7 +538,7 @@ linlMostrarFiltros.addEventListener("click", () => {
 });
 
 // FILTRO POR TIPO
-filtroXTipo.addEventListener("change", (e) => {
+const filtrandoPorTipo = (e) => {
   if (e.target.value !== "Todos") {
     const xTipo = operaciones.filter(
       (operacion) => operacion.tipo === e.target.value
@@ -547,32 +547,39 @@ filtroXTipo.addEventListener("change", (e) => {
   } else {
     pintarObjetos(operaciones);
   }
-});
+};
+filtroXTipo.addEventListener("change", filtrandoPorTipo);
 
 // FILTRO POR CATEGORIA
-filtroXCategoria.addEventListener("change", (e) => {
+const filtrandoPorCategoria = (e) => {
+  let xCategoria = [];
   if (e.target.value !== "Todas") {
-    const xCategoria = operaciones.filter(
+    xCategoria = operaciones.filter(
       (operacion) => operacion.categoria === e.target.value
     );
     pintarObjetos(xCategoria);
   } else {
     pintarObjetos(operaciones);
   }
-});
+  if (!xCategoria.length && e.target.value !== "Todas") {
+    sinOperaciones.classList.remove("d-none");
+    conOperaciones.classList.add("d-none");
+  }
+};
+filtroXCategoria.addEventListener("change", filtrandoPorCategoria);
 
 // FILTRO POR FECHA
-filtroXFecha.addEventListener("change", (e) => {
-  let xFecha = operaciones.filter(
-    (operacion) => operacion.fecha >= e.target.value
-  );
+const filtrandoPorFecha = (e) => {
+  let xFecha = [];
+  xFecha = operaciones.filter((operacion) => operacion.fecha >= e.target.value);
   if (!xFecha.length) {
     sinOperaciones.classList.remove("d-none");
     conOperaciones.classList.add("d-none");
   } else {
     pintarObjetos(xFecha);
   }
-});
+};
+filtroXFecha.addEventListener("change", filtrandoPorFecha);
 
 mostrarOperaciones(operaciones);
 
@@ -585,7 +592,6 @@ const filtroOrden = () => {
         (a, b) => new Date(b.fecha) - new Date(a.fecha)
       );
 
-      localStorage.setItem("operaciones", JSON.stringify(masReciente));
       pintarObjetos(masReciente);
       pintarObjetos(operaciones);
       break;
@@ -595,7 +601,6 @@ const filtroOrden = () => {
         (a, b) => new Date(a.fecha) - new Date(b.fecha)
       );
 
-      localStorage.setItem("operaciones", JSON.stringify(menosReciente));
       pintarObjetos(menosReciente);
       pintarObjetos(operaciones);
       break;
@@ -605,7 +610,6 @@ const filtroOrden = () => {
         (a, b) => Number(b.monto) - Number(a.monto)
       );
 
-      localStorage.setItem("operaciones", JSON.stringify(mayorMonto));
       pintarObjetos(mayorMonto);
       pintarObjetos(operaciones);
       break;
@@ -615,7 +619,6 @@ const filtroOrden = () => {
         (a, b) => Number(a.monto) - Number(b.monto)
       );
 
-      localStorage.setItem("operaciones", JSON.stringify(menorMonto));
       pintarObjetos(menorMonto);
       pintarObjetos(operaciones);
       break;
@@ -627,7 +630,6 @@ const filtroOrden = () => {
         });
       });
 
-      localStorage.setItem("operaciones", JSON.stringify(alfabeticaAZ));
       pintarObjetos(alfabeticaAZ);
       pintarObjetos(operaciones);
       break;
@@ -641,7 +643,6 @@ const filtroOrden = () => {
         })
         .reverse();
 
-      localStorage.setItem("operaciones", JSON.stringify(alfabeticaZA));
       pintarObjetos(alfabeticaZA);
       pintarObjetos(operaciones);
       break;
@@ -711,50 +712,50 @@ const totalesPorCategoria = (operaciones, categorias) => {
 
     str2 += `
     <div class="row margen-superior">
-    <div class="col fw-semibold responsive-reportes">
+    <div class="col-3 fw-semibold reportes-padding-responsive reportes-font-responsive">
    
      ${categoria}
     </div>
-    <div class="col fw-bold text-end text-success responsive-reportes">
+    <div class="col-3 fw-bold text-end text-success reportes-padding-responsive reportes-font-responsive">
       +$${gananciasTotalesPorCategoria}
     </div>
-    <div class="col fw-bold text-end text-danger responsive-reportes">
+    <div class="col-3 fw-bold text-end text-danger reportes-padding-responsive reportes-font-responsive">
       -$${gastosTotalesPorCategoria}
     </div>
-    <div class="col fw-bold text-end responsive-reportes">
+    <div class="col-3 fw-bold text-end reportes-padding-responsive reportes-font-responsive">
     ${balanceCategoria < 0 ? "-" : ""} $${Math.abs(balanceCategoria)}
      </div>
   </div>
   `;
     reporteCategorias.innerHTML = str2;
 
-    str3 = ` <div class="col-6 fw-semibold">
+    str3 = ` <div class="col-6 fw-semibold reportes-padding-responsive reportes-font-responsive">
     Categoría con mayor ganancia
   </div>
-  <div  class="col-3 text-end">
-    <span class="nombres-categorias responsive-reportes">${categoriaMayorGanancia}</span>
+  <div  class="col-3 text-end reportes-padding-responsive reportes-font-responsive">
+    <span class="nombres-categorias reportes-padding-responsive reportes-font-responsive">${categoriaMayorGanancia}</span>
   </div>
-  <div class="col-3 text-end fw-bold text-success responsive-reportes">+$${montoMayorGanancia}</div>
+  <div class="col-3 text-end fw-bold text-success reportes-padding-responsive reportes-font-responsive">+$${montoMayorGanancia}</div>
               `;
     divCategoriaMayorGanacia.innerHTML = str3;
 
-    str4 = `<div class="col-6 fw-semibold">
+    str4 = `<div class="col-6 fw-semibold reportes-padding-responsive reportes-font-responsive">
     Categoría con mayor gasto
   </div>
-  <div id="categoria-mayor-gasto" class="col-3 text-end">
-    <span class="nombres-categorias responsive-reportes">${categoriaMayorGasto}</span>
+  <div id="categoria-mayor-gasto" class="col-3 text-end reportes-padding-responsive reportes-font-responsive">
+    <span class="nombres-categorias reportes-padding-responsive reportes-font-responsive">${categoriaMayorGasto}</span>
   </div>
-  <div class="col-3 text-end fw-bold text-danger responsive-reportes">-$${montoMayorGasto}</div>`;
+  <div class="col-3 text-end fw-bold text-danger reportes-padding-responsive reportes-font-responsive">-$${montoMayorGasto}</div>`;
 
     divCategoriaMayorGasto.innerHTML = str4;
 
-    str5 = `<div class="col-6 fw-semibold">
+    str5 = `<div class="col-6 fw-semibold reportes-padding-responsive reportes-font-responsive">
     Categoría con mayor balance
   </div>
-  <div class="col-3 text-end">
-    <span class="nombres-categorias responsive-reportes">${categoriaMayorBalance}</span>
+  <div class="col-3 text-end reportes-padding-responsive reportes-font-responsive">
+    <span class="nombres-categorias reportes-padding-responsive reportes-font-responsive ">${categoriaMayorBalance}</span>
   </div>
-  <div class="col-3 text-end fw-bold responsive-reportes"> ${
+  <div class="col-3 text-end fw-bold reportes-padding-responsive reportes-font-responsive"> ${
     montoMayorBalance < 0 ? "-" : ""
   } $${montoMayorBalance}</div>`;
     divCategoriaMayorBalance.innerHTML = str5;
@@ -821,16 +822,17 @@ const pintarTotalesPorMes = (arr) => {
       str +
       `
 <div class="row margen-superior">
-  <div class="col fw-semibold responsive-reportes">
+  <div class="col fw-semibold reportes-padding-responsive reportes-font-responsive">
     ${actual.mes}
   </div>
-  <div class="col fw-bold text-end text-success responsive-reportes">
+  <div class="col fw-bold text-end text-success reportes-padding-responsive reportes-font-responsive">
    +$${actual.ganancia}
   </div>
-  <div class="col fw-bold text-end text-danger responsive-reportes">
+  <div class="col fw-bold text-end text-danger reportes-padding-responsive reportes-font-responsive
+  ">
     -$${actual.gasto}
   </div>
-  <div class="col fw-bold text-end responsive-reportes">
+  <div class="col fw-bold text-end reportes-padding-responsive reportes-font-responsive">
    $${actual.balance}
   </div>
 </div>`,
