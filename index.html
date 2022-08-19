@@ -33,7 +33,7 @@
     ********************************************* -->
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav shadow">
-      <div class="container-fluid">
+      <div class="container-fluid nav-xs-responsive">
         <a id="titulo-principal" class="navbar-brand fs-1 mi-hover" href="#">
           <i class="fa-solid fa-wallet"></i>
           AhorrADAs
@@ -207,7 +207,9 @@
                     <div class="col-sm-12 col-md-6 fs-5">
                       <h3 class="fw-bolder fs-3">Operaciones</h3>
                     </div>
-                    <div class="col-sm-12 col-md-6 alineacion-monto aliniar-btn">
+                    <div
+                      class="col-sm-12 col-md-6 alineacion-monto alinear-btn"
+                    >
                       <button
                         id="btn-agrega-operación"
                         type="button"
@@ -218,7 +220,10 @@
                     </div>
                   </div>
                   <div id="con-operaciones">
-                    <div id="titulos-operaciones" class="container margen-filas">
+                    <div
+                      id="titulos-operaciones"
+                      class="container margen-filas"
+                    >
                       <div class="row">
                         <div class="col-md-3 col-sm-6 fw-bold">Descripción</div>
                         <div class="col-md-3 col-sm-6 fw-bold">Categoría</div>
@@ -544,78 +549,121 @@
             <div class="card border border-opacity-10 shadow">
               <div class="card-body shadow">
                 <h2 class="fw-bolder fs-1">Reportes</h2>
-                <div id="con-reportes" class="d-none margen-setcion">
+                <div id="con-reportes" class="d-none margen-section">
                   <!-- RESUMEN -->
                   <section id="resumen">
-                    <div class="container">
+                    <div class="reportes-padding-responsive">
                       <h3 class="fs-4 margen-filas">Resumen</h3>
                       <!-- Categoría con mayor ganancia -->
                       <div
                         id="categoria-mayor-ganancia"
-                        class="row margen-superior"
+                        class="row margen-superior reportes-padding-responsive reportes-font-responsive"
                       ></div>
                       <!-- Categoría con mayor gasto-->
                       <div
                         id="categoria-mayor-gasto"
-                        class="row margen-superior"
+                        class="row margen-superior reportes-padding-responsive reportes-font-responsive"
                       ></div>
                       <!-- Categoría con mayor balance-->
                       <div
                         id="categoria-mayor-balace"
-                        class="row margen-superior"
+                        class="row margen-superior reportes-padding-responsive reportes-font-responsive"
                       ></div>
                       <!-- Mes con mayor ganancia-->
                       <div class="row margen-superior">
-                        <div class="col-6 fw-semibold">
+                        <div
+                          class="col-6 fw-semibold reportes-padding-responsive reportes-font-responsive"
+                        >
                           Mes con mayor ganancia
                         </div>
                         <div
                           id="mes-mayor-ganancia"
-                          class="col-3 text-end"
+                          class="col-3 text-end reportes-padding-responsive reportes-font-responsive"
                         ></div>
                         <div
                           id="monto-mes-mayor-ganancia"
-                          class="col-3 text-end fw-bold text-success"
+                          class="col-3 text-end fw-bold text-success reportes-padding-responsive reportes-font-responsive"
                         ></div>
                       </div>
                       <!-- Mes con mayor gasto-->
                       <div class="row margen-superior">
-                        <div class="col-6 fw-semibold">Mes con mayor gasto</div>
-                        <div id="mes-mayor-gasto" class="col-3 text-end"></div>
+                        <div
+                          class="col-6 fw-semibold reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Mes con mayor gasto
+                        </div>
+                        <div
+                          id="mes-mayor-gasto"
+                          class="col-3 text-end reportes-padding-responsive reportes-font-responsive"
+                        ></div>
                         <div
                           id="monto-mes-mayor-gasto"
-                          class="col-3 text-end fw-bold text-danger"
+                          class="col-3 text-end fw-bold text-danger reportes-padding-responsive reportes-font-responsive"
                         ></div>
                       </div>
                     </div>
                   </section>
 
                   <!-- TOTALES POR CATEGORIAS-->
-                  <section id="totales-por-categoria" class="margen-setcion">
-                    <div class="container">
+                  <section id="totales-por-categoria" class="margen-section">
+                    <div class="container reportes-padding-responsive">
                       <h3 class="fs-4 margen-filas">Totales por categorías</h3>
+
                       <div class="row margen-superior">
-                        <div class="col fw-semibold">Categoria</div>
-                        <div class="col fw-semibold text-end">Ganancias</div>
-                        <div class="col fw-semibold text-end">Gastos</div>
-                        <div class="col fw-semibold text-end">Balance</div>
+                        <div
+                          class="col fw-semibold reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Categoria
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Ganancias
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Gastos
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Balance
+                        </div>
                       </div>
-                      <div id="reportes-por-categoria"></div>
+
+                      <div id="reportes-por-categoria" class=""></div>
                     </div>
                   </section>
 
                   <!-- TOTALES MES-->
                   <section
                     id="totales-por-mes"
-                    class="margen-setcion titulos-tarjetas"
+                    class="margen-section titulos-tarjetas"
                   >
-                    <div class="container">
+                    <div class="container reportes-padding-responsive">
                       <h3 class="fs-4 margen-filas">Totales por mes</h3>
                       <div class="row margen-superior">
-                        <div class="col fw-semibold">Mes</div>
-                        <div class="col fw-semibold text-end">Ganancias</div>
-                        <div class="col fw-semibold text-end">Gastos</div>
-                        <div class="col fw-semibold text-end">Balance</div>
+                        <div
+                          class="col fw-semibold reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Mes
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Ganancias
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Gastos
+                        </div>
+                        <div
+                          class="col fw-semibold text-end reportes-padding-responsive reportes-font-responsive"
+                        >
+                          Balance
+                        </div>
                       </div>
                       <div id="reportes-por-mes"></div>
                     </div>

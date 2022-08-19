@@ -15,15 +15,15 @@ body {
   margin-bottom: 1rem;
 }
 
-#titulo-principal{
+#titulo-principal {
   padding: 0 10px 0 10px;
 }
 
-.mi-hover{
+.mi-hover {
   border-radius: 5px;
 }
 
-.mi-hover:hover{
+.mi-hover:hover {
   background-color: #393e49;
 }
 
@@ -37,7 +37,7 @@ body {
   margin-bottom: 3rem;
 }
 
-.btn-hover:hover{
+.btn-hover:hover {
   background-color: #393e49;
   border-color: #393e49;
 }
@@ -58,7 +58,7 @@ body {
   margin-bottom: 3rem;
 }
 
-.margen-setcion {
+.margen-section {
   margin-top: 5rem;
 }
 
@@ -118,34 +118,35 @@ body {
 }
 
 @media (max-width: 765px) {
-  #titulos-operaciones{
-   display: none;
+  #titulos-operaciones {
+    display: none;
   }
-  .fechas-operaciones{
-   display: none;
+  .fechas-operaciones {
+    display: none;
   }
-  .categorias-operaciones{
-   text-align: right;
+  .categorias-operaciones {
+    text-align: right;
   }
- .monto-operaciones{
-   text-align: start !important;
- }
- .aliniar-btn{
-   text-align: start;
- }
- 
- }
+  .monto-operaciones {
+    text-align: start !important;
+  }
+  .alinear-btn {
+    text-align: start;
+  }
+}
 
-
-@media (max-width: 403px) {
-  .responsive-reportes {
-    padding: 1px;
-    margin: 0;
-    font-size: smaller;
+@media (max-width: 305px) {
+  .nav-xs-responsive {
+    flex-direction: column;
   }
-
-  .titulo-responsive {
-    font-size: small !important;
-    background-color: yellowgreen;
+}
+@media (max-width: 432px) {
+  .reportes-padding-responsive {
+    padding: 0;
+  }
+}
+@media (max-width: 307px) {
+  .reportes-font-responsive {
+    font-size: small;
   }
 }
