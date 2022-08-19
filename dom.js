@@ -61,7 +61,7 @@ const inputAgregarCategorias = document.getElementById(
 const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 
 //************************************* */
-//        ELEMENTOS RESPORTES
+//        ELEMENTOS REPORTES
 //************************************* */
 const vistaReportes = document.getElementById("reportes"); // Section Reportes
 const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
@@ -312,35 +312,32 @@ const pintarCategorias = (arr) => {
   };
 
   //  FUNCION BTN ELIMINAR CATEGORIAS
-const btnEliminarCategorias = document.querySelectorAll(
-  ".btn-eliminar-categorias"
-);
-
-const eliminarCategoria = (arr, e) => {
-  const eliminado = arr.filter(
-    (categoria) => categoria.id !== e.target.dataset.id
+  const btnEliminarCategorias = document.querySelectorAll(
+    ".btn-eliminar-categorias"
   );
-  arrActualizado(eliminado);
-};
 
-const arrActualizado = (arr) => {
-  localStorage.setItem("categorias", JSON.stringify(arr));
-  categorias = JSON.parse(localStorage.getItem("categorias"));
-  pintarCategorias(categorias);
-};
+  const eliminarCategoria = (arr, e) => {
+    const eliminado = arr.filter(
+      (categoria) => categoria.id !== e.target.dataset.id
+    );
+    arrActualizado(eliminado);
+  };
 
-btnEliminarCategorias.forEach((btn) => {
-  btn.addEventListener("click", (e) => {
-    e.preventDefault();
-    eliminarCategoria(categorias, e);
+  const arrActualizado = (arr) => {
+    localStorage.setItem("categorias", JSON.stringify(arr));
+    categorias = JSON.parse(localStorage.getItem("categorias"));
+    pintarCategorias(categorias);
+  };
+
+  btnEliminarCategorias.forEach((btn) => {
+    btn.addEventListener("click", (e) => {
+      e.preventDefault();
+      eliminarCategoria(categorias, e);
+    });
   });
-});
-
-
 };
 
 pintarCategorias(categorias); //************************************************/
-
 
 //  FUNCION BTN CANCELAR EDITAR CATEGORIAS
 
