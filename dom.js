@@ -309,11 +309,8 @@ const pintarCategorias = (arr) => {
     cardEditarCategoria.classList.remove("d-none");
     vistaCategorias.classList.add("d-none");
   };
-};
 
-pintarCategorias(categorias); //************************************************/
-
-//  FUNCION BTN ELIMINAR CATEGORIAS
+  //  FUNCION BTN ELIMINAR CATEGORIAS
 const btnEliminarCategorias = document.querySelectorAll(
   ".btn-eliminar-categorias"
 );
@@ -337,6 +334,12 @@ btnEliminarCategorias.forEach((btn) => {
     eliminarCategoria(categorias, e);
   });
 });
+
+
+};
+
+pintarCategorias(categorias); //************************************************/
+
 
 //  FUNCION BTN CANCELAR EDITAR CATEGORIAS
 
