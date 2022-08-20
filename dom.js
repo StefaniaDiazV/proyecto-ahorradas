@@ -215,6 +215,9 @@ let categorias = JSON.parse(localStorage.getItem("categorias")) || [
 
 const generarCategorias = (arr) => {
   let select = "";
+  for (let index = 0; index < selects.length; index++) {
+    selects[index].innerHTML = '';
+  }
   for (let i = 0; i < selects.length; i++) {
     select = selects[i];
     if (select.classList.contains("filtro-categoria")) {
