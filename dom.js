@@ -391,7 +391,6 @@ const crearObjOperaciones = () => {
   vistaCategorias.classList.add("d-none");
   limpiarVistaNuevaOperacion();
   operaciones.push(objOperaciones);
-  console.log(categoriaNuevaOperacion.value);
   localStorage.setItem("operaciones", JSON.stringify(operaciones));
 };
 
