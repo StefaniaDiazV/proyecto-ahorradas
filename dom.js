@@ -319,23 +319,31 @@ const pintarCategorias = (arr) => {
     ".btn-eliminar-categorias"
   );
 
-  const eliminarCategoria = (arr, e) => {
-    const eliminado = arr.filter(
+  const eliminarCategoria = (arr, e, operaciones) => {
+    const obtenerCategoria = arr.find((categoria) => categoria.id === e.target.dataset.id).nombre
+    const eliminarCategoria = arr.filter(
       (categoria) => categoria.id !== e.target.dataset.id
     );
-    arrActualizado(eliminado);
+    const eliminarOperacion = operaciones.filter((operaciones) => operaciones.categoria !==  obtenerCategoria)
+    console.log(eliminarOperacion)
+    arrActualizado(eliminarCategoria, eliminarOperacion);
   };
 
-  const arrActualizado = (arr) => {
-    localStorage.setItem("categorias", JSON.stringify(arr));
+  const arrActualizado = (arrCategorias, arrOperaciones) => {
+    localStorage.setItem("categorias", JSON.stringify(arrCategorias));
     categorias = JSON.parse(localStorage.getItem("categorias"));
     pintarCategorias(categorias);
+    generarCategorias(categorias)
+    localStorage.setItem("operaciones", JSON.stringify(arrOperaciones));
+    operaciones = JSON.parse(localStorage.getItem("operaciones"));
+    pintarObjetos(operaciones);
+    mostrarOperaciones(operaciones);
   };
 
   btnEliminarCategorias.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      eliminarCategoria(categorias, e);
+      eliminarCategoria(categorias, e, operaciones);
     });
   });
 };
