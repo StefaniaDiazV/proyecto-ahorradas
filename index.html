@@ -33,52 +33,41 @@
                     MENÚ-SUPERIOR
     ********************************************* -->
       <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark mi-nav">
           <div class="container-fluid nav-xs-responsive">
-            <a
-              id="titulo-principal"
-              class="navbar-brand fs-1 mi-hover"
-              href="#"
-            >
-              <i class="fa-solid fa-wallet"></i>
-              AhorrADAs
-            </a>
-            <button
-              class="navbar-toggler"
-              type="button"
-              data-bs-toggle="collapse"
-              data-bs-target="#navbarNavAltMarkup"
-              aria-controls="navbarNavAltMarkup"
-              aria-expanded="false"
-              aria-label="Toggle navigation"
-            >
+            <a id="titulo-principal" class="navbar-brand fs-1 mi-hover" href="#">   <i class="fa-solid fa-wallet"></i>
+              AhorrADAs</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
               <span class="navbar-toggler-icon"></span>
             </button>
-            <div
-              class="collapse navbar-collapse justify-content-end"
-              id="navbarNavAltMarkup"
-            >
-              <div class="navbar-nav">
-                <a
+            <div class="collapse navbar-collapse  justify-content-end" id="navbarText">
+              <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                  <a
                   id="btn-balance"
                   class="nav-link active fs-5 mi-hover"
                   aria-current="page"
                   href="#"
                   ><i class="fa-solid fa-chart-line"></i> Balance</a
                 >
-                <a
+                </li>
+                <li class="nav-item">
+                  <a
                   id="btn-categorias"
                   class="nav-link active fs-5 mi-hover"
                   href="#"
-                  ><i class="fa-solid fa-tags"></i> Categorías</a
+                  ><i class="fa-solid fa-tags "></i> Categorías</a
                 >
-                <a
-                  id="btn-reportes"
-                  class="nav-link active fs-5 mi-hover"
-                  href="#"
+                </li>
+                <li class="nav-item">
+                  <a id="btn-reportes" class="nav-link active fs-5 mi-hover" href="#"
                   ><i class="fa-solid fa-chart-pie"></i> Reportes</a
                 >
-              </div>
+                </li>
+              </ul>
+              <a id="btn-modo" class="nav-link mi-hover fs-5">
+                <i class="fa-solid fa-chart-pie"></i>
+              </a>
             </div>
           </div>
         </nav>

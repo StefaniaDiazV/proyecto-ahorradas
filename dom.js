@@ -305,6 +305,7 @@ const pintarCategorias = (arr) => {
         localStorage.setItem("categorias", JSON.stringify(accionEditar));
         categorias = JSON.parse(localStorage.getItem("categorias"));
         pintarCategorias(categorias);
+        generarCategorias(categorias)
       });
     });
   });
