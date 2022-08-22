@@ -12,6 +12,7 @@ const btnNvaOperacion = document.getElementById("btn-agrega-operación");
 const btnCategorias = document.getElementById("btn-categorias");
 const btnBalance = document.getElementById("btn-balance");
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion");
+const btnModo = document.getElementById('btn-modo');
 
 //************************************* */
 //         ELEMENTOS BALANCE
@@ -142,6 +143,20 @@ btnReportes.addEventListener("click", () => {
   totalesPorCategoria(operaciones, categoriasSinRepetir);
   totalPorMes(operaciones);
 });
+
+// FUNCIÓN MODO OSCURO 
+
+const preferenciasTema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const establecerTema = (theme) => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('theme', theme);
+};
+btnModo.addEventListener('click', () => {
+    let cambiarTema = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
+    establecerTema(cambiarTema);
+});
+establecerTema(localStorage.getItem('theme') || preferenciasTema);
+
 
 // ********************************************
 //                BALANCE
