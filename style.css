@@ -34,6 +34,12 @@ body {
   background-color: #393e49;
 }
 
+#btn-modo{
+  padding: 0.5rem 0.8rem;
+  color: var(--bs-body-color);
+  background-color: #b9c3d2;
+}
+
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
 
 .tarjetas {
