@@ -60,7 +60,7 @@ body {
 
 #titulo-principal, #btn-balance, #btn-categorias, #btn-reportes{
   color: var(--texto-nav);
-};
+}
 
 .mi-hover {
   border-radius: 5px;
@@ -194,6 +194,18 @@ body {
 }
 
 /* ***** FOOTER****** */
+footer{
+  padding: 0 0 1rem 0;
+}
+
+.estilos-footer{
+  color: var(--bs-body-color);
+}
+
+.estilos-footer:hover{
+  color: grey;
+}
+
 .cero {
   margin: 0px;
   padding: 0px;
