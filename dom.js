@@ -12,7 +12,7 @@ const btnNvaOperacion = document.getElementById("btn-agrega-operación");
 const btnCategorias = document.getElementById("btn-categorias");
 const btnBalance = document.getElementById("btn-balance");
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion");
-const btnModo = document.getElementById('btn-modo');
+const btnModo = document.getElementById("btn-modo");
 
 //************************************* */
 //         ELEMENTOS BALANCE
@@ -144,19 +144,21 @@ btnReportes.addEventListener("click", () => {
   totalPorMes(operaciones);
 });
 
-// FUNCIÓN MODO OSCURO 
+// FUNCIÓN MODO OSCURO
 
-const preferenciasTema = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+const preferenciasTema = window.matchMedia("(prefers-color-scheme: dark)")
+  .matches
+  ? "dark"
+  : "light";
 const establecerTema = (theme) => {
-    document.documentElement.setAttribute('data-theme', theme);
-    localStorage.setItem('theme', theme);
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("theme", theme);
 };
-btnModo.addEventListener('click', () => {
-    let cambiarTema = localStorage.getItem('theme') === 'dark' ? 'light' : 'dark';
-    establecerTema(cambiarTema);
+btnModo.addEventListener("click", () => {
+  let cambiarTema = localStorage.getItem("theme") === "dark" ? "light" : "dark";
+  establecerTema(cambiarTema);
 });
-establecerTema(localStorage.getItem('theme') || preferenciasTema);
-
+establecerTema(localStorage.getItem("theme") || preferenciasTema);
 
 // ********************************************
 //                BALANCE
@@ -320,7 +322,7 @@ const pintarCategorias = (arr) => {
         localStorage.setItem("categorias", JSON.stringify(accionEditar));
         categorias = JSON.parse(localStorage.getItem("categorias"));
         pintarCategorias(categorias);
-        generarCategorias(categorias)
+        generarCategorias(categorias);
       });
     });
   });
@@ -336,12 +338,16 @@ const pintarCategorias = (arr) => {
   );
 
   const eliminarCategoria = (arr, e, operaciones) => {
-    const obtenerCategoria = arr.find((categoria) => categoria.id === e.target.dataset.id).nombre
+    const obtenerCategoria = arr.find(
+      (categoria) => categoria.id === e.target.dataset.id
+    ).nombre;
     const eliminarCategoria = arr.filter(
       (categoria) => categoria.id !== e.target.dataset.id
     );
-    const eliminarOperacion = operaciones.filter((operaciones) => operaciones.categoria !==  obtenerCategoria)
-    console.log(eliminarOperacion)
+    const eliminarOperacion = operaciones.filter(
+      (operaciones) => operaciones.categoria !== obtenerCategoria
+    );
+    console.log(eliminarOperacion);
     arrActualizado(eliminarCategoria, eliminarOperacion);
   };
 
@@ -349,7 +355,7 @@ const pintarCategorias = (arr) => {
     localStorage.setItem("categorias", JSON.stringify(arrCategorias));
     categorias = JSON.parse(localStorage.getItem("categorias"));
     pintarCategorias(categorias);
-    generarCategorias(categorias)
+    generarCategorias(categorias);
     localStorage.setItem("operaciones", JSON.stringify(arrOperaciones));
     operaciones = JSON.parse(localStorage.getItem("operaciones"));
     pintarObjetos(operaciones);
@@ -379,7 +385,11 @@ generarCategorias(categorias);
 //                 OPERACIONES
 // **********************************************
 
-let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
+const obtenerOperaciones = () => {
+  return JSON.parse(localStorage.getItem("operaciones")) || [];
+};
+let operaciones = obtenerOperaciones();
+// let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 
 // FUNCIÓN MOSTRAR OPERACIONES
 const mostrarOperaciones = (arr) => {
@@ -434,7 +444,7 @@ const pintarObjetos = (arr) => {
       <div class="col-md-3 col-sm-6 col-6 fw-bold">
         <h6>${descripcion}</h6>
       </div>
-      <div class="col-md-3 col-sm-6 col-6 categorias-operaciones">                                                   
+      <div class="col-md-3 col-sm-6 col-6 categorias-operaciones">
         <span class="nombres-categorias">${categoria}</span>
       </div>
       <div class="col-md-2 col-sm-6 text-end fechas-operaciones">
@@ -450,7 +460,7 @@ const pintarObjetos = (arr) => {
           <a  href="#" data-id="${id}" class="link-categoria btn-edita-op">Editar</a>
           <a  href="#" data-id="${id}" class="link-categoria btn-elimina-op">Eliminar</a>
         </p>
-      </div> 
+      </div>
     </div>
     `;
   });
@@ -563,105 +573,100 @@ linlMostrarFiltros.addEventListener("click", () => {
   linkOcultarFiltros.classList.remove("d-none");
 });
 
-// FILTRO POR TIPO
-const filtrandoPorTipo = (e) => {
-  if (e.target.value !== "Todos") {
-    const xTipo = operaciones.filter(
-      (operacion) => operacion.tipo === e.target.value
-    );
-    pintarObjetos(xTipo);
-  } else {
-    pintarObjetos(operaciones);
-  }
-};
-filtroXTipo.addEventListener("change", filtrandoPorTipo);
+const filtrosAcumulados = (e) => {
+  const filterTipo = filtroXTipo.value;
+  const filterCategoria = filtroXCategoria.value;
+  const filterDesde = filtroXFecha.value;
 
-// FILTRO POR CATEGORIA
-const filtrandoPorCategoria = (e) => {
-  let xCategoria = [];
-  if (e.target.value !== "Todas") {
-    xCategoria = operaciones.filter(
-      (operacion) => operacion.categoria === e.target.value
+  let operaciones = obtenerOperaciones();
+
+  // FILTRO POR TIPO
+
+  if (filterTipo !== "Todos") {
+    operaciones = operaciones.filter(
+      (operacion) => operacion.tipo === filterTipo
     );
-    pintarObjetos(xCategoria);
-  } else {
-    pintarObjetos(operaciones);
   }
-  if (!xCategoria.length && e.target.value !== "Todas") {
+
+  // FILTRO POR CATEGORIA
+
+  if (filterCategoria !== "Todas") {
+    operaciones = operaciones.filter(
+      (operacion) => operacion.categoria === filterCategoria
+    );
+  }
+
+  if (!operaciones.length && filterCategoria !== "Todas") {
+    sinOperaciones.classList.remove("d-none");
+
+    conOperaciones.classList.add("d-none");
+    mostrarOperaciones();
+  }
+
+  // FILTRO POR FECHA (Desde)
+
+  operaciones = operaciones.filter(
+    (operacion) => operacion.fecha >= filterDesde
+  );
+  if (!operaciones.length) {
     sinOperaciones.classList.remove("d-none");
     conOperaciones.classList.add("d-none");
+    mostrarOperaciones();
   }
-};
-filtroXCategoria.addEventListener("change", filtrandoPorCategoria);
 
-// FILTRO POR FECHA
-const filtrandoPorFecha = (e) => {
-  let xFecha = [];
-  xFecha = operaciones.filter((operacion) => operacion.fecha >= e.target.value);
-  if (!xFecha.length) {
-    sinOperaciones.classList.remove("d-none");
-    conOperaciones.classList.add("d-none");
-  } else {
-    pintarObjetos(xFecha);
-  }
-};
-filtroXFecha.addEventListener("change", filtrandoPorFecha);
+  // FILTRO POR ORDEN
 
-mostrarOperaciones(operaciones);
-
-// FILTRO POR ORDEN
-const filtroOrden = () => {
-  let orden = ordenarX.value;
-  switch (orden) {
+  let filterOrden = ordenarX.value;
+  switch (filterOrden) {
     case "Más reciente":
-      const masReciente = operaciones.sort(
+      operaciones = operaciones.sort(
         (a, b) => new Date(b.fecha) - new Date(a.fecha)
       );
 
-      pintarObjetos(masReciente);
       pintarObjetos(operaciones);
+
       break;
 
     case "Menos reciente":
-      const menosReciente = operaciones.sort(
+      operaciones = operaciones.sort(
         (a, b) => new Date(a.fecha) - new Date(b.fecha)
       );
 
-      pintarObjetos(menosReciente);
       pintarObjetos(operaciones);
+
       break;
 
     case "Mayor monto":
-      const mayorMonto = operaciones.sort(
+      operaciones = operaciones.sort(
         (a, b) => Number(b.monto) - Number(a.monto)
       );
 
-      pintarObjetos(mayorMonto);
       pintarObjetos(operaciones);
+
       break;
 
     case "Menor monto":
-      const menorMonto = operaciones.sort(
+      operaciones = operaciones.sort(
         (a, b) => Number(a.monto) - Number(b.monto)
       );
 
-      pintarObjetos(menorMonto);
       pintarObjetos(operaciones);
+
       break;
 
     case "A/Z":
-      const alfabeticaAZ = operaciones.sort((a, b) => {
+      operaciones = operaciones.sort((a, b) => {
         return a.descripcion.localeCompare(b.descripcion, {
           ignorePunctuation: true,
         });
       });
 
-      pintarObjetos(alfabeticaAZ);
       pintarObjetos(operaciones);
+
       break;
 
     case "Z/A":
-      const alfabeticaZA = operaciones
+      operaciones = operaciones
         .sort((a, b) => {
           return a.descripcion.localeCompare(b.descripcion, {
             ignorePunctuation: true,
@@ -669,12 +674,18 @@ const filtroOrden = () => {
         })
         .reverse();
 
-      pintarObjetos(alfabeticaZA);
       pintarObjetos(operaciones);
+
       break;
   }
+
+  pintarObjetos(operaciones);
 };
-ordenarX.addEventListener("change", filtroOrden);
+
+filtroXTipo.addEventListener("change", filtrosAcumulados);
+filtroXCategoria.addEventListener("change", filtrosAcumulados);
+filtroXFecha.addEventListener("change", filtrosAcumulados);
+ordenarX.addEventListener("change", filtrosAcumulados);
 
 // *******************************************************
 //                    REPORTES
@@ -739,7 +750,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
     str2 += `
     <div class="row margen-superior">
     <div class="col-3 fw-semibold reportes-padding-responsive reportes-font-responsive">
-   
+
      ${categoria}
     </div>
     <div class="col-3 fw-bold text-end text-success reportes-padding-responsive reportes-font-responsive">
@@ -906,9 +917,3 @@ const inicializar = () => {
 };
 
 window.onload = inicializar;
-
-// if (window.matchMedia("(min-width: 200px)").matches) {
-//   /* La pantalla tiene al menos 400 píxeles de ancho */
-// } else {
-//   /* La pantalla tiene menos de 400 píxeles de ancho */
-// }
