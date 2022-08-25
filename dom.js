@@ -13,6 +13,8 @@ const btnCategorias = document.getElementById("btn-categorias");
 const btnBalance = document.getElementById("btn-balance");
 const btnCancelNvaOperacion = document.getElementById("cancela-nva-operacion");
 const btnModo = document.getElementById("btn-modo");
+const on = document.getElementById("on");
+const off = document.getElementById("off");
 
 //************************************* */
 //         ELEMENTOS BALANCE
@@ -142,6 +144,19 @@ btnReportes.addEventListener("click", () => {
 
   totalesPorCategoria(operaciones, categoriasSinRepetir);
   totalPorMes(operaciones);
+});
+
+on.addEventListener("click", () => {
+  on.classList.add("d-none");
+
+  off.classList.remove("d-none");
+  off.style.backgroundColor = "#393e49";
+});
+
+off.addEventListener("click", () => {
+  on.classList.remove("d-none");
+  off.classList.add("d-none");
+  on.style.backgroundColor = "#b9c3d2";
 });
 
 // FUNCIÓN MODO OSCURO
@@ -601,6 +616,7 @@ const filtrosAcumulados = (e) => {
 
     conOperaciones.classList.add("d-none");
     mostrarOperaciones();
+    mostrarOperaciones();
   }
 
   // FILTRO POR FECHA (Desde)
@@ -678,6 +694,8 @@ const filtrosAcumulados = (e) => {
 
       break;
   }
+
+  pintarObjetos(operaciones);
 
   pintarObjetos(operaciones);
 };
