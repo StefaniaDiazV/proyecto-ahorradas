@@ -616,6 +616,7 @@ const filtrosAcumulados = (e) => {
 
     conOperaciones.classList.add("d-none");
     mostrarOperaciones();
+    mostrarOperaciones();
   }
 
   // FILTRO POR FECHA (Desde)
@@ -693,6 +694,8 @@ const filtrosAcumulados = (e) => {
 
       break;
   }
+
+  pintarObjetos(operaciones);
 
   pintarObjetos(operaciones);
 };
