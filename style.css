@@ -69,10 +69,11 @@ body {
   background-color: #393e49;
 }
 
-#btn-modo {
-  padding: 0.5rem 0.8rem;
-  color: var(--bs-body-color);
+.btn-modo {
+  padding: 0.8rem 0.8rem;
+  /* color: var(--bs-body-color); */
   background-color: #b9c3d2;
+  border-radius: 50px;
 }
 
 /* ***** ESTILOS GENERALES  DE TARJETAS ***** */
@@ -255,5 +256,10 @@ footer {
 @media (max-width: 305px) {
   .nav-xs-responsive {
     flex-direction: column;
+  }
+  .centro {
+    display: flex;
+
+    justify-content: center;
   }
 }
