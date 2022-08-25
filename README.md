@@ -16,6 +16,7 @@ El presente proyecto consiste en una página, la cual te permitirá llevar un co
 ## Funcionalidades ⚙️
 
 ### Generales 
+- Alternar entre modo claro y modo oscuro
 - Mostrar las diferentes vistas
 - Guardar los datos en el almacenamiento local del navegador
 

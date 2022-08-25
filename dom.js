@@ -316,31 +316,32 @@ const pintarCategorias = (arr) => {
       e.preventDefault();
       VistaEditarCategoria();
 
-      let categoriaAEditar = categorias.filter(
+      categoriaAEditar = categorias.filter(
         (categoria) => categoria.id === e.target.dataset.id
       );
       categoriaAEditar.forEach((categoria) => {
         inputEditarCategoria.value = categoria.nombre;
       });
-
-      btnEditarCategoria.addEventListener("click", () => {
-        cardEditarCategoria.classList.add("d-none");
-        vistaCategorias.classList.remove("d-none");
-        const cambioCategoria = categorias.filter(
-          (categoria) => categoria.id === categoriaAEditar[0].id
-        );
-        const filtrada = cambioCategoria[0];
-        filtrada.nombre = inputEditarCategoria.value;
-        const accionEditar = categorias.map((categoria) =>
-          categoria.id === categoriaAEditar[0].id ? filtrada : categoria
-        );
-        localStorage.setItem("categorias", JSON.stringify(accionEditar));
-        categorias = JSON.parse(localStorage.getItem("categorias"));
-        pintarCategorias(categorias);
-        generarCategorias(categorias);
-      });
-    });
+    })
   });
+
+  btnEditarCategoria.addEventListener("click", () => {
+    cardEditarCategoria.classList.add("d-none");
+    vistaCategorias.classList.remove("d-none");
+    const cambioCategoria = categorias.filter(
+      (categoria) => categoria.id === categoriaAEditar[0].id
+    );
+    const filtrada = cambioCategoria[0];
+    filtrada.nombre = inputEditarCategoria.value;
+    const accionEditar = categorias.map((categoria) =>
+      categoria.id === categoriaAEditar[0].id ? filtrada : categoria
+    );
+    localStorage.setItem("categorias", JSON.stringify(accionEditar));
+    categorias = JSON.parse(localStorage.getItem("categorias"));
+    pintarCategorias(categorias);
+    generarCategorias(categorias);
+  });
+
 
   const VistaEditarCategoria = () => {
     cardEditarCategoria.classList.remove("d-none");
