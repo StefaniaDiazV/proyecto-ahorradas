@@ -331,6 +331,21 @@ const pintarCategorias = (arr) => {
     const cambioCategoria = categorias.filter(
       (categoria) => categoria.id === categoriaAEditar[0].id
     );
+
+    const eliminarOpAsociadas = (arr) => {
+      arr.forEach((operacionX) => {
+        if( operacionX.categoria ===  categoriaAEditar[0].nombre){
+            operacionX.categoria = inputEditarCategoria.value
+          }
+          })
+        console.log(arr)
+        localStorage.setItem("operaciones", JSON.stringify(arr));
+        const nuevasOperaciones = JSON.parse(localStorage.getItem("operaciones"));
+        pintarObjetos(nuevasOperaciones);
+      };
+  
+      eliminarOpAsociadas(operaciones)
+
     const filtrada = cambioCategoria[0];
     filtrada.nombre = inputEditarCategoria.value;
     const accionEditar = categorias.map((categoria) =>
