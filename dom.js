@@ -258,7 +258,7 @@ const generarCategorias = (arr) => {
     for (let j = 0; j < arr.length; j++) {
       select.innerHTML =
         select.innerHTML +
-        `<option value=${arr[j].nombre}>${arr[j].nombre}</option>`;
+        `<option>${arr[j].nombre}</option>`;
     }
   }
 };
