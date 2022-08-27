@@ -258,7 +258,7 @@ const generarCategorias = (arr) => {
     for (let j = 0; j < arr.length; j++) {
       select.innerHTML =
         select.innerHTML +
-        `<option value=${arr[j].nombre}>${arr[j].nombre}</option>`;
+        `<option>${arr[j].nombre}</option>`;
     }
   }
 };
@@ -331,6 +331,20 @@ const pintarCategorias = (arr) => {
     const cambioCategoria = categorias.filter(
       (categoria) => categoria.id === categoriaAEditar[0].id
     );
+
+    const editarOpAsociadas = (arr) => {
+      arr.forEach((operacionX) => {
+        if( operacionX.categoria ===  categoriaAEditar[0].nombre){
+            operacionX.categoria = inputEditarCategoria.value
+          }
+          })
+        localStorage.setItem("operaciones", JSON.stringify(arr));
+        const nuevasOperaciones = JSON.parse(localStorage.getItem("operaciones"));
+        pintarOperaciones(nuevasOperaciones);
+      };
+  
+      editarOpAsociadas(operaciones)
+
     const filtrada = cambioCategoria[0];
     filtrada.nombre = inputEditarCategoria.value;
     const accionEditar = categorias.map((categoria) =>
@@ -374,7 +388,7 @@ const pintarCategorias = (arr) => {
     generarCategorias(categorias);
     localStorage.setItem("operaciones", JSON.stringify(arrOperaciones));
     operaciones = JSON.parse(localStorage.getItem("operaciones"));
-    pintarObjetos(operaciones);
+    pintarOperaciones(operaciones);
     mostrarOperaciones(operaciones);
   };
 
@@ -448,7 +462,7 @@ const crearObjOperaciones = () => {
 };
 
 // FUNCION PARA PINTAR OBJETOS DE LAS OPERACIONES EN HTML
-const pintarObjetos = (arr) => {
+const  pintarOperaciones = (arr) => {
   const conOperaciones = document.getElementById("operaciones");
   let str = "";
   mostrarOperaciones(operaciones);
@@ -524,7 +538,7 @@ const pintarObjetos = (arr) => {
     );
     localStorage.setItem("operaciones", JSON.stringify(nuevas));
     const operacionesEditadas = JSON.parse(localStorage.getItem("operaciones"));
-    pintarObjetos(operacionesEditadas);
+    pintarOperaciones(operacionesEditadas);
   });
 
   // FUNCIÓN ELIMINAR OPERACIÓN
@@ -536,20 +550,20 @@ const pintarObjetos = (arr) => {
       );
       localStorage.setItem("operaciones", JSON.stringify(arrSinOperacion));
       operaciones = JSON.parse(localStorage.getItem("operaciones"));
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
       mostrarOperaciones(operaciones);
     });
   });
 };
 
-pintarObjetos(operaciones); //************************************************/
+pintarOperaciones(operaciones); //************************************************/
 
 // FUNCIÓN BOTON PARA CREAR OBJETOS
 btnAgregarOperacion.addEventListener("click", crearObjOperaciones);
 
 // FUNCIÓN BOTON PARA PINTAR OBJETOS
 btnAgregarOperacion.addEventListener("click", () => {
-  pintarObjetos(operaciones);
+  pintarOperaciones(operaciones);
 });
 
 // EVENTO BTN CANCELAR OPERACIÓN
@@ -640,7 +654,7 @@ const filtrosAcumulados = (e) => {
         (a, b) => new Date(b.fecha) - new Date(a.fecha)
       );
 
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
 
@@ -649,7 +663,7 @@ const filtrosAcumulados = (e) => {
         (a, b) => new Date(a.fecha) - new Date(b.fecha)
       );
 
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
 
@@ -658,7 +672,7 @@ const filtrosAcumulados = (e) => {
         (a, b) => Number(b.monto) - Number(a.monto)
       );
 
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
 
@@ -667,7 +681,7 @@ const filtrosAcumulados = (e) => {
         (a, b) => Number(a.monto) - Number(b.monto)
       );
 
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
 
@@ -678,7 +692,7 @@ const filtrosAcumulados = (e) => {
         });
       });
 
-      pintarObjetos(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
 
@@ -691,14 +705,14 @@ const filtrosAcumulados = (e) => {
         })
         .reverse();
 
-      pintarObjetos(operaciones);
+        pintarOperaciones(operaciones);
 
       break;
   }
 
-  pintarObjetos(operaciones);
+  pintarOperaciones(operaciones);
 
-  pintarObjetos(operaciones);
+  pintarOperaciones(operaciones);
 };
 
 filtroXTipo.addEventListener("change", filtrosAcumulados);
