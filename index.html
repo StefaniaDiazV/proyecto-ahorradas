@@ -44,7 +44,7 @@
               class="navbar-brand fs-1 mi-hover"
               href="#"
             >
-              <i class="fa-solid fa-wallet" aria-hidden="true" ></i> 
+              <i class="fa-solid fa-wallet" aria-hidden="true"></i>
               <span class="fa-sr-only"></span>
               AhorrADAs</a
             >
@@ -70,7 +70,8 @@
                     class="nav-link active fs-5 mi-hover"
                     aria-current="page"
                     href="#"
-                    ><i class="fa-solid fa-chart-line" aria-hidden="true"></i> Balance</a
+                    ><i class="fa-solid fa-chart-line" aria-hidden="true"></i>
+                    Balance</a
                   >
                 </li>
                 <li class="nav-item">
@@ -78,7 +79,8 @@
                     id="btn-categorias"
                     class="nav-link active fs-5 mi-hover"
                     href="#"
-                    ><i class="fa-solid fa-tags aria-hidden="true""></i> Categorías</a
+                    ><i class="fa-solid fa-tags" aria-hidden="true"></i>
+                    Categorías</a
                   >
                 </li>
                 <li class="nav-item">
@@ -86,7 +88,8 @@
                     id="btn-reportes"
                     class="nav-link active fs-5 mi-hover"
                     href="#"
-                    ><i class="fa-solid fa-chart-pie" aria-hidden="true"></i> Reportes</a
+                    ><i class="fa-solid fa-chart-pie" aria-hidden="true"></i>
+                    Reportes</a
                   >
                 </li>
               </ul>
@@ -94,14 +97,19 @@
                 <a id="btn-modo" class="nav-link fs-5" href="#">
                   <i
                     id="on"
-                    class="fa-solid fa-toggle-on btn-modo text-dark"  name="Selección tema" aria-hidden="true" title="Selección modo claro u oscuro"
+                    class="fa-solid fa-toggle-on btn-modo text-dark"
+                    name="Selección tema"
+                    aria-hidden="true"
+                    title="Selección modo claro u oscuro"
                   ></i>
-                  
+
                   <i
                     id="off"
-                    class="fa-solid fa-toggle-off btn-modo d-none text-light justify-content-center" name="Selección tema" aria-hidden="true" title="Selección modo claro u oscuro"
+                    class="fa-solid fa-toggle-off btn-modo d-none text-light justify-content-center"
+                    name="Selección tema"
+                    aria-hidden="true"
+                    title="Selección modo claro u oscuro"
                   ></i>
-                 
                 </a>
               </div>
             </div>
@@ -186,9 +194,13 @@
                             class="form-select estilos-inputs estilos-inputs"
                             aria-label="Default select example"
                           >
-                            <option value="Todos" selected name="todos">Todos</option>
+                            <option value="Todos" selected name="todos">
+                              Todos
+                            </option>
                             <option value="Gasto" name="gasto">Gasto</option>
-                            <option value="Ganancia" name="ganancia">Ganancia</option>
+                            <option value="Ganancia" name="ganancia">
+                              Ganancia
+                            </option>
                           </select>
 
                           <label
@@ -209,7 +221,7 @@
                             type="date"
                             id="filtros-fecha"
                             class="form-control inputs-fecha estilos-inputs estilos-inputs"
-                            name="fecha"
+                            aria-label="fecha"
                           />
 
                           <label
@@ -222,16 +234,31 @@
                             class="form-select estilos-inputs estilos-inputs"
                             aria-label="Default select example"
                           >
-                            <option value="Más reciente" selected name="más reciente">
+                            <option
+                              value="Más reciente"
+                              selected
+                              name="más reciente"
+                            >
                               Más reciente
                             </option>
-                            <option value="Menos reciente" name="mennos reciente">
+                            <option
+                              value="Menos reciente"
+                              name="mennos reciente"
+                            >
                               Menos reciente
                             </option>
-                            <option value="Mayor monto" name="mayor monto">Mayor monto</option>
-                            <option value="Menor monto" name="menor monto">Menor monto</option>
-                            <option value="A/Z" name="ordena de la a a la z">A/Z</option>
-                            <option value="Z/A" nañe="ordena de la z a la a">Z/A</option>
+                            <option value="Mayor monto" name="mayor monto">
+                              Mayor monto
+                            </option>
+                            <option value="Menor monto" name="menor monto">
+                              Menor monto
+                            </option>
+                            <option value="A/Z" name="ordena de la a a la z">
+                              A/Z
+                            </option>
+                            <option value="Z/A" nañe="ordena de la z a la a">
+                              Z/A
+                            </option>
                           </select>
                         </div>
                       </div>
@@ -288,13 +315,14 @@
                         id="sin-operaciones"
                         class="contenedor-img d-flex justify-content-center"
                       >
-                      <figure>
-                        <img
-                          class="imagen-tarjeta img-fluid"
-                          src="assets/img/undraw_vault_re_s4my.svg"
-                          class="img1"
-                          alt="imagen-reportes"
-                        /></figure>
+                        <figure>
+                          <img
+                            class="imagen-tarjeta img-fluid"
+                            src="assets/img/undraw_vault_re_s4my.svg"
+                            class="img1"
+                            alt="imagen de una caja fuerte"
+                          />
+                        </figure>
                         <h3>Sin resultados</h3>
                         <p>Cambia los filtros o agrega operaciones</p>
                       </div>
@@ -327,6 +355,7 @@
                         type="text"
                         id="descripcion-operacion"
                         class="form-control estilos-inputs estilos-inputs"
+                        aria-label="descripcion"
                       />
 
                       <label
@@ -339,7 +368,7 @@
                         id="monto-operacion"
                         class="form-control estilos-inputs estilos-inputs"
                         value="0"
-                        name="monto operación"
+                        aria-label="monto"
                       />
 
                       <label
@@ -350,10 +379,18 @@
                       <select
                         id="tipo-operacion"
                         class="form-select estilos-inputs estilos-inputs"
-                        aria-label="Tipo de operación"
+                        aria-label="Tipo"
                       >
-                        <option value="Gasto" selected name="operación tipo gasto">Gasto</option>
-                        <option value="Ganancia" name="operación tipo ganancia">Ganancia</option>
+                        <option
+                          value="Gasto"
+                          selected
+                          name="operación tipo gasto"
+                        >
+                          Gasto
+                        </option>
+                        <option value="Ganancia" name="operación tipo ganancia">
+                          Ganancia
+                        </option>
                       </select>
 
                       <label
@@ -364,7 +401,7 @@
                       <select
                         id="categoria-nueva-operacion"
                         class="form-select categorias-select estilos-inputs estilos-inputs"
-                        aria-label="Categoría de la operación"
+                        aria-label="Categoría"
                       ></select>
 
                       <label
@@ -376,7 +413,7 @@
                         type="date"
                         id="fecha-operacion"
                         class="form-control inputs-fecha estilos-inputs estilos-inputs"
-                        name="fecha de la operación"
+                        aria-label="fecha"
                       />
                     </div>
                     <div class="d-flex flex-row-reverse">
@@ -425,7 +462,7 @@
                         type="text"
                         id="edita-descripcion-op"
                         class="form-control estilos-inputs estilos-inputs"
-                        name="descripción"
+                        aria-label="descripción"
                       />
 
                       <label
@@ -438,7 +475,7 @@
                         id="edita-monto-op"
                         class="form-control estilos-inputs estilos-inputs"
                         value="0"
-                        name="monto"
+                        aria-label="monto"
                       />
 
                       <label
@@ -450,10 +487,14 @@
                         id="tipo-op"
                         class="form-select estilos-inputs estilos-inputs"
                         aria-label="Tipo de operación"
-                        name="tipo de operación"
+                        aria-label="tipo"
                       >
-                        <option value="Gasto" selected name="gasto">Gasto</option>
-                        <option value="Ganancia" name="ganancia">Ganancia</option>
+                        <option value="Gasto" selected name="gasto">
+                          Gasto
+                        </option>
+                        <option value="Ganancia" name="ganancia">
+                          Ganancia
+                        </option>
                       </select>
 
                       <label
@@ -465,7 +506,7 @@
                         id="edita-categoria-op"
                         class="form-select categorias-select estilos-inputs estilos-inputs"
                         aria-label="Categoría de operación"
-                        name="categoría de la operación"
+                        aria-label="categoría"
                       ></select>
 
                       <label
@@ -477,7 +518,7 @@
                         type="date"
                         id="edita-fecha-op"
                         class="form-control inputs-fecha estilos-inputs estilos-inputs"
-                        name="fecha de la operación"
+                        arial-label="fecha"
                       />
                     </div>
                     <div class="d-flex flex-row-reverse">
@@ -485,7 +526,7 @@
                         id="btn-agrega-edicion-op"
                         type="button"
                         class="btn btn-dark btn-hover"
-                        data-message="Botón para editar"
+                        data-message="Boton para editar"
                       >
                         Editar
                       </button>
@@ -529,7 +570,6 @@
                         class="btn btn-dark btn-hover"
                         type="button"
                         id="boton-categorias"
-                        
                       >
                         Agregar
                       </button>
@@ -569,6 +609,7 @@
                           type="text"
                           class="form-control estilos-inputs estilos-inputs"
                           id="editar-nombre-categoria"
+                          aria-label="categoria"
                         />
                       </div>
                       <div class="d-flex flex-row-reverse">
@@ -736,12 +777,14 @@
                       id="sin-reportes"
                       class="contenedor-img d-flex justify-content-center sin-reportes"
                     >
-                      <img
-                        class="imagen-tarjeta img-fluid"
-                        src="assets/img/undraw_data_re_80ws.svg"
-                        class="img1"
-                        alt="imagen-reportes"
-                      />
+                      <figure>
+                        <img
+                          class="imagen-tarjeta img-fluid"
+                          src="assets/img/undraw_data_re_80ws.svg"
+                          class="img1"
+                          alt="imagen diagrama de barras"
+                        />
+                      </figure>
                       <h3>Operaciones insuficientes</h3>
                       <p>Prueba agregando más operaciones</p>
                     </div>
@@ -768,10 +811,12 @@
                   target="_blank"
                   data-message="Enlace a GitHub"
                 >
-                  <i class="fa-brands fa-github fa-2xl line-height-icon " aria-hidden="true"></i>
+                  <i
+                    class="fa-brands fa-github fa-2xl line-height-icon"
+                    aria-hidden="true"
+                  ></i>
                   Lore Petriella
                 </a>
-           
               </div>
               <div class="col-sm-12 col-md-6">
                 <a
@@ -780,7 +825,10 @@
                   target="_blank"
                   data-message="Enlace a GitHub"
                 >
-                  <i class="fa-brands fa-github fa-2xl line-height-icon" aria-hidden="true"></i>
+                  <i
+                    class="fa-brands fa-github fa-2xl line-height-icon"
+                    aria-hidden="true"
+                  ></i>
                   Stefanía Diaz
                 </a>
               </div>
