@@ -142,7 +142,7 @@ btnReportes.addEventListener("click", () => {
     divSinReportes.classList.add("d-none");
   }
 
-  totalesPorCategoria(operaciones, categoriasSinRepetir);
+  totalesPorCategoria(operaciones);
   totalPorMes(operaciones);
 });
 
@@ -256,9 +256,7 @@ const generarCategorias = (arr) => {
       select.innerHTML = "<option>Todas</option>";
     }
     for (let j = 0; j < arr.length; j++) {
-      select.innerHTML =
-        select.innerHTML +
-        `<option>${arr[j].nombre}</option>`;
+      select.innerHTML = select.innerHTML + `<option>${arr[j].nombre}</option>`;
     }
   }
 };
@@ -322,7 +320,7 @@ const pintarCategorias = (arr) => {
       categoriaAEditar.forEach((categoria) => {
         inputEditarCategoria.value = categoria.nombre;
       });
-    })
+    });
   });
 
   btnEditarCategoria.addEventListener("click", () => {
@@ -334,16 +332,16 @@ const pintarCategorias = (arr) => {
 
     const editarOpAsociadas = (arr) => {
       arr.forEach((operacionX) => {
-        if( operacionX.categoria ===  categoriaAEditar[0].nombre){
-            operacionX.categoria = inputEditarCategoria.value
-          }
-          })
-        localStorage.setItem("operaciones", JSON.stringify(arr));
-        const nuevasOperaciones = JSON.parse(localStorage.getItem("operaciones"));
-        pintarOperaciones(nuevasOperaciones);
-      };
-  
-      editarOpAsociadas(operaciones)
+        if (operacionX.categoria === categoriaAEditar[0].nombre) {
+          operacionX.categoria = inputEditarCategoria.value;
+        }
+      });
+      localStorage.setItem("operaciones", JSON.stringify(arr));
+      const nuevasOperaciones = JSON.parse(localStorage.getItem("operaciones"));
+      pintarOperaciones(nuevasOperaciones);
+    };
+
+    editarOpAsociadas(operaciones);
 
     const filtrada = cambioCategoria[0];
     filtrada.nombre = inputEditarCategoria.value;
@@ -355,7 +353,6 @@ const pintarCategorias = (arr) => {
     pintarCategorias(categorias);
     generarCategorias(categorias);
   });
-
 
   const VistaEditarCategoria = () => {
     cardEditarCategoria.classList.remove("d-none");
@@ -462,7 +459,7 @@ const crearObjOperaciones = () => {
 };
 
 // FUNCION PARA PINTAR OBJETOS DE LAS OPERACIONES EN HTML
-const  pintarOperaciones = (arr) => {
+const pintarOperaciones = (arr) => {
   const conOperaciones = document.getElementById("operaciones");
   let str = "";
   mostrarOperaciones(operaciones);
@@ -630,7 +627,7 @@ const filtrosAcumulados = (e) => {
     sinOperaciones.classList.remove("d-none");
 
     conOperaciones.classList.add("d-none");
-    mostrarOperaciones();
+
     mostrarOperaciones();
   }
 
@@ -705,12 +702,10 @@ const filtrosAcumulados = (e) => {
         })
         .reverse();
 
-        pintarOperaciones(operaciones);
+      pintarOperaciones(operaciones);
 
       break;
   }
-
-  pintarOperaciones(operaciones);
 
   pintarOperaciones(operaciones);
 };
@@ -726,11 +721,10 @@ ordenarX.addEventListener("change", filtrosAcumulados);
 
 // TOTALES POR CATEGORIA
 
-const categoriasSinRepetir = [
-  ...new Set(operaciones.map((operacion) => operacion.categoria)),
-];
-
-const totalesPorCategoria = (operaciones, categorias) => {
+const totalesPorCategoria = (operaciones) => {
+  const categorias = [
+    ...new Set(operaciones.map((operacion) => operacion.categoria)),
+  ];
   let str2 = "";
   let str3 = "";
   let str4 = "";
@@ -813,7 +807,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
     Categoría con mayor gasto
   </div>
   <div id="categoria-mayor-gasto" class="col-3 text-end reportes-padding-responsive reportes-font-responsive">
-    <span class="nombres-categorias reportes-padding-responsive reportes-font-responsive">${categoriaMayorGasto}</span>
+    <span class="nombres-categorias reportes-padding-responsive reportes-font-responsive">${categoriaMayorGasto}</spatotalPorMestotalPorMesn>
   </div>
   <div class="col-3 text-end fw-bold text-danger reportes-padding-responsive reportes-font-responsive">-$${montoMayorGasto}</div>`;
 
@@ -831,7 +825,7 @@ const totalesPorCategoria = (operaciones, categorias) => {
     divCategoriaMayorBalance.innerHTML = str5;
   });
 };
-totalesPorCategoria(operaciones, categoriasSinRepetir);
+totalesPorCategoria(operaciones);
 
 // FUNCIÓN OBTENER TOTALES POR MES
 
