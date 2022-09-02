@@ -71,7 +71,6 @@ body {
 
 .btn-modo {
   padding: 0.8rem 0.8rem;
-  /* color: var(--bs-body-color); */
   background-color: #b9c3d2;
   border-radius: 50px;
 }
@@ -174,8 +173,6 @@ body {
 .margen-filas {
   margin-bottom: 2rem;
 }
-
-/* ***** TARJETA-EDITAR-CATEGORIAS ****** */
 
 /* ***** TARJETA-BALANCE ****** */
 

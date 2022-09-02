@@ -25,9 +25,9 @@ const divGastos = document.getElementById("div-gastos");
 const divtotal = document.getElementById("div-total");
 const sinOperaciones = document.getElementById("sin-operaciones");
 const conOperaciones = document.getElementById("con-operaciones");
-const descripcionOperacion = document.getElementById("descripcion-operacion"); // input-descripcion vista nueva operacion
-const montoOperacion = document.getElementById("monto-operacion"); // input-monto
-const tipoOperacion = document.getElementById("tipo-operacion"); // select-tipo de operacion
+const descripcionOperacion = document.getElementById("descripcion-operacion");
+const montoOperacion = document.getElementById("monto-operacion");
+const tipoOperacion = document.getElementById("tipo-operacion");
 const categoriaNuevaOperacion = document.getElementById(
   "categoria-nueva-operacion"
 );
@@ -66,8 +66,8 @@ const btnCancelarCategoria = document.getElementById("btn-cancelar-categoria");
 //************************************* */
 //        ELEMENTOS REPORTES
 //************************************* */
-const vistaReportes = document.getElementById("reportes"); // Section Reportes
-const btnReportes = document.getElementById("btn-reportes"); ////Btn Reportes del header
+const vistaReportes = document.getElementById("reportes");
+const btnReportes = document.getElementById("btn-reportes");
 const divSinReportes = document.getElementById("sin-reportes");
 const divConReportes = document.getElementById("con-reportes");
 const reporteCategorias = document.getElementById("reportes-por-categoria");
@@ -261,8 +261,6 @@ const generarCategorias = (arr) => {
   }
 };
 
-//generarCategorias(categorias); //************************************************/
-
 // FUNCIÓN BOTON AGREGAR CATEGORIAS
 btnAgregarCategorias.addEventListener("click", () => {
   agregarCategorias();
@@ -317,6 +315,7 @@ const pintarCategorias = (arr) => {
       categoriaAEditar = categorias.filter(
         (categoria) => categoria.id === e.target.dataset.id
       );
+
       categoriaAEditar.forEach((categoria) => {
         inputEditarCategoria.value = categoria.nombre;
       });
@@ -374,7 +373,7 @@ const pintarCategorias = (arr) => {
     const eliminarOperacion = operaciones.filter(
       (operaciones) => operaciones.categoria !== obtenerCategoria
     );
-    console.log(eliminarOperacion);
+
     arrActualizado(eliminarCategoria, eliminarOperacion);
   };
 
@@ -416,7 +415,6 @@ const obtenerOperaciones = () => {
   return JSON.parse(localStorage.getItem("operaciones")) || [];
 };
 let operaciones = obtenerOperaciones();
-// let operaciones = JSON.parse(localStorage.getItem("operaciones")) || [];
 
 // FUNCIÓN MOSTRAR OPERACIONES
 const mostrarOperaciones = (arr) => {
@@ -464,7 +462,6 @@ const pintarOperaciones = (arr) => {
   let str = "";
   mostrarOperaciones(operaciones);
   arr.forEach((operacion) => {
-    //const categoria = categorias.find((categoria) => categoria.id === operacion.categoria)
     const { id, descripcion, categoria, fecha, monto, tipo } = operacion;
     str += `
     <div class="row margen-superior">
@@ -613,6 +610,7 @@ const filtrosAcumulados = (e) => {
     operaciones = operaciones.filter(
       (operacion) => operacion.tipo === filterTipo
     );
+    pintarOperaciones(operaciones);
   }
 
   // FILTRO POR CATEGORIA
@@ -627,7 +625,6 @@ const filtrosAcumulados = (e) => {
     sinOperaciones.classList.remove("d-none");
 
     conOperaciones.classList.add("d-none");
-
     mostrarOperaciones();
   }
 
@@ -636,12 +633,14 @@ const filtrosAcumulados = (e) => {
   operaciones = operaciones.filter(
     (operacion) => operacion.fecha >= filterDesde
   );
+
   if (!operaciones.length) {
     sinOperaciones.classList.remove("d-none");
     conOperaciones.classList.add("d-none");
     mostrarOperaciones();
   }
 
+  pintarOperaciones(operaciones);
   // FILTRO POR ORDEN
 
   let filterOrden = ordenarX.value;
@@ -706,8 +705,6 @@ const filtrosAcumulados = (e) => {
 
       break;
   }
-
-  pintarOperaciones(operaciones);
 };
 
 filtroXTipo.addEventListener("change", filtrosAcumulados);
@@ -890,7 +887,8 @@ const pintarTotalesPorMes = (arr) => {
     -$${actual.gasto}
   </div>
   <div class="col fw-bold text-end reportes-padding-responsive reportes-font-responsive">
-   $${actual.balance}
+ 
+   ${actual.balance < 0 ? "-" : ""}$${Math.abs(actual.balance)}
   </div>
 </div>`,
     ""
