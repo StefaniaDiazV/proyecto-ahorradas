@@ -8,7 +8,7 @@ El presente proyecto consiste en una página, la cual te permitirá llevar un co
 
 ## Deployado 🚀
 
-[Enlace al proyecto de ahorradas ](https://github.com/StefaniaDiazV/proyecto-ahorradas)
+[Enlace al proyecto de ahorradas ](https://stefaniadiazv.github.io/proyecto-ahorradas/)
 
 ## Construido con 🛠️
 
