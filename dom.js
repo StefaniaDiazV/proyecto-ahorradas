@@ -621,24 +621,12 @@ const filtrosAcumulados = (e) => {
     );
   }
 
-  if (!operaciones.length && filterCategoria !== "Todas") {
-    sinOperaciones.classList.remove("d-none");
-
-    conOperaciones.classList.add("d-none");
-    mostrarOperaciones();
-  }
-
   // FILTRO POR FECHA (Desde)
 
   operaciones = operaciones.filter(
     (operacion) => operacion.fecha >= filterDesde
   );
 
-  if (!operaciones.length) {
-    sinOperaciones.classList.remove("d-none");
-    conOperaciones.classList.add("d-none");
-    mostrarOperaciones();
-  }
 
   pintarOperaciones(operaciones);
   // FILTRO POR ORDEN
@@ -705,6 +693,8 @@ const filtrosAcumulados = (e) => {
 
       break;
   }
+  pintarOperaciones(operaciones)
+  mostrarOperaciones(operaciones)
 };
 
 filtroXTipo.addEventListener("change", filtrosAcumulados);
